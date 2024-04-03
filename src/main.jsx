@@ -8,7 +8,7 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import { store } from "./redux/store.js";
 import { Welcome } from "./routes/Welcome.jsx";
 
-const pro = window.location.origin === "https://myedventure.netlify.app/";
+const pro = window.location.origin.includes("myedventure.netlify.app");
 const domain =
 pro
     ? "dev-9bbt1y5j.us.auth0.com"
