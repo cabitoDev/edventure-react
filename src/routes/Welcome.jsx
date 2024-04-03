@@ -11,6 +11,7 @@ export const Welcome = () => {
       if (isAuthenticated) {
         console.log(user)
       } else {
+        navigateTo('/')
         dispatch(logoutSuccess()); 
       }
     }, [isAuthenticated]);
