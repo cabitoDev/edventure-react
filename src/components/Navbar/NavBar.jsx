@@ -4,12 +4,16 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
+  NavbarMenu,
+  NavbarMenuItem,
   Link,
+  NavbarMenuToggle,
   Dropdown,
   DropdownTrigger,
   DropdownMenu,
   DropdownItem,
   Avatar,
+  Button,
   Input
 } from '@nextui-org/react'
 import './Navbar.css'
@@ -26,18 +30,26 @@ export const NavBar = () => {
   // );
 
   const handleLogout = () => {
-    logout({ returnTo: window.location.origin })
+    logout()
   }
 
   const user = useSelector(state => {
     console.log(state)
     return state.user
   })
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false)
+
   return (
-    <Navbar>
-      <NavbarBrand>
-        <img src={assets.logo} />
-      </NavbarBrand>
+    <Navbar onMenuOpenChange={setIsMenuOpen}>
+      <NavbarContent>
+        <NavbarMenuToggle
+          aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+          className='sm:hidden'
+        />
+        <NavbarBrand>
+          <img src={assets.logo} />
+        </NavbarBrand>
+      </NavbarContent>
 
       <NavbarContent className='hidden sm:flex gap-4' justify='center'>
         <NavbarItem>
@@ -50,7 +62,8 @@ export const NavBar = () => {
             Create event
           </Link>
         </NavbarItem>
-
+      </NavbarContent>
+      <NavbarContent justify='end'>
         <Input
           classNames={{
             base: 'max-w-full sm:max-w-[10rem] h-10',
@@ -59,20 +72,17 @@ export const NavBar = () => {
             inputWrapper:
               'h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20'
           }}
-          placeholder='Search event'
+          placeholder='Search event...'
           size='sm'
           startContent={<SearchIcon size={18} />}
           type='search'
         />
-      </NavbarContent>
-      <NavbarContent as='div' justify='end'>
         <Dropdown placement='bottom-end'>
           <DropdownTrigger>
             <Avatar
               as='button'
               className='transition-transform'
               color='secondary'
-              name='Jason Hughes'
               size='sm'
               src={user.userInfo.picture}
             />
@@ -88,6 +98,25 @@ export const NavBar = () => {
           </DropdownMenu>
         </Dropdown>
       </NavbarContent>
+      <NavbarMenu>
+        <NavbarMenuItem>
+          <Link href={`/${user.userInfo.nickname}/events`}>Your events</Link>
+        </NavbarMenuItem>
+        <NavbarMenuItem>
+          <Link href={`/${user.userInfo.nickname}/create`}>Create event</Link>
+        </NavbarMenuItem>
+        <NavbarMenuItem>
+          <Link href={`/${user.userInfo.nickname}/settings`}>Settings</Link>
+        </NavbarMenuItem>
+        <NavbarMenuItem key='profile'>
+          <Link href={`/${user.userInfo.nickname}/profile`}>Profile</Link>
+        </NavbarMenuItem>
+        <NavbarMenuItem key='logout'>
+          <Link href='/' color='danger' onClick={handleLogout}>
+            Log Out
+          </Link>
+        </NavbarMenuItem>
+      </NavbarMenu>
     </Navbar>
   )
 }
