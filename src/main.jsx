@@ -6,7 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { store } from "./redux/store.js";
-import { Welcome } from "./routes/Welcome.jsx";
+import { UserEvents } from "./routes/UserEvents.jsx";
 
 const pro = window.location.origin.includes("myedventure.netlify.app");
 const domain =
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/:user",
-    element: <Welcome />,
+    element: <UserEvents />,
     loader: () => {
       return JSON.parse(window.localStorage.getItem('userLogged'));
     },
