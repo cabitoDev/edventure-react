@@ -1,11 +1,10 @@
 import React from 'react'
 import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar, Input} from "@nextui-org/react";
 import './Navbar.css'
-import { logoutSuccess } from "../../redux/userSlice";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch, useSelector } from "react-redux";
 import { SearchIcon } from './SearchIcon';
-import { useEffect } from 'react'
+import assets from '../../assets';
 
 export const NavBar = () => {
   const { logout } = useAuth0();
@@ -21,7 +20,7 @@ export const NavBar = () => {
   return (
     <Navbar>
       <NavbarBrand>
-        <img src="/src/assets/logo.svg"/>
+        <img src={assets.logo}/>
         
       </NavbarBrand>
 
