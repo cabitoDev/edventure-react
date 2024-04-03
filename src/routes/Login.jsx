@@ -20,6 +20,5 @@ export const Login = () => {
   
     return <>
     <button onClick={()=> loginWithRedirect()}>Login</button>
-    <button onClick={()=> logout()}>Logout</button>
     this is the login page</>
 }
