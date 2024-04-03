@@ -7,12 +7,13 @@ import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
     const navigateTo = useNavigate();
-    const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+    const { loginWithRedirect, isAuthenticated, user } = useAuth0();
     const dispatch = useDispatch();
   
     React.useEffect(() => {
       if (isAuthenticated) {
         console.log(user)
+        window.localStorage.setItem('userLogged', JSON.stringify(user));
         navigateTo(`/${user.nickname}`)
         dispatch(loginSuccess(user)); 
       }

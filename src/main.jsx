@@ -25,9 +25,9 @@ const router = createBrowserRouter([
   {
     path: "/:user",
     element: <Welcome />,
-    // loader: async () => {
-    //   return await fetch(blablabla + params.user);
-    // },
+    loader: () => {
+      return JSON.parse(window.localStorage.getItem('userLogged'));
+    },
   },
 ]);
 
