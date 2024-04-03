@@ -100,7 +100,7 @@ export const NavBar = () => {
       </NavbarContent>
       <NavbarMenu>
         <NavbarMenuItem>
-          <Link href={`/${user.userInfo.nickname}/events`}>Your events</Link>
+          <Link href={`/${user.userInfo.nickname}`}>Your events</Link>
         </NavbarMenuItem>
         <NavbarMenuItem>
           <Link href={`/${user.userInfo.nickname}/create`}>Create event</Link>
