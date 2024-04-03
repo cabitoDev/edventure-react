@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",
+    "@nextui-org/react": "^2.2.10",
     "@reduxjs/toolkit": "^2.2.3",
+    "framer-motion": "^11.0.24",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.4",
     "react": "^18.2.0",
