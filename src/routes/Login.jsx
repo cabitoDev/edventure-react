@@ -1,8 +1,9 @@
 import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useDispatch } from 'react-redux';
-import { loginSuccess } from '../redux/userSlice';
+import { loginSuccess, logoutSuccess } from '../redux/userSlice';
 import { useNavigate } from "react-router-dom";
+import { Button } from '@nextui-org/react' 
 
 
 export const Login = () => {
@@ -12,14 +13,12 @@ export const Login = () => {
   
     React.useEffect(() => {
       if (isAuthenticated) {
-        console.log(user)
-        window.localStorage.setItem('userLogged', JSON.stringify(user));
         navigateTo(`/${user.nickname}`)
         dispatch(loginSuccess(user)); 
-      }
+      } else { dispatch(logoutSuccess())}
     }, [isAuthenticated]);
   
     return <>
-    <button onClick={()=> loginWithRedirect()}>Login</button>
+    <Button color="primary" onClick={()=> loginWithRedirect()}>Login</Button>
     this is the login page</>
 }
