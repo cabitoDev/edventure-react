@@ -124,9 +124,7 @@ export const NavBar = () => {
               />
             </DropdownTrigger>
             <DropdownMenu aria-label='Profile Actions' variant='flat'>
-              <DropdownItem href={`/${user.userInfo.nickname}/settings`}>
-                Settings
-              </DropdownItem>
+              <DropdownItem href={`/settings`}>Settings</DropdownItem>
               <DropdownItem key='profile'>Profile</DropdownItem>
               <DropdownItem onClick={handleLogout}>
                 <p className='text-pink-600' key='logout'>
@@ -140,16 +138,16 @@ export const NavBar = () => {
       {user.isAuthenticated && (
         <NavbarMenu>
           <NavbarMenuItem>
-            <Link href={`/${user.userInfo.nickname}`}>Your events</Link>
+            <Link href='/yourEvents'>Your events</Link>
           </NavbarMenuItem>
           <NavbarMenuItem>
-            <Link href={`/${user.userInfo.nickname}/create`}>Create event</Link>
+            <Link href='/create'>Create event</Link>
           </NavbarMenuItem>
           <NavbarMenuItem>
-            <Link href={`/${user.userInfo.nickname}/settings`}>Settings</Link>
+            <Link href='/settings'>Settings</Link>
           </NavbarMenuItem>
           <NavbarMenuItem key='profile'>
-            <Link href={`/${user.userInfo.nickname}/profile`}>Profile</Link>
+            <Link href={`/${user.userInfo.nickname}`}>Profile</Link>
           </NavbarMenuItem>
           {user && (
             <NavbarMenuItem key='logout'>
