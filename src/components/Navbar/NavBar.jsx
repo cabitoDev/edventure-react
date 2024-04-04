@@ -22,6 +22,7 @@ import { loginSuccess, logoutSuccess } from '../../redux/userSlice'
 import { useNavigate } from 'react-router-dom'
 import { Auth0Lock } from 'auth0-lock'
 import { Constants } from '../../constants'
+import { Navigate } from 'react-router'
 
 export const NavBar = () => {
   const { query } = useKBar()
@@ -54,7 +55,7 @@ export const NavBar = () => {
           }
           dispatch(loginSuccess(profile))
           lock.hide()
-          navigateTo(`/${profile.nickname}`)
+          navigateTo('/profile')
         })
       })
     }
@@ -81,20 +82,36 @@ export const NavBar = () => {
           />
         )}
         <NavbarBrand>
-          <a href='/'>
-            <img className='logo' src={assets.logo} />
-          </a>
+          <img
+            className='hover:cursor-pointer logo'
+            src={assets.logo}
+            onClick={() => {
+              navigateTo('/')
+            }}
+          />
         </NavbarBrand>
       </NavbarContent>
 
       <NavbarContent className='hidden sm:flex gap-4' justify='center'>
         <NavbarItem>
-          <Link color='foreground' href='#'>
+          <Link
+            onClick={() => {
+              navigateTo('/yourEvents')
+            }}
+            color='foreground'
+            className='hover:cursor-pointer'
+          >
             Your events
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color='foreground' href='/create'>
+          <Link
+            onClick={() => {
+              navigateTo('/create')
+            }}
+            color='foreground'
+            className='hover:cursor-pointer'
+          >
             Create event
           </Link>
         </NavbarItem>
@@ -124,7 +141,13 @@ export const NavBar = () => {
               />
             </DropdownTrigger>
             <DropdownMenu aria-label='Profile Actions' variant='flat'>
-              <DropdownItem href={`/settings`}>Settings</DropdownItem>
+              <DropdownItem
+                onClick={() => {
+                  navigateTo('/settings')
+                }}
+              >
+                Settings
+              </DropdownItem>
               <DropdownItem key='profile'>Profile</DropdownItem>
               <DropdownItem onClick={handleLogout}>
                 <p className='text-pink-600' key='logout'>
@@ -137,17 +160,34 @@ export const NavBar = () => {
       </NavbarContent>
       {user.isAuthenticated && (
         <NavbarMenu>
-          <NavbarMenuItem>
-            <Link href='/yourEvents'>Your events</Link>
+          <NavbarMenuItem
+            onClick={() => {
+              navigateTo('/yourEvents')
+            }}
+          >
+            Your events
           </NavbarMenuItem>
-          <NavbarMenuItem>
-            <Link href='/create'>Create event</Link>
+          <NavbarMenuItem
+            onClick={() => {
+              navigateTo('/create')
+            }}
+          >
+            Create event
           </NavbarMenuItem>
-          <NavbarMenuItem>
-            <Link href='/settings'>Settings</Link>
+          <NavbarMenuItem
+            onClick={() => {
+              navigateTo('/settings')
+            }}
+          >
+            Settings
           </NavbarMenuItem>
-          <NavbarMenuItem key='profile'>
-            <Link href={`/${user.userInfo.nickname}`}>Profile</Link>
+          <NavbarMenuItem
+            key='profile'
+            onClick={() => {
+              navigateTo('/profile')
+            }}
+          >
+            Profile
           </NavbarMenuItem>
           {user && (
             <NavbarMenuItem key='logout'>

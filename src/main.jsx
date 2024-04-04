@@ -11,23 +11,26 @@ import { Settings } from './routes/Settings.jsx'
 import { KProvider } from './components/Kbar/KProvider.jsx'
 import { Profile } from './routes/Profile.jsx'
 import { CreateEvent } from './routes/CreateEvent.jsx'
+import { Root } from './routes/Root.jsx'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Home />
-  },
-  {
-    path: '/settings',
-    element: <Settings />
-  },
-  {
-    path: '/:user',
-    element: <Profile />
-  },
-  {
-    path: '/create',
-    element: <CreateEvent />
+    element: <Root />,
+    children: [
+      {
+        index: '/',
+        element: <Home />
+      },
+      {
+        path: 'settings',
+        element: <Settings />
+      },
+      {
+        path: 'create',
+        element: <CreateEvent />
+      }
+    ]
   }
 ])
 

@@ -1,11 +1,10 @@
-"use client";
+'use client'
 
-import {useTheme} from "next-themes";
-import { useEffect, useState } from "react";
-import { Button } from "@nextui-org/react"
-import { NavBar } from "../components/Navbar/NavBar";
+import { useTheme } from 'next-themes'
+import { useEffect, useState } from 'react'
+import { Button } from '@nextui-org/react'
 
-export function Settings() {
+export function Settings () {
   const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme()
 
@@ -13,14 +12,13 @@ export function Settings() {
     setMounted(true)
   }, [])
 
-  if(!mounted) return null
+  if (!mounted) return null
 
   return (
     <>
-    <NavBar/>
       The current theme is: {theme}
       <Button onClick={() => setTheme('light')}>Light Mode</Button>
       <Button onClick={() => setTheme('dark')}>Dark Mode</Button>
     </>
   )
-};
+}

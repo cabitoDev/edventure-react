@@ -1,5 +1,4 @@
 import React from 'react'
-import { NavBar } from '../components/Navbar/NavBar'
 import { Constants } from '../constants'
 import { CustomCard } from '../components/CustomCard/CustomCard'
 import { ReactLogo } from '../components/ReactLogo/ReactLogo'
@@ -7,7 +6,6 @@ import { ReactLogo } from '../components/ReactLogo/ReactLogo'
 export const Home = () => {
   return (
     <>
-      <NavBar />
       <div className='margin-md flex-column gap-md'>
         <div className='home-title'>
           <p className='text-3xl'>{Constants.HOME_TITLE}</p>

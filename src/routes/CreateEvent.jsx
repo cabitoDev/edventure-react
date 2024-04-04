@@ -1,4 +1,3 @@
-import { NavBar } from '../components/Navbar/NavBar'
 import { Steps, StepsProvider, useSteps } from 'react-step-builder'
 import { Button } from '@nextui-org/button'
 import { Step1 } from '../components/CreateEventSteps/Step1'
@@ -12,7 +11,6 @@ export const CreateEvent = () => {
 
   return (
     <>
-      <NavBar />
       <StepsProvider>
         <StepsComponent onStepChange={onStepChange} />
       </StepsProvider>
