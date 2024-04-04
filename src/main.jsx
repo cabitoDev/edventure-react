@@ -9,6 +9,7 @@ import { UserEvents } from "./routes/UserEvents.jsx";
 import { NextUIProvider } from "@nextui-org/react";
 import { ThemeProvider } from "next-themes";
 import { Settings } from "./routes/Settings.jsx";
+import { KProvider } from "./components/Kbar/KProvider.jsx";
 
 const router = createBrowserRouter([
   {
@@ -33,8 +34,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <NextUIProvider>
     <ThemeProvider  attribute="class" defaultTheme="dark">
     <Provider store={store}>
-      
-        <RouterProvider router={router} />
+      <KProvider>
+      <RouterProvider router={router} />
+      </KProvider>
     </Provider>
     </ThemeProvider>
   </NextUIProvider>

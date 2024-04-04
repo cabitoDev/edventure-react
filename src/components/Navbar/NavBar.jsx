@@ -1,5 +1,9 @@
 import React from "react";
 import {
+  KBarSearch,
+
+} from "kbar";
+import {
   Navbar,
   NavbarBrand,
   NavbarContent,
@@ -92,19 +96,10 @@ export const NavBar = () => {
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
-        <Input
-          classNames={{
-            base: "max-w-full sm:max-w-[10rem] h-10",
-            mainWrapper: "h-full",
-            input: "text-small",
-            inputWrapper:
-              "h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20",
-          }}
-          placeholder="Search..."
-          size="sm"
-          startContent={<SearchIcon size={18} />}
-          type="search"
-        />
+      <div className="flex items-center ">
+              <SearchIcon />
+                <KBarSearch className="bg-transparent pd-left-sm outline-none" />
+              </div>
         {!user.isAuthenticated && lock && (
           <NavbarItem key="signup" onClick={lock.show()}>
             <Link color="primary" href="#">
@@ -129,9 +124,9 @@ export const NavBar = () => {
               </DropdownItem>
               <DropdownItem key="profile">Profile</DropdownItem>
                 <DropdownItem onClick={handleLogout}>
-                  <Link color="danger" key="logout" >
+                  <p className="text-pink-600" key="logout" >
                     Log Out
-                  </Link>
+                  </p>
                 </DropdownItem>
             </DropdownMenu>
           </Dropdown>
@@ -152,7 +147,7 @@ export const NavBar = () => {
         </NavbarMenuItem>
         {user && (
           <NavbarMenuItem key="logout">
-            <Link color="danger" onClick={handleLogout}>
+            <Link className="text-pink-600 hover:cursor-pointer" onClick={handleLogout}>
               Log Out
             </Link>
           </NavbarMenuItem>

@@ -38,6 +38,10 @@
     padding: 1rem 0 2rem 0;
 }
 
+.pd-left-sm {
+    padding-left: 0.5rem;
+}
+
 .home-title {
     text-align: center;
     margin: 10% 0 12% 0;

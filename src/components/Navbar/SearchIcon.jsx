@@ -1,6 +1,6 @@
 import React from "react";
 export const SearchIcon = ({
-  size = 24,
+  size = 18,
   strokeWidth = 1.5,
   width,
   height,
