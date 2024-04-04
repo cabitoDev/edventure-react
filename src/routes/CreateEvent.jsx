@@ -1,6 +1,9 @@
 import { NavBar } from '../components/Navbar/NavBar'
 import { Steps, StepsProvider, useSteps } from 'react-step-builder'
 import { Button } from '@nextui-org/button'
+import { Step1 } from '../components/CreateEventSteps/Step1'
+import { Step2 } from '../components/CreateEventSteps/Step2'
+import { Step3 } from '../components/CreateEventSteps/Step3'
 
 export const CreateEvent = () => {
   const onStepChange = () => {
@@ -23,22 +26,9 @@ export const StepsComponent = props => {
   return (
     <>
       <Steps onStepChange={props.onStepChange}>
-        <div>
-          <h1>Step 1</h1>
-          <p>This is Step 1.</p>
-        </div>
-        <div>
-          <h1>Step 2</h1>
-          <p>This is Step 2.</p>
-        </div>
-        <div>
-          <h1>Step 3</h1>
-          <p>This is Step 3.</p>
-        </div>
-        <div>
-          <h1>Step 4</h1>
-          <p>This is Step 4.</p>
-        </div>
+        <Step1 />
+        <Step2 />
+        <Step3 />
       </Steps>
       <Button onClick={prev}>Back</Button>
       <Button onClick={next}>Next</Button>
