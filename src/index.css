@@ -2,23 +2,23 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-.cards_grid {
+.cards-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 20px; 
 }
 
-.margin_md {
+.margin-md {
     margin: 1rem
 }
 
-.home_title,
-.flex_column {
+.home-title,
+.flex-column {
     display: flex;
     flex-direction: column;
 }
 
-.home_title,
+.home-title,
 .center {
     align-items: center;
     align-self: center;
@@ -26,22 +26,26 @@
 
 }
 
-.gap_md {
+.gap-md {
     gap: 1rem;
 }
 
-.pd_top_bottom{
+.align-self-center {
+    align-self: center;
+}
+
+.pd-top-bottom{
     padding: 1rem 0 2rem 0;
 }
 
-.home_title {
-    margin: 10% 0 12% 0;
+.home-title {
     text-align: center;
+    margin: 10% 0 12% 0;
     gap: 1rem;
 }
 
 @media screen and (max-width: 768px) {
-    .cards_grid {
+    .cards-grid {
       display: flex;
       flex-direction: column;
     }

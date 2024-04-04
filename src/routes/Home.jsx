@@ -8,8 +8,8 @@ export const Home = () => {
   return (
     <>
       <NavBar />
-      <div className="margin_md flex_column gap_md">
-        <div className="home_title">
+      <div className="margin-md flex-column gap-md">
+        <div className="home-title">
         <p className="text-3xl">Attend your events, or just create them yourself.</p>
         <p>
           Edventure is a comprehensive platform designed to simplify event
@@ -18,7 +18,7 @@ export const Home = () => {
         </p>
         </div>
         
-        <div className="cards_grid">
+        <div className="cards-grid">
           <CustomCard
             title={Constants.CARD_YOUR_EVENTS_TITLE}
             text={Constants.CARD_YOUR_EVENTS_TEXT}
@@ -36,7 +36,7 @@ export const Home = () => {
             text={Constants.CARD_TRACKING_TEXT}
           ></CustomCard>
         </div>
-        <div className="flex_column center pd_top_bottom">
+        <div className="flex-column center pd-top-bottom">
           <ReactLogo />
           <span>Deployed with React</span>
         </div>
