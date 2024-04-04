@@ -74,7 +74,7 @@ export const NavBar = () => {
           className="sm:hidden"
         />}
         <NavbarBrand>
-          <img src={assets.logo} />
+          <a href="/"><img src={assets.logo} /></a>
         </NavbarBrand>
    
       </NavbarContent>

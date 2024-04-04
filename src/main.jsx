@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { Login } from "./routes/Login.jsx";
+import { Home } from "./routes/Home.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./redux/store.js";
@@ -13,7 +13,7 @@ import { Settings } from "./routes/Settings.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Login />,
+    element: <Home />,
   },
   {
     path: "/:user/settings",
