@@ -1,8 +1,5 @@
 import React from "react";
-import {
-  KBarSearch,
-
-} from "kbar";
+import { KBarSearch } from "kbar";
 import {
   Navbar,
   NavbarBrand,
@@ -19,32 +16,27 @@ import {
   Avatar,
   Input,
 } from "@nextui-org/react";
-import "./Navbar.css";
 import { useDispatch, useSelector } from "react-redux";
 import { SearchIcon } from "./SearchIcon";
 import assets from "../../assets";
 import { loginSuccess, logoutSuccess } from "../../redux/userSlice";
 import { useNavigate } from "react-router-dom";
 import { Auth0Lock } from "auth0-lock";
+import { Constants } from "../../constants";
 
 export const NavBar = () => {
   const user = useSelector((state) => {
     console.log(state);
     return state.user;
   });
-  const pro = window.location.origin.includes("myedventure.netlify.app");
-  const domain = pro
-    ? "dev-9bbt1y5j.us.auth0.com"
-    : "dev-9bbt1y5j.us.auth0.com";
-  const clientId = pro
-    ? "5gpAXndTBJpbEj4PbW8apKvpKe52XnYP"
-    : "1gemzxvcpddr2gAfGUrbdR4kfqkiWI4Y";
   const navigateTo = useNavigate();
   const dispatch = useDispatch();
   const [lock, setLock] = React.useState();
 
   React.useEffect(() => {
-    setLock(new Auth0Lock(clientId, domain));
+    setLock(new Auth0Lock(window.location.origin.includes("myedventure.netlify.app")
+    ? Constants.CLIENT_PRO
+    : Constants.CLIENT_DEV, Constants.DOMAIN));
   }, []);
 
   React.useEffect(() => {
@@ -73,14 +65,17 @@ export const NavBar = () => {
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen}>
       <NavbarContent>
-        {user.isAuthenticated && <NavbarMenuToggle
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          className="sm:hidden"
-        />}
+        {user.isAuthenticated && (
+          <NavbarMenuToggle
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            className="sm:hidden"
+          />
+        )}
         <NavbarBrand>
-          <a href="/"><img src={assets.logo} /></a>
+          <a href="/">
+            <img className="logo" src={assets.logo} />
+          </a>
         </NavbarBrand>
-   
       </NavbarContent>
 
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
@@ -96,15 +91,15 @@ export const NavBar = () => {
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
-      <div className="flex items-center ">
-              <SearchIcon />
-                <KBarSearch className="bg-transparent pd-left-sm outline-none" />
-              </div>
+        <div className="flex items-center ">
+          <SearchIcon />
+          <KBarSearch className="bg-transparent pd-left-sm outline-none" />
+        </div>
         {!user.isAuthenticated && lock && (
           <NavbarItem key="signup" onClick={lock.show()}>
             <Link color="primary" href="#">
-            Sign Up
-          </Link>
+              Sign Up
+            </Link>
           </NavbarItem>
         )}
         {user.isAuthenticated && (
@@ -123,36 +118,41 @@ export const NavBar = () => {
                 Settings
               </DropdownItem>
               <DropdownItem key="profile">Profile</DropdownItem>
-                <DropdownItem onClick={handleLogout}>
-                  <p className="text-pink-600" key="logout" >
-                    Log Out
-                  </p>
-                </DropdownItem>
+              <DropdownItem onClick={handleLogout}>
+                <p className="text-pink-600" key="logout">
+                  Log Out
+                </p>
+              </DropdownItem>
             </DropdownMenu>
           </Dropdown>
         )}
       </NavbarContent>
-      {user.isAuthenticated && <NavbarMenu>
-        <NavbarMenuItem>
-          <Link href={`/${user.userInfo.nickname}`}>Your events</Link>
-        </NavbarMenuItem>
-        <NavbarMenuItem>
-          <Link href={`/${user.userInfo.nickname}/create`}>Create event</Link>
-        </NavbarMenuItem>
-        <NavbarMenuItem>
-          <Link href={`/${user.userInfo.nickname}/settings`}>Settings</Link>
-        </NavbarMenuItem>
-        <NavbarMenuItem key="profile">
-          <Link href={`/${user.userInfo.nickname}/profile`}>Profile</Link>
-        </NavbarMenuItem>
-        {user && (
-          <NavbarMenuItem key="logout">
-            <Link className="text-pink-600 hover:cursor-pointer" onClick={handleLogout}>
-              Log Out
-            </Link>
+      {user.isAuthenticated && (
+        <NavbarMenu>
+          <NavbarMenuItem>
+            <Link href={`/${user.userInfo.nickname}`}>Your events</Link>
           </NavbarMenuItem>
-        )}
-      </NavbarMenu>}
+          <NavbarMenuItem>
+            <Link href={`/${user.userInfo.nickname}/create`}>Create event</Link>
+          </NavbarMenuItem>
+          <NavbarMenuItem>
+            <Link href={`/${user.userInfo.nickname}/settings`}>Settings</Link>
+          </NavbarMenuItem>
+          <NavbarMenuItem key="profile">
+            <Link href={`/${user.userInfo.nickname}/profile`}>Profile</Link>
+          </NavbarMenuItem>
+          {user && (
+            <NavbarMenuItem key="logout">
+              <Link
+                className="text-pink-600 hover:cursor-pointer"
+                onClick={handleLogout}
+              >
+                Log Out
+              </Link>
+            </NavbarMenuItem>
+          )}
+        </NavbarMenu>
+      )}
     </Navbar>
   );
 };

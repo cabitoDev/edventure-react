@@ -10,11 +10,9 @@ export const Home = () => {
       <NavBar />
       <div className="margin-md flex-column gap-md">
         <div className="home-title">
-        <p className="text-3xl">Attend your events, or just create them yourself.</p>
+        <p className="text-3xl">{Constants.HOME_TITLE}</p>
         <p>
-          Edventure is a comprehensive platform designed to simplify event
-          management and make the experience of attending events more enriching
-          and exciting.
+          {Constants.HOME_SUBTITLE}
         </p>
         </div>
         
@@ -38,7 +36,7 @@ export const Home = () => {
         </div>
         <div className="flex-column center pd-top-bottom">
           <ReactLogo />
-          <span>Deployed with React</span>
+          <span>{Constants.DEP_WITH_REACT}</span>
         </div>
       </div>
     </>
