@@ -5,13 +5,12 @@ import { Home } from './routes/Home.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { store } from './redux/store.js'
-import { UserEvents } from './routes/UserEvents.jsx'
 import { NextUIProvider } from '@nextui-org/react'
 import { ThemeProvider } from 'next-themes'
 import { Settings } from './routes/Settings.jsx'
 import { KProvider } from './components/Kbar/KProvider.jsx'
-import { NavBar } from './components/Navbar/NavBar.jsx'
 import { Profile } from './routes/Profile.jsx'
+import { CreateEvent } from './routes/CreateEvent.jsx'
 
 const router = createBrowserRouter([
   {
@@ -19,7 +18,7 @@ const router = createBrowserRouter([
     element: <Home />
   },
   {
-    path: '//settings',
+    path: '/settings',
     element: <Settings />
   },
   {
@@ -27,8 +26,8 @@ const router = createBrowserRouter([
     element: <Profile />
   },
   {
-    path: '/creates',
-    element: <UserEvents />
+    path: '/create',
+    element: <CreateEvent />
   }
 ])
 
