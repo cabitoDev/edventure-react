@@ -1,5 +1,5 @@
 import React from "react";
-import { KBarSearch } from "kbar";
+import { useKBar } from "kbar";
 import {
   Navbar,
   NavbarBrand,
@@ -14,7 +14,6 @@ import {
   DropdownMenu,
   DropdownItem,
   Avatar,
-  Input,
 } from "@nextui-org/react";
 import { useDispatch, useSelector } from "react-redux";
 import { SearchIcon } from "./SearchIcon";
@@ -25,6 +24,7 @@ import { Auth0Lock } from "auth0-lock";
 import { Constants } from "../../constants";
 
 export const NavBar = () => {
+  const { query } = useKBar();
   const user = useSelector((state) => {
     console.log(state);
     return state.user;
@@ -34,9 +34,14 @@ export const NavBar = () => {
   const [lock, setLock] = React.useState();
 
   React.useEffect(() => {
-    setLock(new Auth0Lock(window.location.origin.includes("myedventure.netlify.app")
-    ? Constants.CLIENT_PRO
-    : Constants.CLIENT_DEV, Constants.DOMAIN));
+    setLock(
+      new Auth0Lock(
+        window.location.origin.includes("myedventure.netlify.app")
+          ? Constants.CLIENT_PRO
+          : Constants.CLIENT_DEV,
+        Constants.DOMAIN
+      )
+    );
   }, []);
 
   React.useEffect(() => {
@@ -91,10 +96,7 @@ export const NavBar = () => {
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
-        <div className="flex items-center ">
-          <SearchIcon />
-          <KBarSearch className="bg-transparent pd-left-sm outline-none" />
-        </div>
+        <SearchIcon className="hover:cursor-pointer" onClick={query.toggle} />
         {!user.isAuthenticated && lock && (
           <NavbarItem key="signup" onClick={lock.show()}>
             <Link color="primary" href="#">

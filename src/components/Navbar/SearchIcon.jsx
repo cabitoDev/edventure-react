@@ -6,7 +6,7 @@ export const SearchIcon = ({
   height,
   ...props
 }) => (
-  <svg
+  <svg className={props.className}
     aria-hidden="true"
     fill="none"
     focusable="false"

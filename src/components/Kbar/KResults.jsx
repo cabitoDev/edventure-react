@@ -1,6 +1,6 @@
 import cx from "classnames";
 import { KBarResults, useMatches } from "kbar";
-import { ReactElement, cloneElement } from "react";
+import { cloneElement } from "react";
 import { ArrowRight } from "react-feather";
 
 
