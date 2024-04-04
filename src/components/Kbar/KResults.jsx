@@ -1,7 +1,7 @@
 import cx from "classnames";
 import { KBarResults, useMatches } from "kbar";
 import { cloneElement } from "react";
-import { ArrowRight } from "react-feather";
+// import { ArrowRight } from "react-feather";
 
 
 const KResults = () => {
@@ -38,7 +38,7 @@ const KResults = () => {
                     }
                   </span>
                   <span className="opacity-60">
-                    <ArrowRight className="mx-2 h-4 w-4" />
+                    {/* <ArrowRight className="mx-2 h-4 w-4" /> */}
                   </span>
                 </>
               )}

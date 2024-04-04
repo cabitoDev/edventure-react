@@ -3,9 +3,7 @@ import {
     KBarPortal,
     KBarPositioner,
     KBarAnimator,
-    KBarSearch,
-    useMatches,
-    NO_GROUP
+    KBarSearch
   } from "kbar";
 import { SearchIcon } from "../Navbar/SearchIcon";
 import KResults from "./KResults";
