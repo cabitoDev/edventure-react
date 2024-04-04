@@ -1,22 +1,20 @@
-import React from "react";
-import { NavBar } from "../components/Navbar/NavBar";
-import { Constants } from "../constants";
-import { CustomCard } from "../components/CustomCard/CustomCard";
-import { ReactLogo } from "../components/ReactLogo/ReactLogo";
+import React from 'react'
+import { NavBar } from '../components/Navbar/NavBar'
+import { Constants } from '../constants'
+import { CustomCard } from '../components/CustomCard/CustomCard'
+import { ReactLogo } from '../components/ReactLogo/ReactLogo'
 
 export const Home = () => {
   return (
     <>
       <NavBar />
-      <div className="margin-md flex-column gap-md">
-        <div className="home-title">
-        <p className="text-3xl">{Constants.HOME_TITLE}</p>
-        <p>
-          {Constants.HOME_SUBTITLE}
-        </p>
+      <div className='margin-md flex-column gap-md'>
+        <div className='home-title'>
+          <p className='text-3xl'>{Constants.HOME_TITLE}</p>
+          <p>{Constants.HOME_SUBTITLE}</p>
         </div>
-        
-        <div className="cards-grid">
+
+        <div className='cards-grid'>
           <CustomCard
             title={Constants.CARD_YOUR_EVENTS_TITLE}
             text={Constants.CARD_YOUR_EVENTS_TEXT}
@@ -34,11 +32,11 @@ export const Home = () => {
             text={Constants.CARD_TRACKING_TEXT}
           ></CustomCard>
         </div>
-        <div className="flex-column center pd-top-bottom">
+        <div className='flex-column center pd-top-bottom'>
           <ReactLogo />
           <span>{Constants.DEP_WITH_REACT}</span>
         </div>
       </div>
     </>
-  );
-};
+  )
+}
