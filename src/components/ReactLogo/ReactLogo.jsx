@@ -1,8 +1,8 @@
 import './ReactLogo.css'
 
-export const ReactLogo = (props) => {
+export const ReactLogo = () => {
     return <>
-    <div className={`circles ${props.className}`}>
+    <div className="circles">
   <div></div>
   <div></div>
   <div></div>

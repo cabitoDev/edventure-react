@@ -9,12 +9,15 @@ export const Home = () => {
     <>
       <NavBar />
       <div className="margin_md flex_column gap_md">
-        <h1>Attend your events, or just create them yourself.</h1>
+        <div className="home_title">
+        <p className="text-3xl">Attend your events, or just create them yourself.</p>
         <p>
           Edventure is a comprehensive platform designed to simplify event
           management and make the experience of attending events more enriching
           and exciting.
         </p>
+        </div>
+        
         <div className="cards_grid">
           <CustomCard
             title={Constants.CARD_YOUR_EVENTS_TITLE}
