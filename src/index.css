@@ -41,7 +41,9 @@
 .pd-left-sm {
     padding-left: 0.5rem;
 }
-
+.text-align-center {
+    text-align: center;
+}
 .home-title {
     text-align: center;
     margin: 10% 0 12% 0;

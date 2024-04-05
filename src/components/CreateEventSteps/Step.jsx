@@ -1,7 +1,7 @@
 export const Step = props => {
   return (
     <>
-      <p className='text-3xl'>{props.text}</p>
+      <p className='text-3xl text-align-center'>{props.text}</p>
       {props.children}
     </>
   )
