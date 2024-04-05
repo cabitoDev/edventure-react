@@ -9,22 +9,6 @@ import { SearchIcon } from "../Navbar/SearchIcon";
 import KResults from "./KResults";
 import Kbd from "./Kbd";
 
-  const actions = [
-    {
-      id: "profile",
-      name: "Profile",
-      shortcut: ["p"],
-      keywords: "",
-      perform: () => (window.location.pathname = "profile"),
-    },
-    {
-      id: "settings",
-      name: "Settings",
-      shortcut: ["s"],
-      keywords: "",
-      perform: () => (window.location.pathname = "settings"),
-    },
-  ]
 
   export const KPortal = () => {
     return <KBarPortal>
@@ -45,7 +29,7 @@ import Kbd from "./Kbd";
   export const KProvider = (props) => {
      return (
       <>
-      <KBarProvider actions={actions}>
+      <KBarProvider actions={props.actions}>
         <KPortal></KPortal>
         {props.children}
       </KBarProvider>

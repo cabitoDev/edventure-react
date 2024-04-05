@@ -37,7 +37,7 @@ const router = createBrowserRouter([
         element: <Profile />
       },
       {
-        path: 'yourEvents',
+        path: 'myEvents',
         element: <UserEvents />
       },
       {
@@ -52,9 +52,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <NextUIProvider>
     <ThemeProvider attribute='class' defaultTheme='dark'>
       <Provider store={store}>
-        <KProvider>
           <RouterProvider router={router} />
-        </KProvider>
       </Provider>
     </ThemeProvider>
   </NextUIProvider>

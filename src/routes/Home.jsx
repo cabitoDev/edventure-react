@@ -14,7 +14,7 @@ export const Home = () => {
 
         <div className='cards-grid'>
           <CustomCard
-            route="yourEvents"
+            route="myEvents"
             title={Constants.CARD_YOUR_EVENTS_TITLE}
             text={Constants.CARD_YOUR_EVENTS_TEXT}
           ></CustomCard>

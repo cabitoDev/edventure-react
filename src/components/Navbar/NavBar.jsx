@@ -95,7 +95,7 @@ export const NavBar = () => {
         <NavbarItem>
           <Link
             onClick={() => {
-              navigateTo('/yourEvents')
+              navigateTo('/myEvents')
             }}
             color='foreground'
             className='hover:cursor-pointer'
@@ -177,7 +177,7 @@ export const NavBar = () => {
           >
              <Link
                 color="foreground"className='hover:cursor-pointer'onClick={() => {
-                  navigateTo('/yourEvents')
+                  navigateTo('/myEvents')
                 }}>Your events</Link>
           </NavbarMenuItem>
           <NavbarMenuItem
