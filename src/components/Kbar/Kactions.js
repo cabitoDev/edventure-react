@@ -40,6 +40,6 @@ export const Kactions = [
     name: "My events",
     shortcut: ["ye"],
     keywords: "",
-    route: "/myEvents",
+    route: "/my-events",
   },
 ];

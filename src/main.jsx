@@ -8,7 +8,6 @@ import { store } from './redux/store.js'
 import { NextUIProvider } from '@nextui-org/react'
 import { ThemeProvider } from 'next-themes'
 import { Settings } from './routes/Settings.jsx'
-import { KProvider } from './components/Kbar/KProvider.jsx'
 import { Profile } from './routes/Profile.jsx'
 import { CreateEvent } from './routes/CreateEvent.jsx'
 import { Root } from './routes/Root.jsx'
@@ -37,7 +36,7 @@ const router = createBrowserRouter([
         element: <Profile />
       },
       {
-        path: 'myEvents',
+        path: 'my-events',
         element: <UserEvents />
       },
       {
