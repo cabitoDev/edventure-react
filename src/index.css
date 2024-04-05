@@ -48,6 +48,10 @@
     gap: 1rem;
 }
 
+.mg-top-bt {
+    margin: 10% 0 12% 0;
+}
+
 .logo {
     min-width: 2rem;
     max-width: 2rem;

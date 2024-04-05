@@ -1,10 +1,10 @@
+import { Input } from '@nextui-org/react'
+
 export const Step1 = () => {
   return (
     <>
-      <div>Tipo de evento</div>
-      <div>Avatar</div>
-      <div>Nombre</div>
-      <div>Desripcion</div>
+      <p>¿Wich is the name of the event?</p>
+      <Input placeholder='Type a name' className='max-w-xs' />
     </>
   )
 }

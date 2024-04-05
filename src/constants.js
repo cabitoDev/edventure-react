@@ -17,5 +17,30 @@ export const Constants = {
   CARD_TRACKING_TITLE: 'Event Tracking and Reminders',
   CARD_TRACKING_TEXT:
     "Stay on top of all the events you're interested in with our built-in tracking and reminder tools. You will never miss an important event again.",
-  DEP_WITH_REACT: 'Deployed with React'
+  DEP_WITH_REACT: 'Deployed with React',
+  EVENT_TYPES: [
+    'Concert',
+    'Conference',
+    'Cinema',
+    'Fair',
+    'Presentation',
+    'Party',
+    'Race',
+    'Recital',
+    'Seminar',
+    'Sport',
+    'Talk',
+    'Theater',
+    'Workshop',
+    'Other'
+  ],
+  ASSISTANTS_NUMBER: [
+    'Less than 25',
+    '25 - 50',
+    '50 - 100',
+    '100 - 500',
+    '500 - 750',
+    '750 - 1000',
+    'More than 1000'
+  ]
 }
