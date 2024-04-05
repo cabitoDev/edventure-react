@@ -14,10 +14,12 @@ export const Home = () => {
 
         <div className='cards-grid'>
           <CustomCard
+            route="yourEvents"
             title={Constants.CARD_YOUR_EVENTS_TITLE}
             text={Constants.CARD_YOUR_EVENTS_TEXT}
           ></CustomCard>
           <CustomCard
+          route="create"
             title={Constants.CARD_CREATE_EVENTS_TITLE}
             text={Constants.CARD_CREATE_EVENTS_TEXT}
           ></CustomCard>
