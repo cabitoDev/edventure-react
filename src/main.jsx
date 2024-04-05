@@ -12,6 +12,8 @@ import { KProvider } from './components/Kbar/KProvider.jsx'
 import { Profile } from './routes/Profile.jsx'
 import { CreateEvent } from './routes/CreateEvent.jsx'
 import { Root } from './routes/Root.jsx'
+import { UserEvents } from './routes/UserEvents.jsx'
+import { Explore } from './routes/Explore.jsx'
 
 const router = createBrowserRouter([
   {
@@ -29,7 +31,19 @@ const router = createBrowserRouter([
       {
         path: 'create',
         element: <CreateEvent />
-      }
+      },
+      {
+        path: 'profile',
+        element: <Profile />
+      },
+      {
+        path: 'yourEvents',
+        element: <UserEvents />
+      },
+      {
+        path: 'explore',
+        element: <Explore />
+      },
     ]
   }
 ])

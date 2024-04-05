@@ -22,7 +22,6 @@ import { loginSuccess, logoutSuccess } from '../../redux/userSlice'
 import { useNavigate } from 'react-router-dom'
 import { Auth0Lock } from 'auth0-lock'
 import { Constants } from '../../constants'
-import { Navigate } from 'react-router'
 
 export const NavBar = () => {
   const { query } = useKBar()
@@ -107,6 +106,17 @@ export const NavBar = () => {
         <NavbarItem>
           <Link
             onClick={() => {
+              navigateTo('/explore')
+            }}
+            color='foreground'
+            className='hover:cursor-pointer'
+          >
+            Explore events
+          </Link>
+        </NavbarItem>
+        <NavbarItem>
+          <Link
+            onClick={() => {
               navigateTo('/create')
             }}
             color='foreground'
@@ -148,7 +158,9 @@ export const NavBar = () => {
               >
                 Settings
               </DropdownItem>
-              <DropdownItem key='profile'>Profile</DropdownItem>
+              <DropdownItem key='profile' onClick={() => {
+              navigateTo('/profile')
+            }}>Profile</DropdownItem>
               <DropdownItem onClick={handleLogout}>
                 <p className='text-pink-600' key='logout'>
                   Log Out
@@ -161,33 +173,45 @@ export const NavBar = () => {
       {user.isAuthenticated && (
         <NavbarMenu>
           <NavbarMenuItem
-            onClick={() => {
-              navigateTo('/yourEvents')
-            }}
+            
           >
-            Your events
+             <Link
+                color="foreground"className='hover:cursor-pointer'onClick={() => {
+                  navigateTo('/yourEvents')
+                }}>Your events</Link>
           </NavbarMenuItem>
           <NavbarMenuItem
-            onClick={() => {
-              navigateTo('/create')
-            }}
+           
           >
-            Create event
+             <Link
+                color="foreground"className='hover:cursor-pointer' onClick={() => {
+                  navigateTo('/explore')
+                }}>Explore events</Link>
           </NavbarMenuItem>
           <NavbarMenuItem
-            onClick={() => {
-              navigateTo('/settings')
-            }}
+            
           >
-            Settings
+             <Link
+                color="foreground"className='hover:cursor-pointer'onClick={() => {
+                  navigateTo('/create')
+                }}>Create event</Link>
+          </NavbarMenuItem>
+          <NavbarMenuItem
+           
+          >
+             <Link
+                color="foreground"className='hover:cursor-pointer' onClick={() => {
+                  navigateTo('/settings')
+                }}>Settings</Link>
           </NavbarMenuItem>
           <NavbarMenuItem
             key='profile'
-            onClick={() => {
-              navigateTo('/profile')
-            }}
+            
           >
-            Profile
+             <Link
+                color="foreground"className='hover:cursor-pointer'onClick={() => {
+                  navigateTo('/profile')
+                }}>Profile</Link>
           </NavbarMenuItem>
           {user && (
             <NavbarMenuItem key='logout'>

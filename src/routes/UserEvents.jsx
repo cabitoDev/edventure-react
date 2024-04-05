@@ -7,5 +7,5 @@ export const UserEvents = () => {
   const user = useLoaderData()
   const dispatch = useDispatch()
 
-  return <></>
+  return <>user events landing</>
 }
