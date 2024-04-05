@@ -42,5 +42,26 @@ export const Constants = {
     '500 - 750',
     '750 - 1000',
     'More than 1000'
-  ]
+  ],
+  HOURS: [
+    '00',
+    '01',
+    '02',
+    '03',
+    '04',
+    '05',
+    '06',
+    '07',
+    '08',
+    '09',
+    '10',
+    '11',
+    '12'
+  ],
+  QUESTION_STEP_1: 'What is the name of your event?',
+  QUESTION_STEP_2: 'What is the type of your event?',
+  QUESTION_STEP_3: 'When will be your event?',
+  QUESTION_STEP_4: 'And when?',
+  QUESTION_STEP_5: 'How many people will assist?',
+  QUESTION_STEP_6: 'To finish, give a description of your event'
 }

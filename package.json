@@ -19,7 +19,9 @@
     "auth0-lock": "^12.4.0",
     "autoprefixer": "^10.4.19",
     "classnames": "^2.5.1",
+    "dayjs": "^1.11.10",
     "framer-motion": "^11.0.24",
+    "i": "^0.3.7",
     "install": "^0.13.0",
     "kbar": "^0.1.0-beta.45",
     "localforage": "^1.10.0",
@@ -34,9 +36,11 @@
     "react-router-dom": "^6.22.3",
     "react-scripts": "^5.0.1",
     "react-step-builder": "^3.0.6",
+    "react-tailwindcss-datepicker": "^1.6.6",
     "redux-persist": "^6.0.0",
     "sort-by": "^1.2.0",
-    "tailwindcss": "^3.4.3"
+    "tailwindcss": "^3.4.3",
+    "v": "^0.3.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
