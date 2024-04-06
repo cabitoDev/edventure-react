@@ -51,7 +51,7 @@ export const StepsComponent = props => {
           <Step6 />
         </Step>
       </Steps>
-      <div className='sm:bottom-40 md:bottom-40 bottom-60 absolute w-8/12 gap-4 flex flex-col'>
+      <div className='bottom-40 absolute w-8/12 gap-4 flex flex-col'>
         <div className='flex place-content-between'>
           <Button radius='full' isIconOnly onClick={prev}>
             <img src={assets.arrowLeft} />
