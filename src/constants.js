@@ -61,7 +61,7 @@ export const Constants = {
   QUESTION_STEP_1: 'What is the name of your event?',
   QUESTION_STEP_2: 'What is the type of your event?',
   QUESTION_STEP_3: 'When will be your event?',
-  QUESTION_STEP_4: 'And when?',
+  QUESTION_STEP_4: 'And where?',
   QUESTION_STEP_5: 'How many people will assist?',
   QUESTION_STEP_6: 'To finish, give a description of your event'
 }

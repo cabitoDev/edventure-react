@@ -1,16 +1,9 @@
-import { Select, SelectItem } from '@nextui-org/react'
-import { Constants } from '../../constants'
+import { Input } from '@nextui-org/react'
 
 export const Step4 = () => {
   return (
     <>
-      <Select label='Number of assistants' className='max-w-xs'>
-        {Constants.ASSISTANTS_NUMBER.map(type => (
-          <SelectItem key={type} value={type}>
-            {type}
-          </SelectItem>
-        ))}
-      </Select>
+      <Input placeholder='Address' className='max-w-xs' />
     </>
   )
 }

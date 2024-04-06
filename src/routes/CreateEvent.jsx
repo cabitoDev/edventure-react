@@ -8,6 +8,7 @@ import { Step5 } from '../components/CreateEventSteps/Step5'
 import { Step6 } from '../components/CreateEventSteps/Step6'
 import { Step } from '../components/CreateEventSteps/Step'
 import { Constants } from '../constants'
+import { Progress } from 'flowbite-react'
 
 export const CreateEvent = () => {
   const onStepChange = () => {
@@ -52,7 +53,7 @@ export const StepsComponent = props => {
       <Button onClick={next}>Next</Button>
       <div>Total: {total}</div>
       <div>Current: {current}</div>
-      <div>Progress: {progress * 100}%</div>
+      <Progress progress={progress * 100} color='cyan' />
     </div>
   )
 }
