@@ -9,6 +9,8 @@ import { Step6 } from '../components/CreateEventSteps/Step6'
 import { Step } from '../components/CreateEventSteps/Step'
 import { Constants } from '../constants'
 import { Progress } from 'flowbite-react'
+import assets from '../assets'
+import { ProgressBar } from '../components/ProgressBar'
 
 export const CreateEvent = () => {
   const onStepChange = () => {
@@ -28,7 +30,7 @@ export const StepsComponent = props => {
   const { prev, next, progress, jump, total, current } = useSteps()
 
   return (
-    <div className='center flex-column mg-top-bt'>
+    <div className='center flex-column mg-top-bt max-width-90'>
       <Steps onStepChange={props.onStepChange}>
         <Step text={Constants.QUESTION_STEP_1}>
           <Step1 />
@@ -49,11 +51,17 @@ export const StepsComponent = props => {
           <Step6 />
         </Step>
       </Steps>
-      <Button onClick={prev}>Back</Button>
-      <Button onClick={next}>Next</Button>
-      <div>Total: {total}</div>
-      <div>Current: {current}</div>
-      <Progress progress={progress * 100} color='cyan' />
+      <div className='sm:bottom-40 md:bottom-40 bottom-60 absolute w-8/12 gap-4 flex flex-col'>
+        <div className='flex place-content-between'>
+          <Button radius='full' isIconOnly onClick={prev}>
+            <img src={assets.arrowLeft} />
+          </Button>
+          <Button radius='full' isIconOnly onClick={next}>
+            <img src={assets.arrowRight} />
+          </Button>
+        </div>
+        <ProgressBar progress={progress} />
+      </div>
     </div>
   )
 }
