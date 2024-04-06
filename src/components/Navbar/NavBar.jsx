@@ -72,14 +72,9 @@ export const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
 
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen}>
+    <Navbar isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
       <NavbarContent>
-        {user.isAuthenticated && (
-          <NavbarMenuToggle
-            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-            className='sm:hidden'
-          />
-        )}
+        {user.isAuthenticated && <NavbarMenuToggle className='sm:hidden' />}
         <NavbarBrand>
           <img
             className='hover:cursor-pointer logo'
@@ -158,9 +153,14 @@ export const NavBar = () => {
               >
                 Settings
               </DropdownItem>
-              <DropdownItem key='profile' onClick={() => {
-              navigateTo('/profile')
-            }}>Profile</DropdownItem>
+              <DropdownItem
+                key='profile'
+                onClick={() => {
+                  navigateTo('/profile')
+                }}
+              >
+                Profile
+              </DropdownItem>
               <DropdownItem onClick={handleLogout}>
                 <p className='text-pink-600' key='logout'>
                   Log Out
@@ -172,57 +172,67 @@ export const NavBar = () => {
       </NavbarContent>
       {user.isAuthenticated && (
         <NavbarMenu>
-          <NavbarMenuItem
-            
-          >
-             <Link
-                color="foreground"className='hover:cursor-pointer'onClick={() => {
-                  navigateTo('/my-events')
-                }}>My events</Link>
+          <NavbarMenuItem>
+            <Link
+              color='foreground'
+              className='hover:cursor-pointer'
+              onClick={() => {
+                setIsMenuOpen(false)
+                navigateTo('/my-events')
+              }}
+            >
+              My events
+            </Link>
           </NavbarMenuItem>
-          <NavbarMenuItem
-           
-          >
-             <Link
-                color="foreground"className='hover:cursor-pointer' onClick={() => {
-                  navigateTo('/explore')
-                }}>Explore events</Link>
+          <NavbarMenuItem>
+            <Link color='foreground' className='hover:cursor-pointer'>
+              Explore events
+            </Link>
           </NavbarMenuItem>
-          <NavbarMenuItem
-            
-          >
-             <Link
-                color="foreground"className='hover:cursor-pointer'onClick={() => {
-                  navigateTo('/create')
-                }}>Create event</Link>
+          <NavbarMenuItem>
+            <Link
+              color='foreground'
+              className='hover:cursor-pointer'
+              onClick={() => {
+                setIsMenuOpen(false)
+                navigateTo('/create')
+              }}
+            >
+              Create event
+            </Link>
           </NavbarMenuItem>
-          <NavbarMenuItem
-           
-          >
-             <Link
-                color="foreground"className='hover:cursor-pointer' onClick={() => {
-                  navigateTo('/settings')
-                }}>Settings</Link>
+          <NavbarMenuItem>
+            <Link
+              color='foreground'
+              className='hover:cursor-pointer'
+              onClick={() => {
+                setIsMenuOpen(false)
+                navigateTo('/settings')
+              }}
+            >
+              Settings
+            </Link>
           </NavbarMenuItem>
-          <NavbarMenuItem
-            key='profile'
-            
-          >
-             <Link
-                color="foreground"className='hover:cursor-pointer'onClick={() => {
-                  navigateTo('/profile')
-                }}>Profile</Link>
+          <NavbarMenuItem key='profile'>
+            <Link
+              color='foreground'
+              className='hover:cursor-pointer'
+              onClick={() => {
+                setIsMenuOpen(false)
+                navigateTo('/profile')
+              }}
+            >
+              Profile
+            </Link>
           </NavbarMenuItem>
-          {user && (
-            <NavbarMenuItem key='logout'>
-              <Link
-                className='text-pink-600 hover:cursor-pointer'
-                onClick={handleLogout}
-              >
-                Log Out
-              </Link>
-            </NavbarMenuItem>
-          )}
+          <NavbarMenuItem key='logout'>
+            <Link
+              className='text-pink-600 hover:cursor-pointer'
+              onClick={handleLogout}
+            >
+              Log Out
+            </Link>
+          </NavbarMenuItem>
         </NavbarMenu>
       )}
     </Navbar>

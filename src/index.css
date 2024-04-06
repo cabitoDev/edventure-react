@@ -22,8 +22,6 @@
 .center {
     align-items: center;
     align-self: center;
-    max-width: 80%;
-
 }
 
 .gap-md {
@@ -48,6 +46,11 @@
     text-align: center;
     margin: 10% 0 12% 0;
     gap: 1rem;
+    max-width: 80%;
+}
+
+.max-width-90 {
+    max-width: 90%;
 }
 
 .mg-top-bt {

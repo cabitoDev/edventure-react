@@ -7,10 +7,10 @@ export const Constants = {
     'Edventure is a comprehensive platform designed to simplify event management and make the experience of attending events more enriching and exciting.',
   CARD_YOUR_EVENTS_TITLE: 'Follow your next events',
   CARD_YOUR_EVENTS_TEXT:
-    "Discover a wide range of exciting events to suit your interests. From concerts and festivals to conferences and exhibitions, Edventure connects you with unique experiences you won't want to miss.",
+    "Discover a wide range of exciting events to suit your interests. Edventure connects you with unique experiences you won't want to miss.",
   CARD_CREATE_EVENTS_TITLE: 'Create your events',
   CARD_CREATE_EVENTS_TEXT:
-    'Do you have an event you want to organize? Make it happen with Edventure! From private parties to community events, our platform allows you to create and customize events easily and efficiently.',
+    'Do you have an event you want to organize? Make it happen with Edventure! Our platform allows you to create and customize events easily and efficiently.',
   CARD_INTERACT_TITLE: 'Interact with other Attendees and Organizers',
   CARD_INTERACT_TEXT:
     'Connect with other attendees and event organizers, share experiences, exchange ideas, and build meaningful relationships within the Edventure community.',

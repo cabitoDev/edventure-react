@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 export const Step = props => {
   return (
     <motion.div
-      className='gap-md flex-column'
+      className='gap-md flex-column center max-width-90'
       initial={{ opacity: 0, y: 0 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
