@@ -8,30 +8,30 @@ import { Step5 } from '../components/CreateEventSteps/Step5'
 import { Step6 } from '../components/CreateEventSteps/Step6'
 import { Step } from '../components/CreateEventSteps/Step'
 import { Constants } from '../constants'
-import { Progress } from 'flowbite-react'
 import assets from '../assets'
 import { ProgressBar } from '../components/ProgressBar'
+import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 
 export const CreateEvent = () => {
-  const onStepChange = () => {
-    console.log('Step Changed')
-  }
-
   return (
     <>
       <StepsProvider>
-        <StepsComponent onStepChange={onStepChange} />
+        <StepsComponent />
       </StepsProvider>
     </>
   )
 }
 
 export const StepsComponent = props => {
-  const { prev, next, progress, jump, total, current } = useSteps()
+  const nextStepAvailable = useSelector(state => {
+    return state.nextStep
+  })
+  const { prev, next, progress } = useSteps()
 
   return (
     <div className='center flex-column mg-top-bt max-width-90'>
-      <Steps onStepChange={props.onStepChange}>
+      <Steps>
         <Step text={Constants.QUESTION_STEP_1}>
           <Step1 />
         </Step>
@@ -51,12 +51,25 @@ export const StepsComponent = props => {
           <Step6 />
         </Step>
       </Steps>
-      <div className='bottom-40 absolute w-8/12 gap-4 flex flex-col'>
-        <div className='flex place-content-between'>
-          <Button radius='full' isIconOnly onClick={prev}>
-            <img src={assets.arrowLeft} />
-          </Button>
-          <Button radius='full' isIconOnly onClick={next}>
+      <div className='flex bottom-40 absolute w-10/12 gap-4 flex-col'>
+        <div className='flex justify-between w-full flex-row-reverse'>
+          {progress > 0 && (
+            <Button color='primary' radius='full' isIconOnly onClick={prev}>
+              <img src={assets.arrowLeft} />
+            </Button>
+          )}
+
+          <Button
+            isDisabled={!nextStepAvailable}
+            className='order-first'
+            color='success'
+            radius='full'
+            isIconOnly
+            onClick={next}
+            onKeyDown={event => {
+              if (event.key === 'Enter') next()
+            }}
+          >
             <img src={assets.arrowRight} />
           </Button>
         </div>

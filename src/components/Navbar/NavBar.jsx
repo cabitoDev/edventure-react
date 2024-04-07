@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useKBar } from 'kbar'
 import {
   Navbar,
@@ -33,7 +33,7 @@ export const NavBar = () => {
   const dispatch = useDispatch()
   const [lock, setLock] = React.useState()
 
-  React.useEffect(() => {
+  useEffect(() => {
     setLock(
       new Auth0Lock(
         window.location.origin.includes('myedventure.netlify.app')
@@ -44,7 +44,7 @@ export const NavBar = () => {
     )
   }, [])
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (lock) {
       lock.on('authenticated', authResult => {
         lock.getUserInfo(authResult.accessToken, (error, profile) => {

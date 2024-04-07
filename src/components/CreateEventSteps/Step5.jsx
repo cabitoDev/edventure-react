@@ -3,7 +3,7 @@ import { Constants } from '../../constants'
 
 export const Step5 = () => {
   return (
-    <Select label='Number of assistants' className='max-w-xs'>
+    <Select autoFocus label='Number of assistants' className='max-w-xs'>
       {Constants.ASSISTANTS_NUMBER.map(type => (
         <SelectItem key={type} value={type}>
           {type}
