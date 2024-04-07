@@ -2,14 +2,22 @@ import { Select, SelectItem } from '@nextui-org/react'
 import { Constants } from '../../constants'
 import { useDispatch, useSelector } from 'react-redux'
 import { typeUpated } from '../../redux/eventSlice'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { nextStepAvailable } from '../../redux/nextStepSlice'
 export const Step2 = () => {
   const event = useSelector(state => state.event)
   const dispatch = useDispatch()
+  const [type, setType] = useState('')
   useEffect(() => {
-    if (event.type === '') dispatch(nextStepAvailable(false))
-  }, [])
+    setType(event.type)
+  }, [event])
+  useEffect(() => {
+    if (type === '') {
+      dispatch(nextStepAvailable(false))
+      return
+    }
+    dispatch(nextStepAvailable(true))
+  }, [type])
   return (
     <>
       <Select
