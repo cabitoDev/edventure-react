@@ -27,12 +27,12 @@ export const Step3 = () => {
     dispatch(nextStepAvailable(false))
   }, [date, time])
   const handleTimeChange = event => {
-    if (event.key === 'Backspace') {
-      setTime(time.slice(0, -1))
+    if (event.target.value.length < time) {
+      setTime(event.target.value)
       return
     }
 
-    let inputTime = time.concat(event.key)
+    let inputTime = event.target.value
     const regex = /^(?:[01]?[0-9]|2[0-3]|):?[0-5]?[0-9]?$/
     if (regex.test(inputTime) || inputTime === '') {
       if (inputTime.length === 2) {
@@ -42,11 +42,11 @@ export const Step3 = () => {
     }
   }
   const handleDateChange = event => {
-    if (event.key === 'Backspace') {
-      setDate(date.slice(0, -1))
+    if (event.target.value.length < time) {
+      setDate(event.target.value)
       return
     }
-    let inputDate = date.concat(event.key)
+    let inputDate = event.target.value
 
     const regex =
       /^(0?[1-9]|[12][0-9]|3[01])?(\/(0?[1-9]|1[0-2])?)?(\/(\d{0,4}))?$/
@@ -64,14 +64,14 @@ export const Step3 = () => {
         autoFocus
         type='text'
         value={date}
-        onKeyDown={handleDateChange}
+        onChange={handleDateChange}
         placeholder='DD/MM/YYYY'
         label='Date:'
       />
       <Input
         type='text'
         value={time}
-        onKeyDown={handleTimeChange}
+        onChange={handleTimeChange}
         placeholder='HH:MM'
         label='Time:'
       />
