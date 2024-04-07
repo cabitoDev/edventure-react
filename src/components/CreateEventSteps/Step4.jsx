@@ -58,8 +58,9 @@ export const Step4 = () => {
   }, [text, shouldSearch]) // Agregamos shouldSearch a las dependencias del efecto
 
   return (
-    <div className='max-w-[400px] min-w-[400px]'>
+    <div className='input-width'>
       <Input
+        placeholder='Input the event address'
         value={text}
         onChange={e => {
           setText(e.target.value)
