@@ -1,17 +1,17 @@
 import { Steps, StepsProvider, useSteps } from 'react-step-builder'
 import { Button } from '@nextui-org/button'
-import { Step1 } from '../components/CreateEventSteps/Step1'
-import { Step2 } from '../components/CreateEventSteps/Step2'
-import { Step3 } from '../components/CreateEventSteps/Step3'
-import { Step4 } from '../components/CreateEventSteps/Step4'
-import { Step5 } from '../components/CreateEventSteps/Step5'
-import { Step6 } from '../components/CreateEventSteps/Step6'
+import { StepName } from '../components/CreateEventSteps/StepName'
+import { StepType } from '../components/CreateEventSteps/StepType'
+import { StepWhen } from '../components/CreateEventSteps/StepWhen'
+import { StepWhere } from '../components/CreateEventSteps/StepWhere'
+import { StepAssistants } from '../components/CreateEventSteps/StepAssistants'
+import { StepDescription } from '../components/CreateEventSteps/StepDescription'
 import { Step } from '../components/CreateEventSteps/Step'
 import { Constants } from '../constants'
 import assets from '../assets'
 import { ProgressBar } from '../components/ProgressBar'
-import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
+import { StepImage } from '../components/CreateEventSteps/StepImage'
 
 export const CreateEvent = () => {
   return (
@@ -32,26 +32,29 @@ export const StepsComponent = props => {
   return (
     <div className='center flex-column mg-top-bt max-width-90'>
       <Steps>
-        <Step text={Constants.QUESTION_STEP_1}>
-          <Step1 />
+        <Step text={Constants.QUESTION_STEP_NAME}>
+          <StepName />
         </Step>
-        <Step text={Constants.QUESTION_STEP_2}>
-          <Step2 />
+        <Step text={Constants.QUESTION_STEP_TYPE}>
+          <StepType />
         </Step>
-        <Step text={Constants.QUESTION_STEP_3}>
-          <Step3 />
+        <Step text={Constants.QUESTION_STEP_IMAGE}>
+          <StepImage />
         </Step>
-        <Step text={Constants.QUESTION_STEP_4}>
-          <Step4 />
+        <Step text={Constants.QUESTION_STEP_WHEN}>
+          <StepWhen />
         </Step>
-        <Step text={Constants.QUESTION_STEP_5}>
-          <Step5 />
+        <Step text={Constants.QUESTION_STEP_WHERE}>
+          <StepWhere />
         </Step>
-        <Step text={Constants.QUESTION_STEP_6}>
-          <Step6 />
+        <Step text={Constants.QUESTION_STEP_ASSISTANTS}>
+          <StepAssistants />
+        </Step>
+        <Step text={Constants.QUESTION_STEP_DESCRIPTION}>
+          <StepDescription />
         </Step>
       </Steps>
-      <div className='flex bottom-40 absolute w-10/12 gap-4 flex-col'>
+      <div className='flex bottom-20 absolute w-10/12 gap-4 flex-col'>
         <div className='flex justify-between w-full flex-row-reverse'>
           {progress > 0 && (
             <Button color='primary' radius='full' isIconOnly onClick={prev}>

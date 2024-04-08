@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { assistantsUpated } from '../../redux/eventSlice'
 import { useEffect, useState } from 'react'
 import { nextStepAvailable } from '../../redux/nextStepSlice'
-export const Step5 = () => {
+export const StepAssistants = () => {
   const event = useSelector(state => state.event)
   const dispatch = useDispatch()
   const [assistants, setAssistants] = useState('')

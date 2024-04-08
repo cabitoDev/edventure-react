@@ -4,7 +4,7 @@ import { addressUpated } from '../../redux/eventSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { nextStepAvailable } from '../../redux/nextStepSlice'
 
-export const Step4 = () => {
+export const StepWhere = () => {
   const [text, setText] = useState('')
   const [coincidences, setCoincidences] = useState([])
   const [shouldSearch, setShouldSearch] = useState(false) // Bandera para controlar la búsqueda
@@ -60,6 +60,7 @@ export const Step4 = () => {
   return (
     <div className='input-width'>
       <Input
+      autoFocus
         placeholder='Input the event address'
         value={text}
         onChange={e => {

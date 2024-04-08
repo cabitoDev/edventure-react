@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { typeUpated } from '../../redux/eventSlice'
 import { useEffect, useState } from 'react'
 import { nextStepAvailable } from '../../redux/nextStepSlice'
-export const Step2 = () => {
+export const StepType = () => {
   const event = useSelector(state => state.event)
   const dispatch = useDispatch()
   const [type, setType] = useState('')
@@ -40,7 +40,6 @@ export const Step2 = () => {
           </SelectItem>
         ))}
       </Select>
-      <p>Upload your own icon</p>
     </>
   )
 }

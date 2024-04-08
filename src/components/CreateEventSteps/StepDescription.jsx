@@ -4,7 +4,7 @@ import { descriptionUpated } from '../../redux/eventSlice'
 import { nextStepAvailable } from '../../redux/nextStepSlice'
 import { useEffect, useState } from 'react'
 
-export const Step6 = () => {
+export const StepDescription = () => {
   const event = useSelector(state => state.event)
   const [description, setDescription] = useState('')
   const dispatch = useDispatch()

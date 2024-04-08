@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { nextStepAvailable } from '../../redux/nextStepSlice'
 import { dateUpated } from '../../redux/eventSlice'
 
-export const Step3 = () => {
+export const StepWhen = () => {
   const [date, setDate] = useState('')
   const [time, setTime] = useState('')
 

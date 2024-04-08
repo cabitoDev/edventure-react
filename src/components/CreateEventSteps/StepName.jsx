@@ -4,7 +4,7 @@ import { nameUpated } from '../../redux/eventSlice'
 import { nextStepAvailable } from '../../redux/nextStepSlice'
 import { useEffect, useState } from 'react'
 
-export const Step1 = () => {
+export const StepName = () => {
   const event = useSelector(state => state.event)
   const [name, setName] = useState('')
   const dispatch = useDispatch()

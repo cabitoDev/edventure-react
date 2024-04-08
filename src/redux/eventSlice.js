@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { Constants } from '../constants'
 
 export const eventSlice = createSlice({
   name: 'event',
@@ -8,7 +9,7 @@ export const eventSlice = createSlice({
     address: '',
     dateTime: { date: '', time: '' },
     assistants: '',
-    avatar: '',
+    image: Constants.DEFAULT_EVENT_IMAGE_URL,
     type: ''
   },
   reducers: {
@@ -27,8 +28,8 @@ export const eventSlice = createSlice({
     assistantsUpated: (state, action) => {
       state.assistants = action.payload
     },
-    avatarUpated: (state, action) => {
-      state.avatar = action.payload
+    imageUpated: (state, action) => {
+      state.image = action.payload
     },
     typeUpated: (state, action) => {
       state.type = action.payload
@@ -42,7 +43,7 @@ export const {
   addressUpated,
   dateUpated,
   assistantsUpated,
-  avatarUpated,
+  imageUpated,
   typeUpated
 } = eventSlice.actions
 

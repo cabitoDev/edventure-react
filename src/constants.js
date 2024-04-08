@@ -58,10 +58,12 @@ export const Constants = {
     '11',
     '12'
   ],
-  QUESTION_STEP_1: 'What is the name of your event?',
-  QUESTION_STEP_2: 'What is the type of your event?',
-  QUESTION_STEP_3: 'When will be your event?',
-  QUESTION_STEP_4: 'And where?',
-  QUESTION_STEP_5: 'How many people will assist?',
-  QUESTION_STEP_6: 'To finish, give a description of your event'
+  QUESTION_STEP_NAME: 'What is the name of your event?',
+  QUESTION_STEP_TYPE: 'What is the type of your event?',
+  QUESTION_STEP_IMAGE: 'Upload your own event icon',
+  QUESTION_STEP_WHEN: 'When will be your event?',
+  QUESTION_STEP_WHERE: 'And where?',
+  QUESTION_STEP_ASSISTANTS: 'How many people will assist?',
+  QUESTION_STEP_DESCRIPTION: 'To finish, give a description of your event',
+  DEFAULT_EVENT_IMAGE_URL: 'https://i.imgur.com/hZqD0NY_d.webp?maxwidth=760&fidelity=grand'
 }
