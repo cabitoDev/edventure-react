@@ -12,6 +12,7 @@ import assets from '../assets'
 import { ProgressBar } from '../components/ProgressBar'
 import { useSelector } from 'react-redux'
 import { StepImage } from '../components/CreateEventSteps/StepImage'
+import { useState } from 'react'
 
 export const CreateEvent = () => {
   return (
@@ -24,6 +25,7 @@ export const CreateEvent = () => {
 }
 
 export const StepsComponent = props => {
+  const [sendingEvent, setSendingEvent] = useState(false)
   const nextStepAvailable = useSelector(state => {
     return state.nextStep
   })
@@ -63,17 +65,20 @@ export const StepsComponent = props => {
           )}
 
           <Button
+          isLoading={sendingEvent}
             isDisabled={!nextStepAvailable}
-            className='order-first'
+          
+            className='order-first child-color-white'
             color='success'
             radius='full'
             isIconOnly
-            onClick={next}
+            onClick={()=>{progress<1? next() : setSendingEvent(true)}}
             onKeyDown={event => {
+              console.log(progress)
               if (event.key === 'Enter') next()
             }}
           >
-            <img src={assets.arrowRight} />
+            <img src={progress<1? assets.arrowRight : assets.check} />
           </Button>
         </div>
         <ProgressBar progress={progress} />
