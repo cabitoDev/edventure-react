@@ -59,26 +59,33 @@ export const StepsComponent = props => {
       <div className='flex bottom-20 absolute w-10/12 gap-4 flex-col'>
         <div className='flex justify-between w-full flex-row-reverse'>
           {progress > 0 && (
-            <Button color='primary' radius='full' isIconOnly onClick={prev}>
+            <Button
+              isDisabled={sendingEvent}
+              color='primary'
+              radius='full'
+              isIconOnly
+              onClick={prev}
+            >
               <img src={assets.arrowLeft} />
             </Button>
           )}
 
           <Button
-          isLoading={sendingEvent}
+            isLoading={sendingEvent}
             isDisabled={!nextStepAvailable}
-          
             className='order-first child-color-white'
             color='success'
             radius='full'
             isIconOnly
-            onClick={()=>{progress<1? next() : setSendingEvent(true)}}
+            onClick={() => {
+              progress < 1 ? next() : setSendingEvent(true)
+            }}
             onKeyDown={event => {
               console.log(progress)
               if (event.key === 'Enter') next()
             }}
           >
-            <img src={progress<1? assets.arrowRight : assets.check} />
+            <img src={progress < 1 ? assets.arrowRight : assets.check} />
           </Button>
         </div>
         <ProgressBar progress={progress} />
