@@ -65,5 +65,8 @@ export const Constants = {
   QUESTION_STEP_WHERE: 'And where?',
   QUESTION_STEP_ASSISTANTS: 'How many people will assist?',
   QUESTION_STEP_DESCRIPTION: 'To finish, give a description of your event',
-  DEFAULT_EVENT_IMAGE_URL: 'https://i.imgur.com/hZqD0NY_d.webp?maxwidth=760&fidelity=grand'
+  DEFAULT_EVENT_IMAGE_URL:
+    'https://i.imgur.com/hZqD0NY_d.webp?maxwidth=760&fidelity=grand',
+  USERS_ENDPOINT_URL:
+    'https://edventure-spring-boot-f6afa76d8f02.herokuapp.com/users'
 }

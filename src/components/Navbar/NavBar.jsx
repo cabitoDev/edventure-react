@@ -36,7 +36,7 @@ export const NavBar = () => {
   useEffect(() => {
     setLock(
       new Auth0Lock(
-        window.location.origin.includes('myedventure.netlify.app')
+        window.location.origin.includes('edventure-six.vercel.app')
           ? Constants.CLIENT_PRO
           : Constants.CLIENT_DEV,
         Constants.DOMAIN
@@ -52,6 +52,20 @@ export const NavBar = () => {
             console.error('Error al obtener el perfil de usuario:', error)
             return
           }
+          fetch(Constants.USERS_ENDPOINT_URL, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(profile)
+          })
+            .then(response => response.json())
+            .then(data => {
+              console.log('Respuesta del servidor:', data)
+            })
+            .catch(error => {
+              console.error('Error al realizar la solicitud:', error)
+            })
           dispatch(loginSuccess(profile))
           lock.hide()
           navigateTo('/profile')
