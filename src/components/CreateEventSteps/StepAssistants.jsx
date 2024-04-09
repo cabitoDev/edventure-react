@@ -9,7 +9,7 @@ export const StepAssistants = () => {
   const dispatch = useDispatch()
   const [assistants, setAssistants] = useState('')
   useEffect(() => {
-    setAssistants(event.assistants)
+    setAssistants(event.assistantsExpected)
   }, [event])
   useEffect(() => {
     if (assistants === '') {
@@ -30,8 +30,8 @@ export const StepAssistants = () => {
           }
           dispatch(nextStepAvailable(true))
         }}
-        defaultSelectedKeys={[event.assistants]}
-        defaultOpen={event.assistants === ''}
+        defaultSelectedKeys={[event.assistantsExpected]}
+        defaultOpen={event.assistantsExpected === ''}
         label='Number of assistants'
         className='max-w-xs'
       >

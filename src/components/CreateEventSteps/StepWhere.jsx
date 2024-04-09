@@ -7,7 +7,7 @@ import { nextStepAvailable } from '../../redux/nextStepSlice'
 export const StepWhere = () => {
   const [text, setText] = useState('')
   const [coincidences, setCoincidences] = useState([])
-  const [shouldSearch, setShouldSearch] = useState(false) // Bandera para controlar la búsqueda
+  const [shouldSearch, setShouldSearch] = useState(false)
   const newEvent = useSelector(state => state.event)
   const dispatch = useDispatch()
 
@@ -41,7 +41,7 @@ export const StepWhere = () => {
   }
 
   const doQuery = async () => {
-    if (!shouldSearch) return // No se realiza la búsqueda si la bandera shouldSearch es false
+    if (!shouldSearch) return
     const results = JSON.parse(JSON.stringify(await getMatches()))
     console.log(results)
     setCoincidences(
@@ -55,17 +55,17 @@ export const StepWhere = () => {
 
   useEffect(() => {
     if (text && shouldSearch) doQuery()
-  }, [text, shouldSearch]) // Agregamos shouldSearch a las dependencias del efecto
+  }, [text, shouldSearch])
 
   return (
     <div className='input-width'>
       <Input
-      autoFocus
+        autoFocus
         placeholder='Input the event address'
         value={text}
         onChange={e => {
           setText(e.target.value)
-          setShouldSearch(true) // Restablecer shouldSearch cada vez que se modifica el input
+          setShouldSearch(true)
         }}
       />
       {coincidences.length > 0 && (
@@ -73,7 +73,7 @@ export const StepWhere = () => {
           aria-label='User Menu'
           onAction={description => {
             setText(description)
-            setShouldSearch(false) // Establecer shouldSearch como false cuando se selecciona un elemento
+            setShouldSearch(false)
             setCoincidences([])
             dispatch(addressUpated(description))
             dispatch(nextStepAvailable(true))

@@ -8,7 +8,7 @@ export const eventSlice = createSlice({
     description: '',
     address: '',
     dateTime: { date: '', time: '' },
-    assistants: '',
+    assistantsExpected: '',
     image: Constants.DEFAULT_EVENT_IMAGE_URL,
     type: ''
   },
@@ -26,7 +26,7 @@ export const eventSlice = createSlice({
       state.dateTime = action.payload
     },
     assistantsUpated: (state, action) => {
-      state.assistants = action.payload
+      state.assistantsExpected = action.payload
     },
     imageUpated: (state, action) => {
       state.image = action.payload

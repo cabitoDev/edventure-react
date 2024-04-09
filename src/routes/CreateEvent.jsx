@@ -13,6 +13,8 @@ import { ProgressBar } from '../components/ProgressBar'
 import { useSelector } from 'react-redux'
 import { StepImage } from '../components/CreateEventSteps/StepImage'
 import { useState } from 'react'
+import { getNewEventRequest } from '../utils/utils'
+import { useNavigate } from 'react-router-dom'
 
 export const CreateEvent = () => {
   return (
@@ -26,10 +28,32 @@ export const CreateEvent = () => {
 
 export const StepsComponent = props => {
   const [sendingEvent, setSendingEvent] = useState(false)
+  const state = useSelector(state => state)
   const nextStepAvailable = useSelector(state => {
     return state.nextStep
   })
   const { prev, next, progress } = useSteps()
+
+  const navigateTo = useNavigate()
+
+  const handleSendEvent = () => {
+    setSendingEvent(true)
+    fetch(Constants.EVENTS_ENDPOINT_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(
+        getNewEventRequest(state.event, state.user.userInfo.id)
+      )
+    })
+      .then(res => {
+        navigateTo('/my-events')
+      })
+      .catch(error => {
+        console.error('Error al realizar la solicitud:', error)
+      })
+  }
 
   return (
     <div className='center flex-column mg-top-bt max-width-90'>
@@ -78,7 +102,7 @@ export const StepsComponent = props => {
             radius='full'
             isIconOnly
             onClick={() => {
-              progress < 1 ? next() : setSendingEvent(true)
+              progress < 1 ? next() : handleSendEvent()
             }}
             onKeyDown={event => {
               console.log(progress)

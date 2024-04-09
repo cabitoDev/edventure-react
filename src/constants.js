@@ -68,5 +68,7 @@ export const Constants = {
   DEFAULT_EVENT_IMAGE_URL:
     'https://i.imgur.com/hZqD0NY_d.webp?maxwidth=760&fidelity=grand',
   USERS_ENDPOINT_URL:
-    'https://edventure-spring-boot-f6afa76d8f02.herokuapp.com/users'
+    'https://edventure-spring-boot-f6afa76d8f02.herokuapp.com/users',
+  EVENTS_ENDPOINT_URL:
+    'https://edventure-spring-boot-f6afa76d8f02.herokuapp.com/events'
 }
