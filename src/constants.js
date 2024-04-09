@@ -1,7 +1,7 @@
 export const Constants = {
   DOMAIN: 'dev-9bbt1y5j.us.auth0.com',
   CLIENT_PRO: '5gpAXndTBJpbEj4PbW8apKvpKe52XnYP',
-  CLIENT_DEV: '1gemzxvcpddr2gAfGUrbdR4kfqkiWI4Y',
+  CLIENT_DEV: 'K8GhEVo4Lo9OYPhuSB1ApVlJen6tUyUb',
   HOME_TITLE: 'Attend your events, or just create them yourself.',
   HOME_SUBTITLE:
     'Edventure is a comprehensive platform designed to simplify event management and make the experience of attending events more enriching and exciting.',

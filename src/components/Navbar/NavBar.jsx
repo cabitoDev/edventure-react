@@ -22,6 +22,7 @@ import { loginSuccess, logoutSuccess } from '../../redux/userSlice'
 import { useNavigate } from 'react-router-dom'
 import { Auth0Lock } from 'auth0-lock'
 import { Constants } from '../../constants'
+import { getLoginRequest } from '../../utils/utils'
 
 export const NavBar = () => {
   const { query } = useKBar()
@@ -57,18 +58,18 @@ export const NavBar = () => {
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify(profile)
+            body: JSON.stringify(getLoginRequest(profile))
           })
             .then(response => response.json())
-            .then(data => {
-              console.log('Respuesta del servidor:', data)
+            .then(userLogged => {
+              dispatch(loginSuccess(userLogged))
+              navigateTo('/profile')
             })
             .catch(error => {
               console.error('Error al realizar la solicitud:', error)
             })
-          dispatch(loginSuccess(profile))
+
           lock.hide()
-          navigateTo('/profile')
         })
       })
     }
