@@ -22,7 +22,7 @@ import { loginSuccess, logoutSuccess } from '../../redux/userSlice'
 import { useNavigate } from 'react-router-dom'
 import { Auth0Lock } from 'auth0-lock'
 import { Constants } from '../../constants'
-import { getLoginRequest } from '../../utils/utils'
+import { postUserInfo } from '../../utils/httpUtils'
 
 export const NavBar = () => {
   const { query } = useKBar()
@@ -53,21 +53,12 @@ export const NavBar = () => {
             console.error('Error al obtener el perfil de usuario:', error)
             return
           }
-          fetch(Constants.USERS_ENDPOINT_URL, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(getLoginRequest(profile))
+          postUserInfo(profile).then(userLogged => {
+            dispatch(loginSuccess(userLogged))
+            navigateTo('/profile')
+          }).catch(()=>{
+            //handleError
           })
-            .then(response => response.json())
-            .then(userLogged => {
-              dispatch(loginSuccess(userLogged))
-              navigateTo('/profile')
-            })
-            .catch(error => {
-              console.error('Error al realizar la solicitud:', error)
-            })
 
           lock.hide()
         })
