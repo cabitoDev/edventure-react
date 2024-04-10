@@ -10,11 +10,13 @@ import { Step } from '../components/CreateEventSteps/Step'
 import { Constants } from '../constants'
 import assets from '../assets'
 import { ProgressBar } from '../components/ProgressBar'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { StepImage } from '../components/CreateEventSteps/StepImage'
 import { useState } from 'react'
 import { getNewEventRequest } from '../utils/utils'
 import { useNavigate } from 'react-router-dom'
+import { loginSuccess } from '../redux/userSlice'
+import { getUserById } from '../utils/httpUtils'
 
 export const CreateEvent = () => {
   return (
@@ -35,6 +37,7 @@ export const StepsComponent = props => {
   const { prev, next, progress } = useSteps()
 
   const navigateTo = useNavigate()
+  const dispatch = useDispatch()
 
   const handleSendEvent = () => {
     setSendingEvent(true)
@@ -47,8 +50,16 @@ export const StepsComponent = props => {
         getNewEventRequest(state.event, state.user.userInfo.id)
       )
     })
-      .then(res => {
-        navigateTo('/my-events')
+      .then(async res => {
+        await getUserById(state.user.userInfo.id)
+          .then(newUserData => {
+            dispatch(loginSuccess(newUserData))
+            navigateTo('/my-events')
+          })
+          .catch(error => {
+            //handleError
+            console.error('Error:', error.message)
+          })
       })
       .catch(error => {
         console.error('Error al realizar la solicitud:', error)

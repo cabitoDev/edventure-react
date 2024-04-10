@@ -200,7 +200,14 @@ export const NavBar = () => {
             </Link>
           </NavbarMenuItem>
           <NavbarMenuItem>
-            <Link color='foreground' className='hover:cursor-pointer'>
+            <Link
+              color='foreground'
+              className='hover:cursor-pointer'
+              onClick={() => {
+                setIsMenuOpen(false)
+                navigateTo('/explore')
+              }}
+            >
               Explore events
             </Link>
           </NavbarMenuItem>

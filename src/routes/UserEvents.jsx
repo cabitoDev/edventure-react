@@ -1,11 +1,18 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useLoaderData } from 'react-router-dom'
 import '../index.css'
 
 export const UserEvents = () => {
-  const user = useLoaderData()
+  const userEvents = useSelector(state => state.user.userInfo.userEvents)
   const dispatch = useDispatch()
 
-  return <>user events landing</>
+  return (
+    <ul>
+      {userEvents &&
+        userEvents.map(event => {
+          return <li>Event: {event.name}</li>
+        })}
+    </ul>
+  )
 }
