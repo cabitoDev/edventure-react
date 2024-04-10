@@ -4,11 +4,7 @@ import { getLoginRequest } from './utils'
 export const getUserById = async id => {
   return fetch(`${Constants.USERS_ENDPOINT_URL}/${id}`)
     .then(response => {
-      if (response.ok) {
         return response.json()
-      } else {
-        throw new Error('Error al buscar el usuario')
-      }
     })
     .catch(error => {
       console.error('Error:', error.message)
@@ -16,7 +12,18 @@ export const getUserById = async id => {
     })
 }
 
-export const postUserInfo = (user) => {
+export const getEvents = async () => {
+  return fetch(Constants.EVENTS_ENDPOINT_URL)
+    .then(response => {
+        return response.json()
+    })
+    .catch(error => {
+      console.error('Error:', error.message)
+      return null
+    })
+}
+
+export const postUserInfo = async (user) => {
   return fetch(Constants.USERS_ENDPOINT_URL, {
     method: 'POST',
     headers: {
@@ -25,11 +32,7 @@ export const postUserInfo = (user) => {
     body: JSON.stringify(getLoginRequest(user))
   })
   .then(response => {
-    if (response.ok) {
       return response.json();
-    } else {
-      throw new Error('Error al buscar el usuario');
-    }
   })
   .catch(error => {
     console.error('Error al realizar la solicitud:', error);

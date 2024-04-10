@@ -13,6 +13,8 @@ import { CreateEvent } from './routes/CreateEvent.jsx'
 import { Root } from './routes/Root.jsx'
 import { UserEvents } from './routes/UserEvents.jsx'
 import { Explore } from './routes/Explore.jsx'
+import { getEvents } from './utils/httpUtils.js'
+
 
 const router = createBrowserRouter([
   {
@@ -41,7 +43,8 @@ const router = createBrowserRouter([
       },
       {
         path: 'explore',
-        element: <Explore />
+        element: <Explore />,
+        loader: getEvents
       },
     ]
   }
