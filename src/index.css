@@ -58,12 +58,20 @@
         min-width: 350px
     }
   }
+@media screen and (max-width: 480px) {
+    .hide-xs {
+        display: none;
+    }
+    .flex-responsive {
+        flex-direction:column;
+    }
+  }
 @media screen and (max-width: 320px) {
     .input-width {
         max-width: 260px;
         min-width: 260px
     }
-    
+
   }
 
 
