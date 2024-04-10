@@ -1,7 +1,7 @@
-import { Card, CardHeader, CardBody, Image } from '@nextui-org/react'
+import { Card, CardHeader, CardBody } from '@nextui-org/react'
 import { useNavigate } from 'react-router-dom'
 
-export const CustomCard = props => {
+export const HomeCard = props => {
   const navigateTo = useNavigate()
 
   return (
@@ -14,12 +14,10 @@ export const CustomCard = props => {
       className='py-4'
     >
       <CardHeader className='pb-0 pt-2 px-4 flex-col items-start'>
-        <h4 className='font-bold text-large align-self-center'>
-          {props.title}
-        </h4>
+        <h4 className='font-bold text-large self-center'>{props.title}</h4>
       </CardHeader>
       <CardBody>
-        <p className='text-align-center'>{props.text}</p>
+        <p className='text-center'>{props.text}</p>
       </CardBody>
     </Card>
   )

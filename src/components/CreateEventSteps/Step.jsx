@@ -8,7 +8,7 @@ export const Step = props => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
     >
-      <p className='text-3xl text-align-center'>{props.text}</p>
+      <p className='text-3xl text-center'>{props.text}</p>
       {props.children}
     </motion.div>
   )

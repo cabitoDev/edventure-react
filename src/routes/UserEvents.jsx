@@ -12,7 +12,14 @@ export const UserEvents = () => {
     <>
       {userEvents &&
         userEvents.map(event => {
-          return <EventCard avatar={event.image} name={event.name} description={event.description} type={event.type}></EventCard> 
+          return (
+            <EventCard
+              avatar={event.image}
+              name={event.name}
+              description={event.description}
+              type={event.type}
+            ></EventCard>
+          )
         })}
     </>
   )
