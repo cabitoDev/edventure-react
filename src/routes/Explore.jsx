@@ -1,14 +1,26 @@
 import { useLoaderData } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import '../index.css'
 import EventCard from '../components/CustomCard/EventCard'
+import { Pagination } from '@nextui-org/react'
 
 export const Explore = () => {
-  const events = useLoaderData()
+  const userEvents = useLoaderData()
+  const [currentEvents, setcurrentEvents] = useState([])
+  useEffect(() => {
+    setcurrentEvents(userEvents.slice(0, 5))
+  }, [userEvents])
+
+  const handlePageChange = indexPage => {
+    setcurrentEvents(userEvents.slice((indexPage - 1) * 5, indexPage * 5))
+  }
+
   return (
     <>
-      <p className='text-2xl pl-10'>Explore events:</p>
+      <p className='text-2xl pl-10'>Your created events:</p>
       <div class='flex-column gap-3 mx-10'>
-        {events &&
-          events.map(event => {
+        {userEvents &&
+          currentEvents.map(event => {
             return (
               <EventCard
                 avatar={event.image}
@@ -19,6 +31,14 @@ export const Explore = () => {
             )
           })}
       </div>
+      <Pagination
+        showControls
+        className='center'
+        variant='light'
+        total={Math.ceil(userEvents.length / 5)}
+        color='primary'
+        onChange={handlePageChange}
+      />
     </>
   )
 }
