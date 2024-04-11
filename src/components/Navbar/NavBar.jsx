@@ -13,7 +13,9 @@ import {
   DropdownTrigger,
   DropdownMenu,
   DropdownItem,
-  Avatar
+  Avatar,
+  Input,
+  Kbd
 } from '@nextui-org/react'
 import { useDispatch, useSelector } from 'react-redux'
 import { SearchIcon } from './SearchIcon'
@@ -53,12 +55,14 @@ export const NavBar = () => {
             console.error('Error al obtener el perfil de usuario:', error)
             return
           }
-          postUserInfo(profile).then(userLogged => {
-            dispatch(loginSuccess(userLogged))
-            navigateTo('/profile')
-          }).catch(()=>{
-            //handleError
-          })
+          postUserInfo(profile)
+            .then(userLogged => {
+              dispatch(loginSuccess(userLogged))
+              navigateTo('/profile')
+            })
+            .catch(() => {
+              //handleError
+            })
 
           lock.hide()
         })
@@ -128,7 +132,19 @@ export const NavBar = () => {
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify='end'>
-        <SearchIcon className='hover:cursor-pointer' onClick={query.toggle} />
+        <div onClick={query.toggle}>
+          <Input
+            className='w-min'
+            startContent={
+              <div className='flex gap-1'>
+                <SearchIcon />
+                <Kbd>Ctrl</Kbd>
+                <Kbd>K</Kbd>
+              </div>
+            }
+          />
+        </div>
+
         {!user.isAuthenticated && lock && (
           <NavbarItem key='signup'>
             <Link
