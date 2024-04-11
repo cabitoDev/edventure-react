@@ -138,8 +138,10 @@ export const NavBar = () => {
             startContent={
               <div className='flex gap-1'>
                 <SearchIcon />
-                <Kbd>Ctrl</Kbd>
-                <Kbd>K</Kbd>
+                <div className='flex hide-xs gap-1'>
+                  <Kbd>Ctrl</Kbd>
+                  <Kbd>K</Kbd>
+                </div>
               </div>
             }
           />
