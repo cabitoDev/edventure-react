@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { assistantsUpated } from '../../redux/eventSlice'
 import { useEffect, useState } from 'react'
 import { nextStepAvailable } from '../../redux/nextStepSlice'
+import { TransitionAnimation } from '../TransitionAnimation'
 export const StepAssistants = () => {
   const event = useSelector(state => state.event)
   const dispatch = useDispatch()
@@ -19,7 +20,8 @@ export const StepAssistants = () => {
     dispatch(nextStepAvailable(true))
   }, [assistants])
   return (
-    <>
+    <TransitionAnimation>
+      <p className='text-3xl text-center'>{Constants.QUESTION_STEP_ASSISTANTS}</p>
       <Select
         autoFocus
         onChange={event => {
@@ -41,6 +43,6 @@ export const StepAssistants = () => {
           </SelectItem>
         ))}
       </Select>
-    </>
+    </TransitionAnimation>
   )
 }

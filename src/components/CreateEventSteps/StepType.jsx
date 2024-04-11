@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { typeUpated } from '../../redux/eventSlice'
 import { useEffect, useState } from 'react'
 import { nextStepAvailable } from '../../redux/nextStepSlice'
+import { TransitionAnimation } from '../TransitionAnimation'
 export const StepType = () => {
   const event = useSelector(state => state.event)
   const dispatch = useDispatch()
@@ -19,7 +20,8 @@ export const StepType = () => {
     dispatch(nextStepAvailable(true))
   }, [type])
   return (
-    <>
+    <TransitionAnimation>
+      <p className='text-3xl text-center'>{Constants.QUESTION_STEP_TYPE}</p>
       <Select
         onChange={event => {
           dispatch(typeUpated(event.target.value))
@@ -40,6 +42,6 @@ export const StepType = () => {
           </SelectItem>
         ))}
       </Select>
-    </>
+    </TransitionAnimation>
   )
 }

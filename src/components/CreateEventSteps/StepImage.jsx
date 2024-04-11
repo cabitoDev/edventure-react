@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { imageUpated } from '../../redux/eventSlice'
 import assets from '../../assets'
 import { Constants } from '../../constants'
+import { TransitionAnimation } from '../TransitionAnimation'
 
 export const StepImage = () => {
   const [image, setImage] = useState()
@@ -20,6 +21,8 @@ export const StepImage = () => {
   }
 
   return (
+    <TransitionAnimation>
+      <p className='text-3xl text-center'>{Constants.QUESTION_STEP_IMAGE}</p>
     <div className='flex flex-col items-center gap-4'>
       <Image
         width={100}
@@ -43,5 +46,6 @@ export const StepImage = () => {
         onChange={handleChange}
       />
     </div>
+    </TransitionAnimation>
   )
 }

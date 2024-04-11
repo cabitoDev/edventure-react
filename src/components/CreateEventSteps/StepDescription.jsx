@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { descriptionUpated } from '../../redux/eventSlice'
 import { nextStepAvailable } from '../../redux/nextStepSlice'
 import { useEffect, useState } from 'react'
+import { TransitionAnimation } from '../TransitionAnimation'
+import { Constants } from '../../constants'
 
 export const StepDescription = () => {
   const event = useSelector(state => state.event)
@@ -33,6 +35,8 @@ export const StepDescription = () => {
   }, [])
 
   return (
+    <TransitionAnimation>
+      <p className='text-3xl text-center'>{Constants.QUESTION_STEP_DESCRIPTION}</p>
     <Input
       autoFocus
       placeholder='Put a description of your event'
@@ -40,5 +44,6 @@ export const StepDescription = () => {
       value={description}
       onChange={handleChange}
     />
+    </TransitionAnimation>
   )
 }

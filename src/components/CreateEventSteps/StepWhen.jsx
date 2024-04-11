@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { nextStepAvailable } from '../../redux/nextStepSlice'
 import { dateUpated } from '../../redux/eventSlice'
+import { Constants } from '../../constants'
+import { TransitionAnimation } from '../TransitionAnimation'
 
 export const StepWhen = () => {
   const [date, setDate] = useState('')
@@ -59,6 +61,8 @@ export const StepWhen = () => {
     }
   }
   return (
+    <TransitionAnimation>
+      <p className='text-3xl text-center'>{Constants.QUESTION_STEP_WHEN}</p>
     <div className='flex gap-2'>
       <Input
         autoFocus
@@ -76,5 +80,6 @@ export const StepWhen = () => {
         label='Time:'
       />
     </div>
+    </TransitionAnimation>
   )
 }

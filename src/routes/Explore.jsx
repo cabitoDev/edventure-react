@@ -8,6 +8,7 @@ export const Explore = () => {
   const userEvents = useLoaderData()
   const [currentEvents, setcurrentEvents] = useState([])
   useEffect(() => {
+    if(userEvents)
     setcurrentEvents(userEvents.slice(0, 5))
   }, [userEvents])
 
@@ -18,7 +19,7 @@ export const Explore = () => {
   return (
     <>
       <p className='text-2xl pl-10'>Your created events:</p>
-      <div class='flex-column gap-3 mx-10'>
+      {userEvents && <><div class='flex-column gap-3 mx-10'>
         {userEvents &&
           currentEvents.map(event => {
             return (
@@ -38,7 +39,7 @@ export const Explore = () => {
         total={Math.ceil(userEvents.length / 5)}
         color='primary'
         onChange={handlePageChange}
-      />
+      /></>}
     </>
   )
 }

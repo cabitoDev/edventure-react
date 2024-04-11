@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react'
 import { addressUpated } from '../../redux/eventSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { nextStepAvailable } from '../../redux/nextStepSlice'
+import { TransitionAnimation } from '../TransitionAnimation'
+import { Constants } from '../../constants'
 
 export const StepWhere = () => {
   const [text, setText] = useState('')
@@ -58,6 +60,8 @@ export const StepWhere = () => {
   }, [text, shouldSearch])
 
   return (
+    <TransitionAnimation>
+      <p className='text-3xl text-center'>{Constants.QUESTION_STEP_WHERE}</p>
     <div className='input-width'>
       <Input
         autoFocus
@@ -90,5 +94,6 @@ export const StepWhere = () => {
         </Listbox>
       )}
     </div>
+    </TransitionAnimation>
   )
 }

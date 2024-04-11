@@ -6,7 +6,6 @@ import { StepWhen } from '../components/CreateEventSteps/StepWhen'
 import { StepWhere } from '../components/CreateEventSteps/StepWhere'
 import { StepAssistants } from '../components/CreateEventSteps/StepAssistants'
 import { StepDescription } from '../components/CreateEventSteps/StepDescription'
-import { Step } from '../components/CreateEventSteps/Step'
 import { Constants } from '../constants'
 import assets from '../assets'
 import { ProgressBar } from '../components/ProgressBar'
@@ -69,27 +68,14 @@ export const StepsComponent = props => {
   return (
     <div className='center flex-column mg-top-bt max-width-90'>
       <Steps>
-        <Step text={Constants.QUESTION_STEP_NAME}>
-          <StepName />
-        </Step>
-        <Step text={Constants.QUESTION_STEP_TYPE}>
+       
+          <StepName name={state.event.name} onChange={()=>{}}/>
           <StepType />
-        </Step>
-        <Step text={Constants.QUESTION_STEP_IMAGE}>
           <StepImage />
-        </Step>
-        <Step text={Constants.QUESTION_STEP_WHEN}>
           <StepWhen />
-        </Step>
-        <Step text={Constants.QUESTION_STEP_WHERE}>
           <StepWhere />
-        </Step>
-        <Step text={Constants.QUESTION_STEP_ASSISTANTS}>
           <StepAssistants />
-        </Step>
-        <Step text={Constants.QUESTION_STEP_DESCRIPTION}>
           <StepDescription />
-        </Step>
       </Steps>
       <div className='flex bottom-20 absolute w-10/12 gap-4 flex-col'>
         <div className='flex justify-between w-full flex-row-reverse'>
