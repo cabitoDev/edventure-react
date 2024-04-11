@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import '../index.css'
 import EventCard from '../components/CustomCard/EventCard'
 import { Pagination } from '@nextui-org/react'
+import { TransitionAnimation } from '../components/TransitionAnimation'
 
 export const UserEvents = () => {
   const userEvents = useSelector(state => state.user.userInfo.userEvents)

@@ -5,9 +5,9 @@ import { useNavigate } from 'react-router-dom'
 
 import { KProvider } from '../components/Kbar/KProvider'
 import { Kactions } from '../components/Kbar/Kactions'
-import { motion, AnimatePresence } from 'framer-motion'
 import { useSelector } from 'react-redux'
 import { Home } from './Home'
+import { TransitionAnimation } from '../components/TransitionAnimation'
 
 export const Root = () => {
   const location = useLocation()
@@ -24,24 +24,13 @@ export const Root = () => {
     }
   })
   return (
-    <motion.div
-      className='gap-md flex-column'
-      initial={{ opacity: 0, y: 0 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-    >
+    <TransitionAnimation>
       <KProvider actions={actions}>
         <NavBar />
-        <motion.div
-          key={location.pathname}
-          className='gap-md flex-column'
-          initial={{ opacity: 0, y: 0 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          {isAuthenticated? <Outlet /> : <Home />}
-        </motion.div>
+        <TransitionAnimation>
+          {isAuthenticated ? <Outlet /> : <Home />}
+        </TransitionAnimation>
       </KProvider>
-    </motion.div>
+    </TransitionAnimation>
   )
 }
