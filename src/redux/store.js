@@ -1,15 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import userReducer from './userSlice'
-import eventReducer from './eventSlice'
-import nextStepReducer from './nextStepSlice'
 import { combineReducers } from 'redux'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
 const rootReducer = combineReducers({
-  user: userReducer,
-  event: eventReducer,
-  nextStep: nextStepReducer
+  user: userReducer
 })
 
 const persistConfig = {

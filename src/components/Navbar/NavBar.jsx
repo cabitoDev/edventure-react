@@ -29,7 +29,6 @@ import { postUserInfo } from '../../utils/httpUtils'
 export const NavBar = () => {
   const { query } = useKBar()
   const user = useSelector(state => {
-    console.log(state)
     return state.user
   })
   const navigateTo = useNavigate()

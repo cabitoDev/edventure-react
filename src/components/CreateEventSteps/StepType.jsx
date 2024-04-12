@@ -1,38 +1,22 @@
 import { Select, SelectItem } from '@nextui-org/react'
 import { Constants } from '../../constants'
-import { useDispatch, useSelector } from 'react-redux'
-import { typeUpated } from '../../redux/eventSlice'
-import { useEffect, useState } from 'react'
-import { nextStepAvailable } from '../../redux/nextStepSlice'
-import { TransitionAnimation } from '../TransitionAnimation'
-export const StepType = () => {
-  const event = useSelector(state => state.event)
-  const dispatch = useDispatch()
-  const [type, setType] = useState('')
-  useEffect(() => {
-    setType(event.type)
-  }, [event])
-  useEffect(() => {
-    if (type === '') {
-      dispatch(nextStepAvailable(false))
-      return
-    }
-    dispatch(nextStepAvailable(true))
-  }, [type])
+
+export const StepType = props => {
+  const onChange = ev => {
+    props.setNewEvent(prev => ({ ...prev, type: ev.target.value }))
+    if (ev.target.value !== '')
+      props.setStepsVisited(prev => ({ ...prev, type: true }))
+    else props.setStepsVisited(prev => ({ ...prev, type: false }))
+  }
+
   return (
-    <TransitionAnimation>
+    <>
       <p className='text-3xl text-center'>{Constants.QUESTION_STEP_TYPE}</p>
       <Select
-        onChange={event => {
-          dispatch(typeUpated(event.target.value))
-          if (event.target.value === '') {
-            dispatch(nextStepAvailable(false))
-            return
-          }
-          dispatch(nextStepAvailable(true))
-        }}
-        defaultSelectedKeys={[event.type]}
-        defaultOpen={event.type === ''}
+        {...props.form}
+        defaultSelectedKeys={[props.type]}
+        onChange={onChange}
+        defaultOpen={!props.type}
         label='Type of event'
         className='max-w-xs'
       >
@@ -42,6 +26,6 @@ export const StepType = () => {
           </SelectItem>
         ))}
       </Select>
-    </TransitionAnimation>
+    </>
   )
 }

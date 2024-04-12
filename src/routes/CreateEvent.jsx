@@ -1,44 +1,49 @@
-import { Steps, StepsProvider, useSteps } from 'react-step-builder'
 import { Button } from '@nextui-org/button'
-import { StepName } from '../components/CreateEventSteps/StepName'
-import { StepType } from '../components/CreateEventSteps/StepType'
-import { StepWhen } from '../components/CreateEventSteps/StepWhen'
-import { StepWhere } from '../components/CreateEventSteps/StepWhere'
-import { StepAssistants } from '../components/CreateEventSteps/StepAssistants'
-import { StepDescription } from '../components/CreateEventSteps/StepDescription'
-import { Constants } from '../constants'
+import {
+  StepName,
+  StepType,
+  StepWhen,
+  StepWhere,
+  StepAssistants,
+  StepDescription
+} from '../components/CreateEventSteps'
+
 import assets from '../assets'
 import { ProgressBar } from '../components/ProgressBar'
-import { useDispatch, useSelector } from 'react-redux'
 import { StepImage } from '../components/CreateEventSteps/StepImage'
 import { useState } from 'react'
-import { getNewEventRequest } from '../utils/utils'
 import { useNavigate } from 'react-router-dom'
-import { loginSuccess } from '../redux/userSlice'
-import { getUserById } from '../utils/httpUtils'
+import { Constants } from '../constants'
+import { useSelector } from 'react-redux'
+import { TransitionAnimation } from '../components/TransitionAnimation'
 
 export const CreateEvent = () => {
-  return (
-    <>
-      <StepsProvider>
-        <StepsComponent />
-      </StepsProvider>
-    </>
-  )
-}
-
-export const StepsComponent = props => {
-  const [sendingEvent, setSendingEvent] = useState(false)
-  const state = useSelector(state => state)
-  const nextStepAvailable = useSelector(state => {
-    return state.nextStep
-  })
-  const { prev, next, progress } = useSteps()
-
+  const steps = [
+    'name',
+    'type',
+    'image',
+    'date',
+    'address',
+    'assistants',
+    'description'
+  ]
   const navigateTo = useNavigate()
-  const dispatch = useDispatch()
+  const state = useSelector(state => state)
+  const [indexStep, setIndexStep] = useState(0)
+  const [newEvent, setNewEvent] = useState({
+    image: Constants.DEFAULT_EVENT_IMAGE_URL,
+    date: '',
+    time: ''
+  })
+  const [sendingEvent, setSendingEvent] = useState(false)
+  const [stepsVisited, setStepsVisited] = useState({ image: true })
 
-  const handleSendEvent = () => {
+  const handleNextStep = () => {
+    if (indexStep < 6) {
+      const newIndex = indexStep + 1
+      setIndexStep(newIndex)
+      return
+    }
     setSendingEvent(true)
     fetch(Constants.EVENTS_ENDPOINT_URL, {
       method: 'POST',
@@ -65,27 +70,91 @@ export const StepsComponent = props => {
       })
   }
 
+  const handlePrevStep = () => {
+    if (indexStep > 0) {
+      setIndexStep(prevIndex => prevIndex - 1)
+    }
+  }
+
+  const renderSwitch = index => {
+    switch (index) {
+      case 0:
+        return (
+          <StepName
+            setStepsVisited={setStepsVisited}
+            setNewEvent={setNewEvent}
+            name={newEvent.name}
+          />
+        )
+      case 1:
+        return (
+          <StepType
+            setStepsVisited={setStepsVisited}
+            type={newEvent.type}
+            setNewEvent={setNewEvent}
+          />
+        )
+      case 2:
+        return (
+          <StepImage
+            setStepsVisited={setStepsVisited}
+            image={newEvent.image}
+            setNewEvent={setNewEvent}
+          />
+        )
+      case 3:
+        return (
+          <StepWhen
+            setNewEvent={setNewEvent}
+            date={newEvent.date}
+            time={newEvent.time}
+            setStepsVisited={setStepsVisited}
+          />
+        )
+      case 4:
+        return (
+          <StepWhere
+            setNewEvent={setNewEvent}
+            address={newEvent.address}
+            setStepsVisited={setStepsVisited}
+          />
+        )
+      case 5:
+        return (
+          <StepAssistants
+            setNewEvent={setNewEvent}
+            assistants={newEvent.assistants}
+            setStepsVisited={setStepsVisited}
+          />
+        )
+      case 6:
+        return (
+          <StepDescription
+            setNewEvent={setNewEvent}
+            description={newEvent.description}
+            setStepsVisited={setStepsVisited}
+          />
+        )
+    }
+  }
+
   return (
     <div className='center flex-column mg-top-bt max-width-90'>
-      <Steps>
-       
-          <StepName name={state.event.name} onChange={()=>{}}/>
-          <StepType />
-          <StepImage />
-          <StepWhen />
-          <StepWhere />
-          <StepAssistants />
-          <StepDescription />
-      </Steps>
+      <TransitionAnimation>
+        <div className=' flex-column gap-5 items-center'>
+          {renderSwitch(indexStep)}
+        </div>
+      </TransitionAnimation>
+
       <div className='flex bottom-20 absolute w-10/12 gap-4 flex-col'>
         <div className='flex justify-between w-full flex-row-reverse'>
-          {progress > 0 && (
+          {indexStep > 0 && (
             <Button
               isDisabled={sendingEvent}
               color='primary'
               radius='full'
               isIconOnly
-              onClick={prev}
+              onClick={handlePrevStep}
             >
               <img src={assets.arrowLeft} />
             </Button>
@@ -93,23 +162,21 @@ export const StepsComponent = props => {
 
           <Button
             isLoading={sendingEvent}
-            isDisabled={!nextStepAvailable}
+            isDisabled={!stepsVisited[steps[indexStep]]}
             className='order-first child-color-white'
             color='success'
             radius='full'
             isIconOnly
-            onClick={() => {
-              progress < 1 ? next() : handleSendEvent()
-            }}
+            onClick={handleNextStep}
             onKeyDown={event => {
-              console.log(progress)
-              if (event.key === 'Enter') next()
+              if (event.key === 'Enter') handleNextStep()
             }}
+            type='submit'
           >
-            <img src={progress < 1 ? assets.arrowRight : assets.check} />
+            <img src={indexStep < 6 ? assets.arrowRight : assets.check} />
           </Button>
         </div>
-        <ProgressBar progress={progress} />
+        <ProgressBar progress={indexStep / 6} />
       </div>
     </div>
   )

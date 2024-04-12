@@ -1,54 +1,34 @@
 import { Input } from '@nextui-org/react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useEffect, useState } from 'react'
-import { nextStepAvailable } from '../../redux/nextStepSlice'
-import { dateUpated } from '../../redux/eventSlice'
 import { Constants } from '../../constants'
-import { TransitionAnimation } from '../TransitionAnimation'
 
-export const StepWhen = () => {
-  const [date, setDate] = useState('')
-  const [time, setTime] = useState('')
-
-  const newEvent = useSelector(state => {
-    return state.event
-  })
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    setDate(newEvent.dateTime.date)
-    setTime(newEvent.dateTime.time)
-  }, [newEvent])
-
-  useEffect(() => {
-    if (date.length === 10 && time.length === 5) {
-      dispatch(nextStepAvailable(true))
-      dispatch(dateUpated({ date: date, time: time }))
-      return
-    }
-    dispatch(nextStepAvailable(false))
-  }, [date, time])
-  const handleTimeChange = event => {
-    if (event.target.value.length < time) {
-      setTime(event.target.value)
-      return
-    }
-
+export const StepWhen = props => {
+  const onChangeTime = event => {
     let inputTime = event.target.value
+    if (inputTime.length < props.time.length) {
+      props.setNewEvent(prev => ({ ...prev, time: inputTime }))
+      props.setStepsVisited(prev => ({ ...prev, date: false }))
+
+      return
+    }
     const regex = /^(?:[01]?[0-9]|2[0-3]|):?[0-5]?[0-9]?$/
     if (regex.test(inputTime) || inputTime === '') {
       if (inputTime.length === 2) {
         inputTime = inputTime.concat(':')
       }
-      setTime(inputTime)
+      props.setNewEvent(prev => ({ ...prev, time: inputTime }))
+      if ((inputTime + props.date).length === 15)
+        props.setStepsVisited(prev => ({ ...prev, date: true }))
+      else props.setStepsVisited(prev => ({ ...prev, date: false }))
     }
   }
-  const handleDateChange = event => {
-    if (event.target.value.length < time) {
-      setDate(event.target.value)
+  const onChangeDate = event => {
+    let inputDate = event.target.value
+
+    if (inputDate.length < props.date.length) {
+      props.setNewEvent(prev => ({ ...prev, date: inputDate }))
+      props.setStepsVisited(prev => ({ ...prev, date: false }))
       return
     }
-    let inputDate = event.target.value
 
     const regex =
       /^(0?[1-9]|[12][0-9]|3[01])?(\/(0?[1-9]|1[0-2])?)?(\/(\d{0,4}))?$/
@@ -57,29 +37,32 @@ export const StepWhen = () => {
       if (inputDate.length === 2 || inputDate.length === 5) {
         inputDate = inputDate.concat('/')
       }
-      setDate(inputDate)
+      props.setNewEvent(prev => ({ ...prev, date: inputDate }))
+      if ((inputDate + props.time).length === 15)
+        props.setStepsVisited(prev => ({ ...prev, date: true }))
+      else props.setStepsVisited(false)
     }
   }
   return (
-    <TransitionAnimation>
+    <>
       <p className='text-3xl text-center'>{Constants.QUESTION_STEP_WHEN}</p>
-    <div className='flex gap-2'>
-      <Input
-        autoFocus
-        type='text'
-        value={date}
-        onChange={handleDateChange}
-        placeholder='DD/MM/YYYY'
-        label='Date:'
-      />
-      <Input
-        type='text'
-        value={time}
-        onChange={handleTimeChange}
-        placeholder='HH:MM'
-        label='Time:'
-      />
-    </div>
-    </TransitionAnimation>
+      <div className='flex gap-2'>
+        <Input
+          autoFocus
+          type='text'
+          value={props.date}
+          onChange={onChangeDate}
+          placeholder='DD/MM/YYYY'
+          label='Date:'
+        />
+        <Input
+          type='text'
+          value={props.time}
+          onChange={onChangeTime}
+          placeholder='HH:MM'
+          label='Time:'
+        />
+      </div>
+    </>
   )
 }
