@@ -1,25 +1,26 @@
-import { Input } from '@nextui-org/react'
-import { Constants } from '../../constants'
-
+import React, { useState } from 'react';
+import { Input } from '@nextui-org/react';
+import { useFormContext } from "react-hook-form";
+ 
 export const StepName = props => {
-  const onChange = ev => {
-    props.setNewEvent(prev => ({ ...prev, name: ev.target.value }))
-    if (ev.target.value.length > 4) {
-      props.setStepsVisited(prev => ({ ...prev, name: true }))
-    } else {
-      props.setStepsVisited(prev => ({ ...prev, name: false }))
-    }
+  const { register, setValue, watch, formState: { errors } } = useFormContext();
+ 
+  const handleInputChange = (e) => {
+    const newValue = e.target.value;
+    setValue("name", newValue);
   }
+ 
   return (
-    <>
-      <p className='text-3xl text-center'>{Constants.QUESTION_STEP_NAME}</p>
-      <Input
-        autoFocus
-        placeholder='Type a name (5 char min)'
-        value={props.name}
-        onChange={onChange}
-        className='max-w-xs'
-      />
-    </>
-  )
+<>
+<Input
+      {...register("name", { required: true })}
+      value={watch("name") || ''}
+      onChange={handleInputChange}
+      autoFocus
+      placeholder='Type a name (5 char min)'
+      className='max-w-xs'
+    />
+    {errors.name && <span>This field is required</span>}
+</>
+    );
 }
