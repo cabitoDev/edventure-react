@@ -1,21 +1,36 @@
+import { useParams } from 'react-router'
 import { Constants } from '../constants'
 import { getLoginRequest } from './utils'
 
 export const getUserById = async id => {
   return fetch(`${Constants.USERS_ENDPOINT_URL}/${id}`)
     .then(response => {
-        return response.json()
+      return response.json()
     })
     .catch(error => {
       console.error('Error:', error.message)
       return null
     })
+}
+
+export const getEventById = async id => {
+  try {
+    const response = await fetch(`${Constants.EVENTS_ENDPOINT_URL}/${id}`)
+    if (!response.ok) {
+      throw new Error('No se pudo obtener el evento')
+    }
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.error('Error:', error.message)
+    return null
+  }
 }
 
 export const getEvents = async () => {
   return fetch(Constants.EVENTS_ENDPOINT_URL)
     .then(response => {
-        return response.json()
+      return response.json()
     })
     .catch(error => {
       console.error('Error:', error.message)
@@ -23,7 +38,7 @@ export const getEvents = async () => {
     })
 }
 
-export const postUserInfo = async (user) => {
+export const postUserInfo = async user => {
   return fetch(Constants.USERS_ENDPOINT_URL, {
     method: 'POST',
     headers: {
@@ -31,11 +46,11 @@ export const postUserInfo = async (user) => {
     },
     body: JSON.stringify(getLoginRequest(user))
   })
-  .then(response => {
-      return response.json();
-  })
-  .catch(error => {
-    console.error('Error al realizar la solicitud:', error);
-    return null;
-  });
+    .then(response => {
+      return response.json()
+    })
+    .catch(error => {
+      console.error('Error al realizar la solicitud:', error)
+      return null
+    })
 }

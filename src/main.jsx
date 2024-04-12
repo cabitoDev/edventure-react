@@ -13,8 +13,8 @@ import { CreateEvent } from './routes/CreateEvent.jsx'
 import { Root } from './routes/Root.jsx'
 import { UserEvents } from './routes/UserEvents.jsx'
 import { Explore } from './routes/Explore.jsx'
-import { getEvents } from './utils/httpUtils.js'
-
+import { getEventById, getEvents } from './utils/httpUtils.js'
+import { Event } from './routes/Event.jsx'
 
 const router = createBrowserRouter([
   {
@@ -46,6 +46,11 @@ const router = createBrowserRouter([
         element: <Explore />,
         loader: getEvents
       },
+      {
+        path: 'event/:id',
+        element: <Event />,
+        loader: ({ params }) => getEventById(params.id)
+      }
     ]
   }
 ])
@@ -54,7 +59,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <NextUIProvider>
     <ThemeProvider attribute='class' defaultTheme='dark'>
       <Provider store={store}>
-          <RouterProvider router={router} />
+        <RouterProvider router={router} />
       </Provider>
     </ThemeProvider>
   </NextUIProvider>
