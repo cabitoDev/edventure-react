@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavBar } from '../components/Navbar/NavBar'
-import { Outlet, useLocation } from 'react-router'
+import { Outlet } from 'react-router'
 import { useNavigate } from 'react-router-dom'
 
 import { KProvider } from '../components/Kbar/KProvider'
@@ -10,9 +10,8 @@ import { Home } from './Home'
 import { TransitionAnimation } from '../components/TransitionAnimation'
 
 export const Root = () => {
-  const location = useLocation()
   const navigateTo = useNavigate()
-  const isAuthenticated = useSelector(state => state.user.isAuthenticated)
+  const isLogged = useSelector(state => state.user)
 
   const actions = Kactions.map(action => {
     return {
@@ -28,7 +27,7 @@ export const Root = () => {
       <KProvider actions={actions}>
         <NavBar />
         <TransitionAnimation>
-          {isAuthenticated ? <Outlet /> : <Home />}
+          {isLogged ? <Outlet /> : <Home />}
         </TransitionAnimation>
       </KProvider>
     </TransitionAnimation>

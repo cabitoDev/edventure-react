@@ -20,11 +20,11 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { SearchIcon } from './SearchIcon'
 import assets from '../../assets'
-import { loginSuccess, logoutSuccess } from '../../redux/userSlice'
+import { updateUser } from '../../redux/userSlice'
 import { useNavigate } from 'react-router-dom'
 import { Auth0Lock } from 'auth0-lock'
 import { Constants } from '../../constants'
-import { postUserInfo } from '../../utils/httpUtils'
+import { saveUser } from '../../utils/httpUtils'
 
 export const NavBar = () => {
   const { query } = useKBar()
@@ -49,21 +49,20 @@ export const NavBar = () => {
   useEffect(() => {
     if (lock) {
       lock.on('authenticated', authResult => {
-        lock.getUserInfo(authResult.accessToken, (error, profile) => {
+        lock.hide()
+        lock.getUserInfo(authResult.accessToken, async (error, profile) => {
           if (error) {
             console.error('Error al obtener el perfil de usuario:', error)
             return
           }
-          postUserInfo(profile)
+          await saveUser(profile)
             .then(userLogged => {
-              dispatch(loginSuccess(userLogged))
+              dispatch(updateUser(userLogged))
               navigateTo('/profile')
             })
             .catch(() => {
               //handleError
             })
-
-          lock.hide()
         })
       })
     }
@@ -71,7 +70,7 @@ export const NavBar = () => {
 
   const handleLogout = () => {
     navigateTo('/')
-    dispatch(logoutSuccess())
+    dispatch(updateUser(null))
   }
 
   const showAuth0 = () => {
@@ -83,7 +82,7 @@ export const NavBar = () => {
   return (
     <Navbar isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
       <NavbarContent>
-        {user.isAuthenticated && <NavbarMenuToggle className='sm:hidden' />}
+        {user && <NavbarMenuToggle className='sm:hidden' />}
         <NavbarBrand>
           <img
             className='hover:cursor-pointer logo'
@@ -146,7 +145,7 @@ export const NavBar = () => {
           />
         </div>
 
-        {!user.isAuthenticated && lock && (
+        {!user && lock && (
           <NavbarItem key='signup'>
             <Link
               className='hover:cursor-pointer'
@@ -157,7 +156,7 @@ export const NavBar = () => {
             </Link>
           </NavbarItem>
         )}
-        {user.isAuthenticated && (
+        {user && (
           <Dropdown placement='bottom-end'>
             <DropdownTrigger>
               <Avatar
@@ -165,11 +164,12 @@ export const NavBar = () => {
                 className='transition-transform'
                 color='secondary'
                 size='sm'
-                src={user.userInfo.picture}
+                src={user.picture}
               />
             </DropdownTrigger>
             <DropdownMenu aria-label='Profile Actions' variant='flat'>
               <DropdownItem
+                textValue='Settings'
                 onClick={() => {
                   navigateTo('/settings')
                 }}
@@ -177,6 +177,7 @@ export const NavBar = () => {
                 Settings
               </DropdownItem>
               <DropdownItem
+                textValue='profile'
                 key='profile'
                 onClick={() => {
                   navigateTo('/profile')
@@ -184,7 +185,7 @@ export const NavBar = () => {
               >
                 Profile
               </DropdownItem>
-              <DropdownItem onClick={handleLogout}>
+              <DropdownItem textValue='Log Out' onClick={handleLogout}>
                 <p className='text-pink-600' key='logout'>
                   Log Out
                 </p>
@@ -193,7 +194,7 @@ export const NavBar = () => {
           </Dropdown>
         )}
       </NavbarContent>
-      {user.isAuthenticated && (
+      {user && (
         <NavbarMenu>
           <NavbarMenuItem>
             <Link

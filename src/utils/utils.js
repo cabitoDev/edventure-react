@@ -10,24 +10,16 @@ export const getLoginRequest = userData => {
 }
 
 export const getNewEventRequest = (eventData, userId) => {
-  const {
-    address,
-    assistantsExpected,
-    dateTime,
-    description,
-    image,
-    name,
-    type
-  } = eventData
+  const { address, assistants, date, time, description, image, name, type } =
+    eventData
   return {
     address,
-    assistantsExpected,
-    date: strToDate(dateTime.date, dateTime.time),
+    assistants,
+    date: strToDate(date, time),
     description,
     image,
     name,
     type,
-    userOwner: userId,
     userOwner: userId
   }
 }

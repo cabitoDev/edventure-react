@@ -59,6 +59,13 @@ export const Constants = {
     '12'
   ],
   QUESTION_STEP_NAME: 'What is the name of your event?',
+  STEP_NAME_ERROR: 'Enter a name between 5-20 characters',
+  STEP_TYPE_ERROR: 'Select a type',
+  STEP_DATE_ERROR: 'Input a future date',
+  STEP_TIME_ERROR: 'Input a correct time',
+  STEP_WHERE_ERROR: 'Input a valid address',
+  STEP_ASSISTANTS_ERROR: 'Choose an option',
+  STEP_DESCRIPTION_ERROR: 'Input a description between 20-50 characters',
   QUESTION_STEP_TYPE: 'What is the type of your event?',
   QUESTION_STEP_IMAGE: 'Upload your own event icon',
   QUESTION_STEP_WHEN: 'When will be your event?',

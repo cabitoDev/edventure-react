@@ -54,6 +54,7 @@
 
 @media screen and (max-width: 768px) {
     .input-width {
+        place-content: center;
         max-width: 350px;
         min-width: 350px
     }
@@ -68,6 +69,7 @@
   }
 @media screen and (max-width: 320px) {
     .input-width {
+        place-content: center;
         max-width: 260px;
         min-width: 260px
     }

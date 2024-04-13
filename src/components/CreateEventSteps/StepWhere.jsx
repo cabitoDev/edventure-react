@@ -2,14 +2,24 @@ import { Input, ListboxItem, Listbox } from '@nextui-org/react'
 import { useEffect, useState } from 'react'
 import { Constants } from '../../constants'
 import { getMatches } from '../../services/MapsService'
+import { useFormContext } from 'react-hook-form'
 
-export const StepWhere = props => {
+export const StepWhere = () => {
+  const {
+    register,
+    setValue,
+    clearErrors,
+    watch,
+    formState: { errors }
+  } = useFormContext()
   const [coincidences, setCoincidences] = useState([])
   const [shouldSearch, setShouldSearch] = useState(false)
 
   const doQuery = async () => {
     if (!shouldSearch) return
-    const results = JSON.parse(JSON.stringify(await getMatches(props.address)))
+    const results = JSON.parse(
+      JSON.stringify(await getMatches(watch('address')))
+    )
     console.log(results)
     setCoincidences(
       results.map(result => {
@@ -20,9 +30,9 @@ export const StepWhere = props => {
     )
   }
 
-  const onChange = ev => {
-    props.setNewEvent(prev => ({ ...prev, address: ev.target.value }))
-    props.setStepsVisited(prev => ({ ...prev, address: false }))
+  const onInputChange = ev => {
+    clearErrors()
+    setValue('address', ev.target.value)
     setShouldSearch(true)
   }
 
@@ -31,20 +41,21 @@ export const StepWhere = props => {
   }, [shouldSearch])
 
   const onAction = address => {
-    props.setNewEvent(prev => ({ ...prev, address: address }))
+    setValue('address', address)
     setShouldSearch(false)
     setCoincidences([])
-    props.setStepsVisited(prev => ({ ...prev, address: true }))
   }
   return (
     <>
-      <p className='text-3xl text-center'>{Constants.QUESTION_STEP_WHERE}</p>
       <div className='input-width'>
         <Input
           autoFocus
           placeholder='Input the event address'
-          value={props.address}
-          onChange={onChange}
+          {...register('address', { required: true })}
+          value={watch('address')}
+          onChange={onInputChange}
+          isInvalid={errors.address ? true : false}
+          errorMessage={errors.address ? Constants.STEP_WHERE_ERROR : ''}
         />
         {coincidences.length > 0 && (
           <Listbox

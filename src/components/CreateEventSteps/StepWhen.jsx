@@ -1,12 +1,24 @@
 import { Input } from '@nextui-org/react'
 import { Constants } from '../../constants'
+import { useFormContext } from 'react-hook-form'
+import { useRef } from 'react'
 
-export const StepWhen = props => {
+export const StepWhen = () => {
+  const {
+    register,
+    setValue,
+    clearErrors,
+    watch,
+    formState: { errors }
+  } = useFormContext()
+
+  const timeRef = useRef(null)
+
   const onChangeTime = event => {
     let inputTime = event.target.value
-    if (inputTime.length < props.time.length) {
-      props.setNewEvent(prev => ({ ...prev, time: inputTime }))
-      props.setStepsVisited(prev => ({ ...prev, date: false }))
+    if (inputTime.length < watch('time').length) {
+      clearErrors('time')
+      setValue('time', inputTime)
 
       return
     }
@@ -15,18 +27,17 @@ export const StepWhen = props => {
       if (inputTime.length === 2) {
         inputTime = inputTime.concat(':')
       }
-      props.setNewEvent(prev => ({ ...prev, time: inputTime }))
-      if ((inputTime + props.date).length === 15)
-        props.setStepsVisited(prev => ({ ...prev, date: true }))
-      else props.setStepsVisited(prev => ({ ...prev, date: false }))
+      clearErrors('time')
+
+      setValue('time', inputTime)
     }
   }
   const onChangeDate = event => {
     let inputDate = event.target.value
 
-    if (inputDate.length < props.date.length) {
-      props.setNewEvent(prev => ({ ...prev, date: inputDate }))
-      props.setStepsVisited(prev => ({ ...prev, date: false }))
+    if (inputDate.length < watch('date').length) {
+      clearErrors('date')
+      setValue('date', inputDate)
       return
     }
 
@@ -37,30 +48,44 @@ export const StepWhen = props => {
       if (inputDate.length === 2 || inputDate.length === 5) {
         inputDate = inputDate.concat('/')
       }
-      props.setNewEvent(prev => ({ ...prev, date: inputDate }))
-      if ((inputDate + props.time).length === 15)
-        props.setStepsVisited(prev => ({ ...prev, date: true }))
-      else props.setStepsVisited(false)
+      clearErrors('date')
+      setValue('date', inputDate)
+      if (inputDate.length === 10) timeRef.current.click()
     }
+  }
+  const validateDate = value => {
+    const currentDate = new Date()
+    const selectedDate = new Date(value)
+    return selectedDate > currentDate
   }
   return (
     <>
-      <p className='text-3xl text-center'>{Constants.QUESTION_STEP_WHEN}</p>
       <div className='flex gap-2'>
         <Input
           autoFocus
           type='text'
-          value={props.date}
+          {...register('date', {
+            required: true,
+            minLength: 10,
+            validate: validateDate
+          })}
+          value={watch('date') || ''}
           onChange={onChangeDate}
-          placeholder='DD/MM/YYYY'
+          placeholder='MM/DD/YYYY'
           label='Date:'
+          isInvalid={errors.date ? true : false}
+          errorMessage={errors.date ? Constants.STEP_DATE_ERROR : ''}
         />
         <Input
+          innerWrapperRef={timeRef}
           type='text'
-          value={props.time}
+          {...register('time', { required: true, minLength: 5 })}
+          value={watch('time') || ''}
           onChange={onChangeTime}
           placeholder='HH:MM'
           label='Time:'
+          isInvalid={errors.time ? true : false}
+          errorMessage={errors.time ? Constants.STEP_TIME_ERROR : ''}
         />
       </div>
     </>

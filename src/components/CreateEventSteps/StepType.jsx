@@ -1,31 +1,38 @@
 import { Select, SelectItem } from '@nextui-org/react'
 import { Constants } from '../../constants'
+import { useFormContext } from 'react-hook-form'
 
-export const StepType = props => {
-  const onChange = ev => {
-    props.setNewEvent(prev => ({ ...prev, type: ev.target.value }))
-    if (ev.target.value !== '')
-      props.setStepsVisited(prev => ({ ...prev, type: true }))
-    else props.setStepsVisited(prev => ({ ...prev, type: false }))
+export const StepType = () => {
+  const {
+    register,
+    setValue,
+    clearErrors,
+    watch,
+    formState: { errors }
+  } = useFormContext()
+
+  const onSelectChange = ev => {
+    const newValue = ev.target.value
+    clearErrors()
+    setValue('type', newValue)
   }
 
   return (
-    <>
-      <p className='text-3xl text-center'>{Constants.QUESTION_STEP_TYPE}</p>
-      <Select
-        {...props.form}
-        defaultSelectedKeys={[props.type]}
-        onChange={onChange}
-        defaultOpen={!props.type}
-        label='Type of event'
-        className='max-w-xs'
-      >
-        {Constants.EVENT_TYPES.map(type => (
-          <SelectItem key={type} value={type}>
-            {type}
-          </SelectItem>
-        ))}
-      </Select>
-    </>
+    <Select
+      {...register('type', { required: true })}
+      defaultSelectedKeys={[watch('type')]}
+      onChange={onSelectChange}
+      defaultOpen={!watch('type')}
+      label='Type of event'
+      className='max-w-xs'
+      isInvalid={errors.type ? true : false}
+      errorMessage={errors.type ? Constants.STEP_TYPE_ERROR : ''}
+    >
+      {Constants.EVENT_TYPES.map(type => (
+        <SelectItem key={type} value={type}>
+          {type}
+        </SelectItem>
+      ))}
+    </Select>
   )
 }

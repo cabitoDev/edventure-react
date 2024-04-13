@@ -3,10 +3,9 @@ import { useSelector } from 'react-redux'
 import '../index.css'
 import EventCard from '../components/CustomCard/EventCard'
 import { Pagination } from '@nextui-org/react'
-import { TransitionAnimation } from '../components/TransitionAnimation'
 
 export const UserEvents = () => {
-  const userEvents = useSelector(state => state.user.userInfo.userEvents)
+  const userEvents = useSelector(state => state.user.userEvents)
   const [currentEvents, setcurrentEvents] = useState([])
   useEffect(() => {
     setcurrentEvents(userEvents.slice(0, 5))
@@ -24,6 +23,7 @@ export const UserEvents = () => {
           currentEvents.map(event => {
             return (
               <EventCard
+                key={event.id}
                 avatar={event.image}
                 name={event.name}
                 description={event.description}

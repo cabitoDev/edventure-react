@@ -8,8 +8,7 @@ export const Explore = () => {
   const userEvents = useLoaderData()
   const [currentEvents, setcurrentEvents] = useState([])
   useEffect(() => {
-    if(userEvents)
-    setcurrentEvents(userEvents.slice(0, 5))
+    if (userEvents) setcurrentEvents(userEvents.slice(0, 5))
   }, [userEvents])
 
   const handlePageChange = indexPage => {
@@ -18,28 +17,33 @@ export const Explore = () => {
 
   return (
     <>
-      <p className='text-2xl pl-10'>Your created events:</p>
-      {userEvents && <><div class='flex-column gap-3 mx-10'>
-        {userEvents &&
-          currentEvents.map(event => {
-            return (
-              <EventCard
-                avatar={event.image}
-                name={event.name}
-                description={event.description}
-                type={event.type}
-              ></EventCard>
-            )
-          })}
-      </div>
-      <Pagination
-        showControls
-        className='center'
-        variant='light'
-        total={Math.ceil(userEvents.length / 5)}
-        color='primary'
-        onChange={handlePageChange}
-      /></>}
+      <p className='text-2xl pl-10'>Explore events:</p>
+      {userEvents && (
+        <>
+          <div class='flex-column gap-3 mx-10'>
+            {userEvents &&
+              currentEvents.map(event => {
+                return (
+                  <EventCard
+                    key={event.id}
+                    avatar={event.image}
+                    name={event.name}
+                    description={event.description}
+                    type={event.type}
+                  ></EventCard>
+                )
+              })}
+          </div>
+          <Pagination
+            showControls
+            className='center'
+            variant='light'
+            total={Math.ceil(userEvents.length / 5)}
+            color='primary'
+            onChange={handlePageChange}
+          />
+        </>
+      )}
     </>
   )
 }

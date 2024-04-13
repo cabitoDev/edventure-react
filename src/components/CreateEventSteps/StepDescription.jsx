@@ -1,29 +1,42 @@
+import React from 'react'
 import { Input } from '@nextui-org/react'
+import { useFormContext } from 'react-hook-form'
 import { Constants } from '../../constants'
 
-export const StepDescription = props => {
-  const onChange = ev => {
-    props.setNewEvent(prev => ({ ...prev, description: ev.target.value }))
-    if (ev.target.value.length > 20) {
-      props.setStepsVisited(prev => ({ ...prev, description: true }))
-    } else {
-      props.setStepsVisited(prev => ({ ...prev, description: false }))
-    }
+export const StepDescription = () => {
+  const {
+    register,
+    setValue,
+    clearErrors,
+    watch,
+    formState: { errors }
+  } = useFormContext()
+
+  const handleInputChange = e => {
+    const newValue = e.target.value
+    clearErrors()
+    console.log(errors)
+    setValue('description', newValue)
   }
+
   return (
-    <>
-      <p className='text-3xl text-center'>
-        {Constants.QUESTION_STEP_DESCRIPTION}
-      </p>
+    <div className='flex input-width'>
       <Input
+        {...register('description', {
+          required: true,
+          minLength: 20,
+          maxLength: 50
+        })}
+        value={watch('description') || ''}
+        onChange={handleInputChange}
         autoFocus
-        name='description'
-        {...props.form}
-        placeholder='Put a description of your event (20 char min)'
+        placeholder='Type a description'
         className='max-w-xs'
-        value={props.description}
-        onChange={onChange}
+        isInvalid={errors.description ? true : false}
+        errorMessage={
+          errors.description ? Constants.STEP_DESCRIPTION_ERROR : ''
+        }
       />
-    </>
+    </div>
   )
 }

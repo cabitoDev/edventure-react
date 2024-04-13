@@ -1,4 +1,3 @@
-import { useParams } from 'react-router'
 import { Constants } from '../constants'
 import { getLoginRequest } from './utils'
 
@@ -38,7 +37,7 @@ export const getEvents = async () => {
     })
 }
 
-export const postUserInfo = async user => {
+export const saveUser = async user => {
   return fetch(Constants.USERS_ENDPOINT_URL, {
     method: 'POST',
     headers: {
@@ -53,4 +52,40 @@ export const postUserInfo = async user => {
       console.error('Error al realizar la solicitud:', error)
       return null
     })
+}
+
+export const updateUser = async user => {
+  return fetch(`${Constants.USERS_ENDPOINT_URL}/${user.id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(getLoginRequest(user))
+  })
+    .then(response => {
+      return response.json()
+    })
+    .catch(error => {
+      console.error('Error al realizar la solicitud:', error)
+      return null
+    })
+}
+
+export const saveEvent = async eventInfo => {
+  try {
+    const response = await fetch(Constants.EVENTS_ENDPOINT_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(eventInfo)
+    })
+    if (!response.ok) {
+      throw new Error('Error al realizar la solicitud')
+    }
+    return await response.json()
+  } catch (error) {
+    console.error('Error al realizar la solicitud:', error)
+    throw error // Rechaza la promesa para que el error se maneje externamente
+  }
 }
