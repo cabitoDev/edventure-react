@@ -1,45 +1,39 @@
 export const Kactions = [
   {
-    id: "create",
-    name: "Create event",
-    shortcut: ["ce"],
-    keywords: "new event create",
-    route: "create",
+    id: 'create',
+    name: 'Create event',
+    keywords: 'new event create',
+    route: 'create'
   },
   {
-    id: "explore",
-    name: "Explore",
-    shortcut: ["s"],
-    keywords: "",
-    route: "explore",
+    id: 'explore',
+    name: 'Explore',
+    keywords: '',
+    route: 'explore'
   },
   {
-    id: "home",
-    name: "Home",
-    shortcut: ["h"],
-    keywords: "",
-    route: "/",
+    id: 'home',
+    name: 'Home',
+    keywords: '',
+    route: '/'
   },
   {
-    id: "profile",
-    name: "Profile",
-    shortcut: ["p"],
-    keywords: "",
-    route: "profile",
+    id: 'profile',
+    name: 'Profile',
+    keywords: '',
+    route: 'profile'
   },
   {
-    id: "settings",
-    name: "Settings",
-    shortcut: ["s"],
-    keywords: "",
-    route: "settings",
+    id: 'settings',
+    name: 'Settings',
+    keywords: '',
+    route: 'settings'
   },
 
   {
-    id: "myevents",
-    name: "My events",
-    shortcut: ["ye"],
-    keywords: "",
-    route: "/my-events",
-  },
-];
+    id: 'myevents',
+    name: 'My events',
+    keywords: '',
+    route: '/my-events'
+  }
+]

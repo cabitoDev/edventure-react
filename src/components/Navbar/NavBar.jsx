@@ -25,6 +25,7 @@ import { useNavigate } from 'react-router-dom'
 import { Auth0Lock } from 'auth0-lock'
 import { Constants } from '../../constants'
 import { saveUser } from '../../utils/httpUtils'
+import { getLoginRequest } from '../../utils/utils'
 
 export const NavBar = () => {
   const { query } = useKBar()
@@ -55,10 +56,12 @@ export const NavBar = () => {
             console.error('Error al obtener el perfil de usuario:', error)
             return
           }
-          await saveUser(profile)
+          await saveUser(getLoginRequest(profile))
             .then(userLogged => {
-              dispatch(updateUser(userLogged))
-              navigateTo('/profile')
+              if (userLogged) {
+                dispatch(updateUser(userLogged))
+                navigateTo('/profile')
+              } else alert('fallo al hacer login')
             })
             .catch(() => {
               //handleError

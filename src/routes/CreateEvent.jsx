@@ -41,7 +41,7 @@ export const CreateEvent = () => {
   const onSubmit = () => {
     form.trigger().then(isValid => {
       if (isValid) {
-        //setSendingEvent(true)
+        setSendingEvent(true)
         saveEvent(getNewEventRequest(form.getValues(), user.id)).then(
           async res => {
             await getUserById(user.id)
@@ -82,6 +82,7 @@ export const CreateEvent = () => {
               {indexStep > 0 && (
                 <Button
                   color='primary'
+                  isDisabled={sendingEvent}
                   radius='full'
                   isIconOnly
                   onClick={handlePrevStep}

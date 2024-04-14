@@ -1,5 +1,4 @@
 import { Constants } from '../constants'
-import { getLoginRequest } from './utils'
 
 export const getUserById = async id => {
   return fetch(`${Constants.USERS_ENDPOINT_URL}/${id}`)
@@ -43,7 +42,7 @@ export const saveUser = async user => {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(getLoginRequest(user))
+    body: JSON.stringify(user)
   })
     .then(response => {
       return response.json()
@@ -60,7 +59,7 @@ export const updateUser = async user => {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(getLoginRequest(user))
+    body: JSON.stringify(user)
   })
     .then(response => {
       return response.json()

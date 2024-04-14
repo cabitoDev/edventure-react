@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import '../index.css'
-import EventCard from '../components/CustomCard/EventCard'
-import { Pagination } from '@nextui-org/react'
+import { Button, Pagination } from '@nextui-org/react'
+import { useNavigate } from 'react-router'
+import { EventCard } from '../components/CustomCard/EventCard'
 
 export const UserEvents = () => {
   const userEvents = useSelector(state => state.user.userEvents)
@@ -15,31 +16,40 @@ export const UserEvents = () => {
     setcurrentEvents(userEvents.slice((indexPage - 1) * 5, indexPage * 5))
   }
 
+  const navigateTo = useNavigate()
+
   return (
     <>
-      <p className='text-2xl pl-10'>Your created events:</p>
-      <div class='flex-column gap-3 mx-10'>
-        {userEvents &&
-          currentEvents.map(event => {
-            return (
-              <EventCard
-                key={event.id}
-                avatar={event.image}
-                name={event.name}
-                description={event.description}
-                type={event.type}
-              ></EventCard>
-            )
-          })}
-      </div>
-      <Pagination
-        showControls
-        className='center'
-        variant='light'
-        total={Math.ceil(userEvents.length / 5)}
-        color='primary'
-        onChange={handlePageChange}
-      />
+      {userEvents && userEvents.length > 0 ? (
+        <>
+          <p className='text-2xl pl-10'>Your created events:</p>
+          <div class='flex-column gap-3 mx-10'>
+            {currentEvents.map(event => {
+              return <EventCard key={event.id} {...event}></EventCard>
+            })}
+          </div>
+          <Pagination
+            showControls
+            className='center'
+            variant='light'
+            total={Math.ceil(userEvents.length / 5)}
+            color='primary'
+            onChange={handlePageChange}
+          />{' '}
+        </>
+      ) : (
+        <div className='home-title'>
+          <p className='text-2xl'>You don't have any future event.</p>
+          <div className='flex gap-3'>
+            <Button color='primary' onClick={() => navigateTo('/explore')}>
+              Explore
+            </Button>
+            <Button color='success' onClick={() => navigateTo('/create')}>
+              Create
+            </Button>
+          </div>
+        </div>
+      )}
     </>
   )
 }

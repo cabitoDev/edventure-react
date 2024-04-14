@@ -74,8 +74,6 @@ export const Constants = {
   QUESTION_STEP_DESCRIPTION: 'To finish, give a description of your event',
   DEFAULT_EVENT_IMAGE_URL:
     'https://i.imgur.com/hZqD0NY_d.webp?maxwidth=760&fidelity=grand',
-  USERS_ENDPOINT_URL:
-    'https://edventure-spring-boot-f6afa76d8f02.herokuapp.com/users',
-  EVENTS_ENDPOINT_URL:
-    'https://edventure-spring-boot-f6afa76d8f02.herokuapp.com/events'
+  USERS_ENDPOINT_URL: 'https://key-worm-cabitodev.koyeb.app/users',
+  EVENTS_ENDPOINT_URL: 'https://key-worm-cabitodev.koyeb.app/events'
 }

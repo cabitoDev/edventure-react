@@ -1,8 +1,9 @@
 import { useLoaderData } from 'react-router-dom'
 import React, { useEffect, useState } from 'react'
 import '../index.css'
-import EventCard from '../components/CustomCard/EventCard'
+
 import { Pagination } from '@nextui-org/react'
+import { EventCard } from '../components/CustomCard/EventCard'
 
 export const Explore = () => {
   const userEvents = useLoaderData()
@@ -24,13 +25,7 @@ export const Explore = () => {
             {userEvents &&
               currentEvents.map(event => {
                 return (
-                  <EventCard
-                    key={event.id}
-                    avatar={event.image}
-                    name={event.name}
-                    description={event.description}
-                    type={event.type}
-                  ></EventCard>
+                  <EventCard key={event.id} {...event} inExplore></EventCard>
                 )
               })}
           </div>
