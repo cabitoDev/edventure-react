@@ -30,6 +30,7 @@ export const Explore = () => {
               })}
           </div>
           <Pagination
+            onClick={e => e.stopPropagation()}
             showControls
             className='center'
             variant='light'
