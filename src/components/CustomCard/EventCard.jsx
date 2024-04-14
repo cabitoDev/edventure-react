@@ -27,15 +27,7 @@ export const EventCard = props => {
               {eventOwnerId === user.id ? (
                 <p className='text-green-600'>Owner</p>
               ) : (
-                <Button
-                  className='z-20'
-                  onMouseMoveCapture={e => {
-                    e.stopPropagation()
-                    e.preventDefault()
-                  }}
-                  on
-                  color='primary'
-                >
+                <Button className='z-20' color='primary'>
                   Follow
                 </Button>
               )}
