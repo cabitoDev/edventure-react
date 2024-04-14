@@ -42,7 +42,7 @@ export const CreateEvent = () => {
     form.trigger().then(isValid => {
       if (isValid) {
         setSendingEvent(true)
-        saveEvent(getNewEventRequest(form.getValues(), user.id)).then(
+        saveEvent(getNewEventRequest(form.getValues(), user)).then(
           async res => {
             await getUserById(user.id)
               .then(newUserData => {
@@ -50,7 +50,7 @@ export const CreateEvent = () => {
                 navigateTo('/my-events')
               })
               .catch(error => {
-                //handleError
+                alert('error en toda la boca')
                 console.error('Error:', error.message)
               })
           }

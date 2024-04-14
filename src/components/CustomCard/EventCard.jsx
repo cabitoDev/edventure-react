@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 
 export const EventCard = props => {
-  const { name, type, description, image, eventOwnerId, inExplore, id } = props
+  const { name, type, description, image, userOwner, inExplore, id } = props
   const navigateTo = useNavigate()
   const user = useSelector(state => state.user)
   return (
@@ -24,7 +24,7 @@ export const EventCard = props => {
           <p className='hide-xs'>{description}</p>
           {inExplore && (
             <div className='self-end'>
-              {eventOwnerId === user.id ? (
+              {userOwner.id === user.id ? (
                 <p className='text-green-600'>Owner</p>
               ) : (
                 <Button className='z-20' color='primary'>

@@ -9,7 +9,7 @@ export const getLoginRequest = userData => {
   }
 }
 
-export const getNewEventRequest = (eventData, userId) => {
+export const getNewEventRequest = (eventData, user) => {
   const { address, assistants, date, time, description, image, name, type } =
     eventData
   return {
@@ -20,7 +20,13 @@ export const getNewEventRequest = (eventData, userId) => {
     image,
     name,
     type,
-    userOwner: userId
+    userOwner: {
+      id: user.id,
+      name: user.name,
+      nickname: user.nickname,
+      email: user.email,
+      loggedDate: user.loggedDate
+    }
   }
 }
 

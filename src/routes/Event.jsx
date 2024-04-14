@@ -27,7 +27,7 @@ export const Event = () => {
             <strong>Fecha:</strong> {event.date}
           </p>
           <p>
-            <strong>Asistentes esperados:</strong> {event.assistantsExpected}
+            <strong>Asistentes esperados:</strong> {event.assistants}
           </p>
         </div>
       )}
