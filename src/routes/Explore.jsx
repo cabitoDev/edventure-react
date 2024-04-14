@@ -30,9 +30,8 @@ export const Explore = () => {
               })}
           </div>
           <Pagination
-            onClick={e => {
+            onTouchEnd={e => {
               e.preventDefault()
-              e.stopPropagation()
             }}
             showControls
             className='center'
