@@ -42,7 +42,12 @@ export const NavBar = () => {
         window.location.origin.includes('edventure-six.vercel.app')
           ? Constants.CLIENT_PRO
           : Constants.CLIENT_DEV,
-        Constants.DOMAIN
+        Constants.DOMAIN,
+        {
+          auth: {
+            redirect: false
+          }
+        }
       )
     )
   }, [])
