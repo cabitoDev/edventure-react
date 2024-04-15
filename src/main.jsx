@@ -56,17 +56,6 @@ const router = createBrowserRouter([
   }
 ])
 
-const firebaseConfig = {
-  apiKey: 'AIzaSyCwaUL9d_JkTlCXCbqTUg_QxJadd5M3DyA',
-  authDomain: 'edventure-419614.firebaseapp.com',
-  projectId: 'edventure-419614',
-  storageBucket: 'edventure-419614.appspot.com',
-  messagingSenderId: '503290416665',
-  appId: '1:503290416665:web:5aa99b9f6e1e4f6c9fe488',
-  measurementId: 'G-B8FM81390R'
-}
-initializeApp(firebaseConfig)
-
 ReactDOM.createRoot(document.getElementById('root')).render(
   <NextUIProvider>
     <ThemeProvider attribute='class' defaultTheme='dark'>
