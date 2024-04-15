@@ -72,7 +72,7 @@ export const updateUser = async user => {
 
 export const updateFollowingEvents = async (userId, eventId, method) => {
   return fetch(
-    `${Constants.USERS_ENDPOINT_URL}/${userId}/addFollowingEvent/${eventId}`,
+    `${Constants.USERS_ENDPOINT_URL}/${userId}/updateFollowingEvent/${eventId}`,
     {
       method: method,
       headers: {
