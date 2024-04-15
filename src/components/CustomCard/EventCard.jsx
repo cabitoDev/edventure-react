@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 import { updateFollowingEvents } from '../../utils/httpUtils'
 import { useState } from 'react'
-import { updateFollowingEventsAction } from '../../redux/userSlice'
+import {
+  addFollowingEvents,
+  deleteFollowingEvents
+} from '../../redux/userSlice'
 
 export const EventCard = props => {
   const { event, inExplore } = props
@@ -15,7 +18,9 @@ export const EventCard = props => {
   )
   const followEvent = () => {
     setIsFollowing(!isFollowing)
-    dispatch(updateFollowingEventsAction(event))
+    isFollowing
+      ? dispatch(deleteFollowingEvents(event))
+      : dispatch(addFollowingEvents(event))
     updateFollowingEvents(user.id, event.id, isFollowing ? 'DELETE' : 'PUT')
   }
   return (
@@ -26,7 +31,7 @@ export const EventCard = props => {
           <div className='flex flex-responsive justify-between w-full'>
             <Link
               color='foreground'
-              onClick={() => navigateTo(`/event/${id}`)}
+              onClick={() => navigateTo(`/event/${event.id}`)}
               className='hover:cursor-pointer underline text-lg font-semibold'
             >
               {event.name}

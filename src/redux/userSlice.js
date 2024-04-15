@@ -7,15 +7,25 @@ export const userSlice = createSlice({
     updateUser: (state, action) => {
       return action.payload
     },
-    updateFollowingEventsAction: (state, action) => {
+    addFollowingEvents: (state, action) => {
       return {
         ...state,
         followingEvents: [...state.followingEvents, action.payload]
+      }
+    },
+    deleteFollowingEvents: (state, action) => {
+      const updatedFollowingEvents = state.followingEvents.filter(
+        event => event.id !== action.payload.id
+      )
+      return {
+        ...state,
+        followingEvents: updatedFollowingEvents
       }
     }
   }
 })
 
-export const { updateUser, updateFollowingEventsAction } = userSlice.actions
+export const { updateUser, addFollowingEvents, deleteFollowingEvents } =
+  userSlice.actions
 
 export default userSlice.reducer

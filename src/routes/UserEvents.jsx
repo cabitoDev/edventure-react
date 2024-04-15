@@ -6,7 +6,9 @@ import { useNavigate } from 'react-router'
 import { EventCard } from '../components/CustomCard/EventCard'
 
 export const UserEvents = () => {
-  const userEvents = useSelector(state => state.user.userEvents)
+  const userEvents = useSelector(state =>
+    state.user.userEvents.concat(state.user.followingEvents)
+  )
   const [currentEvents, setcurrentEvents] = useState([])
   useEffect(() => {
     setcurrentEvents(userEvents.slice(0, 5))
@@ -22,7 +24,7 @@ export const UserEvents = () => {
     <>
       {userEvents && userEvents.length > 0 ? (
         <>
-          <p className='text-2xl pl-10'>Your created events:</p>
+          <p className='text-2xl pl-10'>Your events:</p>
           <div class='flex-column gap-3 mx-10'>
             {currentEvents.map(event => {
               return <EventCard key={event.id} event={event}></EventCard>
