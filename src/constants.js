@@ -75,5 +75,7 @@ export const Constants = {
   DEFAULT_EVENT_IMAGE_URL:
     'https://i.imgur.com/hZqD0NY_d.webp?maxwidth=760&fidelity=grand',
   USERS_ENDPOINT_URL: 'https://key-worm-cabitodev.koyeb.app/users',
-  EVENTS_ENDPOINT_URL: 'https://key-worm-cabitodev.koyeb.app/events'
+  EVENTS_ENDPOINT_URL: 'https://key-worm-cabitodev.koyeb.app/events',
+  USER_AVATAR_URL:
+    'https://firebasestorage.googleapis.com/v0/b/edventure-419614.appspot.com/o/avatars%2F{{userId}}?alt=media'
 }

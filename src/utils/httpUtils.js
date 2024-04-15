@@ -53,7 +53,7 @@ export const saveUser = async user => {
     })
 }
 
-export const updateUser = async user => {
+export const httpUpdateUser = async user => {
   return fetch(`${Constants.USERS_ENDPOINT_URL}/${user.id}`, {
     method: 'PUT',
     headers: {

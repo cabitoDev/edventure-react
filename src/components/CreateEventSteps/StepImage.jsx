@@ -2,7 +2,6 @@ import { Image, Button } from '@nextui-org/react'
 import React from 'react'
 
 import assets from '../../assets'
-import { Constants } from '../../constants'
 import { useFormContext } from 'react-hook-form'
 
 export const StepImage = props => {
