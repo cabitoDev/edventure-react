@@ -29,6 +29,10 @@ export const Event = () => {
           <p>
             <strong>Asistentes esperados:</strong> {event.assistants}
           </p>
+          Followed by
+          {event.usersFollowing.map(user => {
+            return <>{user.name}</>
+          })}
         </div>
       )}
     </>

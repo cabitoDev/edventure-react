@@ -1,12 +1,13 @@
-import { useLoaderData } from 'react-router-dom'
+import { useLoaderData, useNavigate } from 'react-router-dom'
 import React, { useEffect, useState } from 'react'
 import '../index.css'
 
-import { Pagination } from '@nextui-org/react'
+import { Pagination, Button } from '@nextui-org/react'
 import { EventCard } from '../components/CustomCard/EventCard'
 
 export const Explore = () => {
   const userEvents = useLoaderData()
+  const navigateTo = useNavigate()
   const [currentEvents, setcurrentEvents] = useState([])
   useEffect(() => {
     if (userEvents) setcurrentEvents(userEvents.slice(0, 5))
@@ -18,14 +19,15 @@ export const Explore = () => {
 
   return (
     <>
-      <p className='text-2xl pl-10'>Explore events:</p>
-      {userEvents && (
+      {userEvents && userEvents.length > 0 ? (
         <>
+          <p className='text-2xl pl-10'>Explore events:</p>
+
           <div class='flex-column gap-3 mx-10'>
             {userEvents &&
               currentEvents.map(event => {
                 return (
-                  <EventCard key={event.id} {...event} inExplore></EventCard>
+                  <EventCard key={event.id} event={event} inExplore></EventCard>
                 )
               })}
           </div>
@@ -41,6 +43,14 @@ export const Explore = () => {
             onChange={handlePageChange}
           />
         </>
+      ) : (
+        <div className='home-title'>
+          <p className='text-2xl'>There are no events created yet.</p>
+
+          <Button color='success' onClick={() => navigateTo('/create')}>
+            Create
+          </Button>
+        </div>
       )}
     </>
   )

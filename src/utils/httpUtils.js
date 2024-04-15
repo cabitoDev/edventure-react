@@ -70,6 +70,22 @@ export const updateUser = async user => {
     })
 }
 
+export const updateFollowingEvents = async (userId, eventId) => {
+  return fetch(
+    `${Constants.USERS_ENDPOINT_URL}/${userId}/addEvent/${eventId}`,
+    {
+      method: 'PUT'
+    }
+  )
+    .then(response => {
+      return response.json()
+    })
+    .catch(error => {
+      console.error('Error al realizar la solicitud:', error)
+      return null
+    })
+}
+
 export const saveEvent = async eventInfo => {
   try {
     const response = await fetch(Constants.EVENTS_ENDPOINT_URL, {

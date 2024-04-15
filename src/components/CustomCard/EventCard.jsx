@@ -1,15 +1,27 @@
 import { Button, Card, Image, Link } from '@nextui-org/react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
+import { updateFollowingEvents } from '../../utils/httpUtils'
+import { useState } from 'react'
+import { updateFollowingEventsAction } from '../../redux/userSlice'
 
 export const EventCard = props => {
-  const { name, type, description, image, userOwner, inExplore, id } = props
+  const { event, inExplore } = props
   const navigateTo = useNavigate()
+  const dispatch = useDispatch()
   const user = useSelector(state => state.user)
+  const [isFollowing, setIsFollowing] = useState(
+    user.followingEvents.find(ev => ev.id === event.id)
+  )
+  const followEvent = () => {
+    setIsFollowing(!isFollowing)
+    dispatch(updateFollowingEventsAction(event))
+    updateFollowingEvents(user.id, event.id)
+  }
   return (
     <Card isHoverable className='rounded-lg shadow-md p-4'>
       <div className='flex items-center h-full'>
-        <Image src={image} alt={name} width={100} />
+        <Image src={event.image} alt={event.name} width={100} />
         <div className='flex-column justify-between pl-2 self-baseline w-full h-[6rem]'>
           <div className='flex flex-responsive justify-between w-full'>
             <Link
@@ -17,18 +29,23 @@ export const EventCard = props => {
               onClick={() => navigateTo(`/event/${id}`)}
               className='hover:cursor-pointer underline text-lg font-semibold'
             >
-              {name}
+              {event.name}
             </Link>
-            <p className='text-gray-500'>{type}</p>
+            <p className='text-gray-500'>{event.type}</p>
           </div>
-          <p className='hide-xs'>{description}</p>
+          <p className='hide-xs'>{event.description}</p>
           {inExplore && (
             <div className='self-end'>
-              {userOwner.id === user.id ? (
+              {event.userOwner.id === user.id ? (
                 <p className='text-green-600'>Owner</p>
               ) : (
-                <Button className='z-20' color='primary'>
-                  Follow
+                <Button
+                  onClick={followEvent}
+                  variant={isFollowing ? 'bordered' : 'solid'}
+                  className='z-20'
+                  color='primary'
+                >
+                  {isFollowing ? 'Following' : 'Follow'}
                 </Button>
               )}
             </div>
