@@ -70,11 +70,14 @@ export const updateUser = async user => {
     })
 }
 
-export const updateFollowingEvents = async (userId, eventId) => {
+export const updateFollowingEvents = async (userId, eventId, method) => {
   return fetch(
-    `${Constants.USERS_ENDPOINT_URL}/${userId}/addEvent/${eventId}`,
+    `${Constants.USERS_ENDPOINT_URL}/${userId}/addFollowingEvent/${eventId}`,
     {
-      method: 'PUT'
+      method: method,
+      headers: {
+        'Content-Type': 'application/json'
+      }
     }
   )
     .then(response => {

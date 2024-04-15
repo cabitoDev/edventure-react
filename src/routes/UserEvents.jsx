@@ -25,7 +25,7 @@ export const UserEvents = () => {
           <p className='text-2xl pl-10'>Your created events:</p>
           <div class='flex-column gap-3 mx-10'>
             {currentEvents.map(event => {
-              return <EventCard key={event.id} {...event}></EventCard>
+              return <EventCard key={event.id} event={event}></EventCard>
             })}
           </div>
           <Pagination

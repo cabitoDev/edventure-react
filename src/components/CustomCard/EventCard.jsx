@@ -16,7 +16,7 @@ export const EventCard = props => {
   const followEvent = () => {
     setIsFollowing(!isFollowing)
     dispatch(updateFollowingEventsAction(event))
-    updateFollowingEvents(user.id, event.id)
+    updateFollowingEvents(user.id, event.id, isFollowing ? 'DELETE' : 'PUT')
   }
   return (
     <Card isHoverable className='rounded-lg shadow-md p-4'>
