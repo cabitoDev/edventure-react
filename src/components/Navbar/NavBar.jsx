@@ -172,7 +172,7 @@ export const NavBar = () => {
                 className='transition-transform'
                 color='secondary'
                 size='sm'
-                src={user.picture}
+                src={user.avatar}
               />
             </DropdownTrigger>
             <DropdownMenu aria-label='Profile Actions' variant='flat'>

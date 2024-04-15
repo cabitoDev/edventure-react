@@ -1,19 +1,27 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage'
-import { Image } from '@nextui-org/image'
-import assets from '../assets'
 import { Button } from '@nextui-org/button'
 import { Avatar } from '@nextui-org/avatar'
 import { updateUser } from '../redux/userSlice'
 import { httpUpdateUser } from '../utils/httpUtils'
 import appFirebase from '../firebase/firebase'
+import { Input } from '@nextui-org/input'
+import { useForm } from 'react-hook-form'
+import assets from '../assets'
+import { Switch } from '@nextui-org/switch'
+import { cn } from '@nextui-org/system-rsc'
 
 export const Profile = () => {
+  const { register, handleSubmit } = useForm()
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
   const [avatar, setAvatar] = useState(user.avatar)
   const [file, setFile] = useState()
+  const [editingName, setEditingName] = useState()
+  const [editingLastname, setEditingLastname] = useState()
+  const [editingNickname, setEditingNickname] = useState()
+  const [editingEmail, setEditingEmail] = useState()
 
   function handleChange (e) {
     const selectedFile = e.target.files[0]
@@ -55,26 +63,122 @@ export const Profile = () => {
   }
 
   return (
-    <>
-      <img src={avatar} height='200px' width='200px' />
-      <div className='flex flex-col items-center gap-4'>
-        <Avatar src={avatar} />
-        <Button
-          isIconOnly
-          radius='md'
-          color='primary'
-          onClick={() => document.getElementById('file-input').click()}
+    <form className='flex-column gap-4 ml-10 mr-10 center pb-3'>
+      <div className='flex-column gap-3 center'>
+        <button onClick={() => document.getElementById('file-input').click()}>
+          <Avatar className='w-40 h-40 text-large' src={avatar} />
+        </button>
+        <p>Member since {new Date(user.loggedDate).toDateString()}</p>
+      </div>
+
+      <input
+        style={{ display: 'none' }}
+        type='file'
+        id='file-input'
+        onChange={handleChange}
+      />
+      <div className='flex-column gap-3'>
+        <Switch
+          {...register('showEmail')}
+          classNames={{
+            base: cn(
+              'inline-flex flex-row-reverse w-full max-w-md bg-content1 hover:bg-content2 items-center',
+              'justify-between cursor-pointer rounded-lg gap-2 p-4 border-2 border-transparent',
+              'data-[selected=true]:border-primary'
+            ),
+            wrapper: 'p-0 h-4 overflow-visible',
+            thumb: cn(
+              'w-6 h-6 border-2 shadow-lg',
+              'group-data-[hover=true]:border-primary',
+              //selected
+              'group-data-[selected=true]:ml-6',
+              // pressed
+              'group-data-[pressed=true]:w-7',
+              'group-data-[selected]:group-data-[pressed]:ml-4'
+            )
+          }}
         >
-          <img src={assets.upload}></img>
-        </Button>
-        <input
-          style={{ display: 'none' }}
-          type='file'
-          id='file-input'
-          onChange={handleChange}
+          <div className='flex flex-col gap-1'>
+            <p className='text-medium'>Public email</p>
+            <p className='text-tiny text-default-400'>
+              People will be able to contact you by your profile email.
+            </p>
+          </div>
+        </Switch>
+        <Input
+          {...register('email')}
+          id='email'
+          onBlur={() => setEditingEmail(false)}
+          isReadOnly={!editingEmail}
+          isClearable={editingEmail}
+          defaultValue={user.email}
+          endContent={
+            !editingEmail && (
+              <button
+                onClick={() => {
+                  setEditingEmail(true)
+                  document.getElementById('email').focus()
+                }}
+              >
+                <img className='pb-1' src={assets.edit} />
+              </button>
+            )
+          }
+          label='Email'
+        />
+
+        <Input
+          {...register('name')}
+          id='name'
+          onBlur={() => setEditingName(false)}
+          isReadOnly={!editingName}
+          isClearable={editingName}
+          defaultValue={user.name}
+          endContent={
+            !editingName && (
+              <button
+                onClick={() => {
+                  setEditingName(true)
+                  document.getElementById('name').focus()
+                }}
+              >
+                <img className='pb-1' src={assets.edit} />
+              </button>
+            )
+          }
+          label='Name'
+        />
+        <Input
+          {...register('lastname')}
+          id='lastname'
+          onBlur={() => setEditingLastname(false)}
+          isReadOnly={!editingLastname}
+          isClearable={editingLastname}
+          defaultValue={user.lastname}
+          endContent={
+            !editingLastname && (
+              <button
+                onClick={() => {
+                  setEditingLastname(true)
+                  document.getElementById('lastname').focus()
+                }}
+              >
+                <img className='pb-1' src={assets.edit} />
+              </button>
+            )
+          }
+          label='Lastname'
         />
       </div>
-      <Button onClick={saveChanges}>Save</Button>
-    </>
+
+      <Button
+        onClick={() => console.log({ register })}
+        color='primary'
+        className='self-end'
+        // onClick={saveChanges}
+      >
+        Save
+      </Button>
+    </form>
   )
 }

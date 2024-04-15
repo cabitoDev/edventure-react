@@ -15,7 +15,6 @@ export const StepName = () => {
   const handleInputChange = e => {
     const newValue = e.target.value
     clearErrors()
-    console.log(errors)
     setValue('name', newValue)
   }
 
