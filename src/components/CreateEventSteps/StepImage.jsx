@@ -1,38 +1,42 @@
-import { Image, Button } from '@nextui-org/react'
-import React from 'react'
+import { Button, Avatar } from '@nextui-org/react'
+import React, { useRef } from 'react'
 
 import assets from '../../assets'
 import { useFormContext } from 'react-hook-form'
 
-export const StepImage = props => {
+export const StepImage = () => {
   const { setValue, watch } = useFormContext()
-
+  const inputFileRef = useRef()
   const onInputChange = ev => {
-    setValue('image', URL.createObjectURL(ev.target.files[0]))
+    setValue('image', {
+      url: URL.createObjectURL(ev.target.files[0]),
+      file: ev.target.files[0]
+    })
   }
 
   return (
     <>
       <div className='flex flex-col items-center gap-4'>
-        <Image
-          width={100}
-          height={150}
-          radius='lg'
-          alt='icon of event'
-          src={watch('image')}
-        />
+        <button
+          onClick={e => {
+            e.preventDefault()
+            inputFileRef.current.click()
+          }}
+        >
+          <Avatar className='w-40 h-40 text-large' src={watch('image').url} />
+        </button>
         <Button
           isIconOnly
           radius='md'
           color='primary'
-          onClick={() => document.getElementById('file-input').click()}
+          onClick={() => inputFileRef.current.click()}
         >
           <img src={assets.upload}></img>
         </Button>
         <input
           style={{ display: 'none' }}
           type='file'
-          id='file-input'
+          ref={inputFileRef}
           onChange={onInputChange}
         />
       </div>

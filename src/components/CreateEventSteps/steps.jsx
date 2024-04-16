@@ -7,7 +7,7 @@ import {
   StepWhere,
   StepDescription
 } from '.'
-import { Constants } from '../../constants'
+import Constants from '../../constants'
 export const steps = [
   {
     title: Constants.QUESTION_STEP_NAME,

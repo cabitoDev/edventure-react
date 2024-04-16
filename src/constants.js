@@ -1,4 +1,4 @@
-export const Constants = {
+const Constants = {
   DOMAIN: 'dev-9bbt1y5j.us.auth0.com',
   CLIENT_PRO: '5gpAXndTBJpbEj4PbW8apKvpKe52XnYP',
   CLIENT_DEV: 'K8GhEVo4Lo9OYPhuSB1ApVlJen6tUyUb',
@@ -79,3 +79,4 @@ export const Constants = {
   USER_AVATAR_URL:
     'https://firebasestorage.googleapis.com/v0/b/edventure-419614.appspot.com/o/avatars%2F{{userId}}?alt=media'
 }
+export default Constants

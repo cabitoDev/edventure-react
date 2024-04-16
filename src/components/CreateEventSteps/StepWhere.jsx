@@ -1,6 +1,6 @@
 import { Input, ListboxItem, Listbox } from '@nextui-org/react'
 import { useEffect, useState } from 'react'
-import { Constants } from '../../constants'
+import Constants from '../../constants'
 import { getMatches } from '../../services/MapsService'
 import { useFormContext } from 'react-hook-form'
 

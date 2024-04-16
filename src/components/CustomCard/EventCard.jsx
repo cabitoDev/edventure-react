@@ -25,9 +25,14 @@ export const EventCard = props => {
   }
   return (
     <Card isHoverable className='rounded-lg shadow-md p-4'>
-      <div className='flex items-center h-full'>
-        <Image src={event.image} alt={event.name} width={100} />
-        <div className='flex-column justify-between pl-2 self-baseline w-full h-[6rem]'>
+      <div className='flex flex-responsive items-center h-fit'>
+        <Image
+          onClick={() => navigateTo(`/event/${event.id}`)}
+          src={event.image}
+          alt={event.name}
+          className='h-[5rem] w-[5rem] cursor-pointer'
+        />
+        <div className='flex-column justify-between pl-2 self-baseline w-full'>
           <div className='flex flex-responsive justify-between w-full'>
             <Link
               color='foreground'

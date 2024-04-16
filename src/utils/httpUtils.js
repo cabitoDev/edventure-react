@@ -1,4 +1,4 @@
-import { Constants } from '../constants'
+import Constants from '../constants'
 
 export const getUserById = async id => {
   return fetch(`${Constants.USERS_ENDPOINT_URL}/${id}`)

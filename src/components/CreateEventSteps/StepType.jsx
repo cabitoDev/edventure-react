@@ -1,5 +1,5 @@
 import { Select, SelectItem } from '@nextui-org/react'
-import { Constants } from '../../constants'
+import Constants from '../../constants'
 import { useFormContext } from 'react-hook-form'
 
 export const StepType = () => {

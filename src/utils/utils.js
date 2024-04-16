@@ -1,3 +1,13 @@
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage'
+
+export const uploadImage = async (dir, id, file) => {
+  const storage = getStorage()
+  const storageRef = ref(storage, `${dir}/${id}`)
+  const snapshot = await uploadBytes(storageRef, file)
+  const downloadURL = await getDownloadURL(snapshot.ref)
+  return downloadURL
+}
+
 export const getLoginRequest = userData => {
   return {
     id: parseInt(userData.sub.slice(-5)),
@@ -10,7 +20,7 @@ export const getLoginRequest = userData => {
   }
 }
 
-export const getNewEventRequest = (eventData, user) => {
+export const getNewEventRequest = (eventData, newImage, user) => {
   const { address, assistants, date, time, description, image, name, type } =
     eventData
   return {
@@ -18,7 +28,7 @@ export const getNewEventRequest = (eventData, user) => {
     assistants,
     date: strToDate(date, time),
     description,
-    image,
+    image: newImage,
     name,
     type,
     userOwner: {

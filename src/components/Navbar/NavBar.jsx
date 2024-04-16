@@ -23,9 +23,10 @@ import assets from '../../assets'
 import { updateUser } from '../../redux/userSlice'
 import { useNavigate } from 'react-router-dom'
 import { Auth0Lock } from 'auth0-lock'
-import { Constants } from '../../constants'
+import Constants from '../../constants'
 import { saveUser } from '../../utils/httpUtils'
 import { getLoginRequest } from '../../utils/utils'
+import { useLogout } from '../../hooks/useLogout'
 
 export const NavBar = () => {
   const { query } = useKBar()
@@ -34,6 +35,7 @@ export const NavBar = () => {
   })
   const navigateTo = useNavigate()
   const dispatch = useDispatch()
+  const logout = useLogout()
   const [lock, setLock] = React.useState()
 
   useEffect(() => {
@@ -75,11 +77,6 @@ export const NavBar = () => {
       })
     }
   }, [lock])
-
-  const handleLogout = () => {
-    navigateTo('/')
-    dispatch(updateUser(null))
-  }
 
   const showAuth0 = () => {
     lock.show()
@@ -193,7 +190,7 @@ export const NavBar = () => {
               >
                 Profile
               </DropdownItem>
-              <DropdownItem textValue='Log Out' onClick={handleLogout}>
+              <DropdownItem textValue='Log Out' onClick={logout}>
                 <p className='text-pink-600' key='logout'>
                   Log Out
                 </p>
@@ -267,7 +264,7 @@ export const NavBar = () => {
           <NavbarMenuItem key='logout'>
             <Link
               className='text-pink-600 hover:cursor-pointer'
-              onClick={handleLogout}
+              onClick={logout}
             >
               Log Out
             </Link>

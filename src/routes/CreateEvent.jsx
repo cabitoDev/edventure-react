@@ -3,19 +3,20 @@ import { useForm, FormProvider } from 'react-hook-form'
 
 import assets from '../assets'
 import { ProgressBar } from '../components/ProgressBar'
-import { useState } from 'react'
+import { useId, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Constants } from '../constants'
+import Constants from '../constants'
 import { useDispatch, useSelector } from 'react-redux'
 import { steps } from '../components/CreateEventSteps/steps'
-import { getNewEventRequest } from '../utils/utils'
+import { getNewEventRequest, uploadImage } from '../utils/utils'
 import { getUserById, saveEvent } from '../utils/httpUtils'
 import { updateUser } from '../redux/userSlice'
 
 export const CreateEvent = () => {
   const form = useForm({
-    defaultValues: { image: Constants.DEFAULT_EVENT_IMAGE_URL }
+    defaultValues: { image: { url: Constants.DEFAULT_EVENT_IMAGE_URL } }
   })
+  const id = useId()
   const navigateTo = useNavigate()
   const user = useSelector(state => state.user)
   const [indexStep, setIndexStep] = useState(0)
@@ -38,25 +39,29 @@ export const CreateEvent = () => {
     }
   }
 
-  const onSubmit = () => {
-    form.trigger().then(isValid => {
-      if (isValid) {
-        setSendingEvent(true)
-        saveEvent(getNewEventRequest(form.getValues(), user)).then(
-          async res => {
-            await getUserById(user.id)
-              .then(newUserData => {
-                dispatch(updateUser(newUserData))
-                navigateTo('/my-events')
-              })
-              .catch(error => {
-                alert('error en toda la boca')
-                console.error('Error:', error.message)
-              })
-          }
+  const onSubmit = async () => {
+    const isValid = await form.trigger()
+    if (isValid) {
+      setSendingEvent(true)
+      const imgFile = form.watch('image').file
+      const newImage = imgFile
+        ? await uploadImage('events', id, imgFile)
+        : Constants.DEFAULT_EVENT_IMAGE_URL
+
+      try {
+        const res = await saveEvent(
+          getNewEventRequest(form.getValues(), newImage, user)
         )
+        const newUserData = await getUserById(user.id)
+        dispatch(updateUser(newUserData))
+        navigateTo('/my-events')
+      } catch (error) {
+        alert('Error en la operación')
+        console.error('Error:', error.message)
+      } finally {
+        setSendingEvent(false)
       }
-    })
+    }
   }
 
   const onError = errors => {

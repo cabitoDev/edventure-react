@@ -2,55 +2,58 @@
 
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
-import { Button, Link, Switch } from '@nextui-org/react'
+import { Button, Switch } from '@nextui-org/react'
 import { SunIcon } from '../components/settings/Sun'
 import { MoonIcon } from '../components/settings/Moon'
-import { useNavigate } from 'react-router'
+import { useLogout } from '../hooks/useLogout'
 
 export function Settings () {
-  const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme()
-  const navigateTo = useNavigate()
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  if (!mounted) return null
+  const logout = useLogout()
 
   return (
-    <div className='flex-column'>
-      <p className='text-2xl pl-10'>Settings:</p>
-      <div className='flex-column center gap-4'>
-        <div className='flex pl-5 gap-2'>
-          <p>Change theme</p>
-          <Switch
-            onChange={() => {
-              setTheme(theme === 'dark' ? 'light' : 'dark')
-            }}
-            isSelected={theme === 'dark'}
-            size='lg'
-            color='secondary'
-            thumbIcon={({ isSelected, className }) =>
-              isSelected ? (
-                <SunIcon className={className} />
-              ) : (
-                <MoonIcon className={className} />
-              )
-            }
-          ></Switch>
-        </div>
-        <Button
-          className='text-pink-600 hover:cursor-pointer'
-          variant='bordered'
-          onClick={() => {
-            navigateTo('/')
-            dispatch(updateUser(null))
+    <div className='flex-column center gap-4'>
+      <p className='text-2xl align-start pb-5'>Settings:</p>
+      <div className='flex-column gap-4'>
+        <Switch size='lg' onChange={() => {}}>
+          <div className='flex flex-col gap-1'>
+            <p className='text-medium'>Public email</p>
+            <p className='text-tiny text-default-400'>
+              People will be able to contact you by your profile email.
+            </p>
+          </div>
+        </Switch>
+
+        <Switch
+          onChange={() => {
+            setTheme(theme === 'dark' ? 'light' : 'dark')
           }}
+          isSelected={theme === 'dark'}
+          size='md'
+          color='secondary'
+          thumbIcon={({ isSelected, className }) =>
+            isSelected ? (
+              <SunIcon className={className} />
+            ) : (
+              <MoonIcon className={className} />
+            )
+          }
         >
-          Log Out
-        </Button>
+          <div className='flex flex-col gap-1'>
+            <p className='text-medium'>Change theme</p>
+            <p className='text-tiny text-default-400'>
+              Set the current aplication theme to light/dark.
+            </p>
+          </div>
+        </Switch>
       </div>
+      <Button
+        className='text-pink-600 hover:cursor-pointer mt-8'
+        variant='bordered'
+        onClick={logout}
+      >
+        Log Out
+      </Button>
     </div>
   )
 }

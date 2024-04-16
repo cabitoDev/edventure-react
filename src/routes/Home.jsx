@@ -1,5 +1,5 @@
 import React from 'react'
-import { Constants } from '../constants'
+import Constants from '../constants'
 import { HomeCard } from '../components/CustomCard/HomeCard'
 import { ReactLogo } from '../components/ReactLogo/ReactLogo'
 
