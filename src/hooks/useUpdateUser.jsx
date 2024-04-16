@@ -1,17 +1,18 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { updateUser } from '../redux/userSlice'
 import Constants from '../constants'
 
 const useUpdateUser = () => {
   const dispatch = useDispatch()
+  const user = useSelector(state => state.user)
   const [isLoading, setIsLoading] = useState(false)
 
   async function updateUserAsync (userUpdatedInfo) {
     setIsLoading(true)
     try {
       const response = await fetch(
-        `${Constants.USERS_ENDPOINT_URL}/${userUpdatedInfo.id}`,
+        `${Constants.USERS_ENDPOINT_URL}/${user.id}`,
         {
           method: 'PUT',
           headers: {

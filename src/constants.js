@@ -65,7 +65,7 @@ const Constants = {
   STEP_TIME_ERROR: 'Input a correct time',
   STEP_WHERE_ERROR: 'Input a valid address',
   STEP_ASSISTANTS_ERROR: 'Choose an option',
-  STEP_DESCRIPTION_ERROR: 'Input a description between 20-50 characters',
+  STEP_DESCRIPTION_ERROR: 'Input a description between 20-100 characters',
   QUESTION_STEP_TYPE: 'What is the type of your event?',
   QUESTION_STEP_IMAGE: 'Upload your own event icon',
   QUESTION_STEP_WHEN: 'When will be your event?',

@@ -20,6 +20,15 @@ export const getLoginRequest = userData => {
   }
 }
 
+export const formatMilisec = ms => {
+  const days = Math.floor(ms / (1000 * 60 * 60 * 24))
+  const hours = Math.floor((ms % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+  const minutes = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60))
+  const seconds = Math.floor((ms % (1000 * 60)) / 1000)
+
+  return { days, hours, minutes, seconds }
+}
+
 export const getNewEventRequest = (eventData, newImage, user) => {
   const { address, assistants, date, time, description, image, name, type } =
     eventData

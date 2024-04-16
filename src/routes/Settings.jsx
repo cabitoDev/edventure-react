@@ -6,16 +6,28 @@ import { Button, Switch } from '@nextui-org/react'
 import { SunIcon } from '../components/settings/Sun'
 import { MoonIcon } from '../components/settings/Moon'
 import { useLogout } from '../hooks/useLogout'
+import useUpdateUser from '../hooks/useUpdateUser'
+import { useSelector } from 'react-redux'
 
 export function Settings () {
   const { theme, setTheme } = useTheme()
   const logout = useLogout()
+  const user = useSelector(state => state.user)
+  const { updateUserAsync } = useUpdateUser()
+  const [showEmail, setShowEmail] = useState(user.showEmail)
 
   return (
     <div className='flex-column center gap-4'>
       <p className='text-2xl align-start pb-5'>Settings:</p>
       <div className='flex-column gap-4'>
-        <Switch size='lg' onChange={() => {}}>
+        <Switch
+          size='md'
+          isSelected={showEmail}
+          onChange={async () => {
+            setShowEmail(!showEmail)
+            await updateUserAsync({ showEmail: !user.showEmail })
+          }}
+        >
           <div className='flex flex-col gap-1'>
             <p className='text-medium'>Public email</p>
             <p className='text-tiny text-default-400'>

@@ -25,14 +25,6 @@ export const StepImage = () => {
         >
           <Avatar className='w-40 h-40 text-large' src={watch('image').url} />
         </button>
-        <Button
-          isIconOnly
-          radius='md'
-          color='primary'
-          onClick={() => inputFileRef.current.click()}
-        >
-          <img src={assets.upload}></img>
-        </Button>
         <input
           style={{ display: 'none' }}
           type='file'

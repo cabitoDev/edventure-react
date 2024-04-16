@@ -25,7 +25,7 @@ export const StepDescription = () => {
         {...register('description', {
           required: true,
           minLength: 20,
-          maxLength: 50
+          maxLength: 100
         })}
         value={watch('description') || ''}
         onChange={handleInputChange}

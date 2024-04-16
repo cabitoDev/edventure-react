@@ -1,9 +1,7 @@
 import { useRef, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Button } from '@nextui-org/button'
 import { Avatar } from '@nextui-org/avatar'
-import { updateUser } from '../redux/userSlice'
-import { httpUpdateUser } from '../utils/httpUtils'
 import appFirebase from '../firebase/firebase'
 import { Input } from '@nextui-org/input'
 import { useForm } from 'react-hook-form'
@@ -29,9 +27,7 @@ export const Profile = () => {
   }
 
   const onSubmit = async data => {
-    console.log(data)
-    const userUpdatedInfo = { ...data, id: user.id }
-    const updatedUser = await updateUserAsync(userUpdatedInfo)
+    const updatedUser = await updateUserAsync(data)
     if (!updatedUser) {
       alert('Error updating user')
     }
