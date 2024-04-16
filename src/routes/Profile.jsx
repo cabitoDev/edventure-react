@@ -13,64 +13,75 @@ import { Switch } from '@nextui-org/switch'
 import { cn } from '@nextui-org/system-rsc'
 
 export const Profile = () => {
-  const { register, handleSubmit } = useForm()
+  const { register, handleSubmit, setValue, watch } = useForm()
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
   const [avatar, setAvatar] = useState(user.avatar)
+  const [isNewAvatar, setIsNewAvatar] = useState()
   const [file, setFile] = useState()
   const [editingName, setEditingName] = useState()
   const [editingLastname, setEditingLastname] = useState()
   const [editingNickname, setEditingNickname] = useState()
   const [editingEmail, setEditingEmail] = useState()
+  const [isLoading, setIsLoading] = useState()
+  const [formChanged, setFormChanged] = useState()
 
   function handleChange (e) {
+    setIsNewAvatar(true)
     const selectedFile = e.target.files[0]
     setFile(e.target.files[0])
     setAvatar(URL.createObjectURL(selectedFile))
   }
 
-  async function uploadImage () {
-    try {
-      const storage = getStorage()
-      const storageRef = ref(storage, `avatars/${user.id}`)
-      const snapshot = await uploadBytes(storageRef, file)
-      const downloadURL = await getDownloadURL(snapshot.ref)
-
-      await httpUpdateUser({
-        id: user.id,
-        avatar: downloadURL
-      })
-        .then(userUpdated => {
-          if (userUpdated) {
-            dispatch(updateUser(userUpdated))
-          } else {
-            alert('Error updating user')
-          }
-        })
-        .catch(() => {
+  const onSubmit = async data => {
+    console.log(data)
+    setIsLoading(true)
+    const newAvatar = isNewAvatar ? await uploadImage() : user.avatar
+    const userUpdatedInfo = { ...data, avatar: newAvatar, id: user.id }
+    await httpUpdateUser(userUpdatedInfo)
+      .then(userUpdated => {
+        if (userUpdated) {
+          dispatch(updateUser(userUpdated))
+        } else {
           alert('Error updating user')
-        })
-
-      console.log('Image uploaded successfully!')
-    } catch (error) {
-      console.error('Error uploading image:', error)
-      alert('Error uploading image')
-    }
+        }
+      })
+      .catch(() => {
+        alert('Error updating user')
+      })
+    setIsLoading(false)
+    setFormChanged(false)
   }
 
-  const saveChanges = () => {
-    uploadImage()
+  async function uploadImage () {
+    const storage = getStorage()
+    const storageRef = ref(storage, `avatars/${user.id}`)
+    const snapshot = await uploadBytes(storageRef, file)
+    const downloadURL = await getDownloadURL(snapshot.ref)
+    return downloadURL
   }
 
   return (
-    <form className='flex-column gap-4 ml-10 mr-10 center pb-3'>
+    <form
+      onChange={() => setFormChanged(true)}
+      onSubmit={handleSubmit(onSubmit)}
+      className='flex-column gap-4 ml-10 mr-10 center pb-3'
+    >
       <div className='flex-column gap-3 center'>
         <button onClick={() => document.getElementById('file-input').click()}>
-          <Avatar className='w-40 h-40 text-large' src={avatar} />
+          <Avatar
+            value={avatar}
+            className='w-40 h-40 text-large'
+            src={avatar}
+          />
         </button>
         <p>Member since {new Date(user.loggedDate).toDateString()}</p>
       </div>
-
+      <input
+        style={{ display: 'none' }}
+        value={avatar}
+        {...register('avatar')}
+      />
       <input
         style={{ display: 'none' }}
         type='file'
@@ -80,6 +91,7 @@ export const Profile = () => {
       <div className='flex-column gap-3'>
         <Switch
           {...register('showEmail')}
+          onClick={() => setFormChanged(true)}
           classNames={{
             base: cn(
               'inline-flex flex-row-reverse w-full max-w-md bg-content1 hover:bg-content2 items-center',
@@ -97,6 +109,7 @@ export const Profile = () => {
               'group-data-[selected]:group-data-[pressed]:ml-4'
             )
           }}
+          onChange={() => setValue('showEmail', !watch('showEmail'))}
         >
           <div className='flex flex-col gap-1'>
             <p className='text-medium'>Public email</p>
@@ -125,6 +138,27 @@ export const Profile = () => {
             )
           }
           label='Email'
+        />
+        <Input
+          {...register('nickname')}
+          id='nickname'
+          onBlur={() => setEditingNickname(false)}
+          isReadOnly={!editingNickname}
+          isClearable={editingNickname}
+          defaultValue={user.nickname}
+          endContent={
+            !editingEmail && (
+              <button
+                onClick={() => {
+                  setEditingEmail(true)
+                  document.getElementById('nickname').focus()
+                }}
+              >
+                <img className='pb-1' src={assets.edit} />
+              </button>
+            )
+          }
+          label='Nickname'
         />
 
         <Input
@@ -172,7 +206,9 @@ export const Profile = () => {
       </div>
 
       <Button
-        onClick={() => console.log({ register })}
+        isLoading={isLoading}
+        isDisabled={!formChanged}
+        type='submit'
         color='primary'
         className='self-end'
         // onClick={saveChanges}
