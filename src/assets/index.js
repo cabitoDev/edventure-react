@@ -4,6 +4,8 @@ import arrowLeft from './arrow-left.svg'
 import upload from './upload.svg'
 import check from './check.svg'
 import edit from './edit.svg'
+import trash from './trash.svg'
+import exit from './exit.svg'
 
 const assets = {
   logo,
@@ -11,7 +13,9 @@ const assets = {
   arrowLeft,
   upload,
   check,
-  edit
+  edit,
+  trash,
+  exit
 }
 
 export default assets

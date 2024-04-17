@@ -62,7 +62,6 @@ const Constants = {
   STEP_NAME_ERROR: 'Enter a name between 5-20 characters',
   STEP_TYPE_ERROR: 'Select a type',
   STEP_DATE_ERROR: 'Input a future date',
-  STEP_TIME_ERROR: 'Input a correct time',
   STEP_WHERE_ERROR: 'Input a valid address',
   STEP_ASSISTANTS_ERROR: 'Choose an option',
   STEP_DESCRIPTION_ERROR: 'Input a description between 20-100 characters',

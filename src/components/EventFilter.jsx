@@ -24,7 +24,7 @@ const EventFilter = ({
           selectionMode='multiple'
           placeholder='Filter by type...'
           onChange={value => handleFilterChange(value)}
-          className='ml-2 border rounded-md'
+          className='ml-2 rounded-md'
         >
           {Constants.EVENT_TYPES.map(type => (
             <SelectItem key={type} value={type}>
