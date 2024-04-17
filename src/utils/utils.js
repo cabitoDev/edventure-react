@@ -30,10 +30,11 @@ export const formatMilisec = ms => {
 }
 
 export const getNewEventRequest = (eventData, newImage, user) => {
-  const { address, assistants, date, time, description, image, name, type } =
+  const { address, assistants, date, time, description, placeId, name, type } =
     eventData
   return {
     address,
+    placeId,
     assistants,
     date: strToDate(date, time),
     description,
@@ -48,6 +49,18 @@ export const getNewEventRequest = (eventData, newImage, user) => {
       loggedDate: user.loggedDate
     }
   }
+}
+
+export const dateToStr = dateStr => {
+  const date = new Date(dateStr)
+  const day = date.getDate()
+  const month = date.getMonth() + 1
+  const year = date.getFullYear()
+
+  const formattedDay = String(day).padStart(2, '0')
+  const formattedMonth = String(month).padStart(2, '0')
+
+  return `${formattedDay}/${formattedMonth}/${year}`
 }
 
 export const strToDate = (date, time) => {

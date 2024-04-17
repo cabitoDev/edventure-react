@@ -1,28 +1,15 @@
 import { Button, Card, Image, Link } from '@nextui-org/react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
-import { updateFollowingEvents } from '../../utils/httpUtils'
-import { useState } from 'react'
-import {
-  addFollowingEvents,
-  deleteFollowingEvents
-} from '../../redux/userSlice'
+import useFollow from '../../hooks/useFollow'
 
 export const EventCard = props => {
   const { event, inExplore } = props
   const navigateTo = useNavigate()
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
-  const [isFollowing, setIsFollowing] = useState(
-    user.followingEvents.find(ev => ev.id === event.id)
-  )
-  const followEvent = () => {
-    setIsFollowing(!isFollowing)
-    isFollowing
-      ? dispatch(deleteFollowingEvents(event))
-      : dispatch(addFollowingEvents(event))
-    updateFollowingEvents(user.id, event.id, isFollowing ? 'DELETE' : 'PUT')
-  }
+  const { isFollowing, toggleFollow } = useFollow(user, event)
+
   return (
     <Card isHoverable className='rounded-lg shadow-md p-4'>
       <div className='flex flex-responsive items-center h-fit'>
@@ -50,7 +37,7 @@ export const EventCard = props => {
                 <p className='text-green-600'>Owner</p>
               ) : (
                 <Button
-                  onClick={followEvent}
+                  onClick={toggleFollow}
                   variant={isFollowing ? 'bordered' : 'solid'}
                   className='z-20'
                   color='primary'

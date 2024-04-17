@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import Constants from '../../constants'
 import { getMatches } from '../../services/MapsService'
 import { useFormContext } from 'react-hook-form'
+import GoogleMap from '../GoogleMap'
 
 export const StepWhere = () => {
   const {
@@ -13,37 +14,36 @@ export const StepWhere = () => {
     formState: { errors }
   } = useFormContext()
   const [coincidences, setCoincidences] = useState([])
-  const [shouldSearch, setShouldSearch] = useState(false)
+  const [results, setResults] = useState()
 
   const doQuery = async () => {
-    if (!shouldSearch) return
-    const results = JSON.parse(
-      JSON.stringify(await getMatches(watch('address')))
-    )
-    console.log(results)
+    setResults(JSON.parse(JSON.stringify(await getMatches(watch('address')))))
+
     setCoincidences(
       results.map(result => {
         return {
-          description: result.description
+          description: result.description,
+          placeId: result.place_id
         }
       })
     )
   }
 
   const onInputChange = ev => {
-    clearErrors()
+    doQuery()
+    clearErrors('address')
     setValue('address', ev.target.value)
-    setShouldSearch(true)
   }
 
-  useEffect(() => {
-    if (shouldSearch) doQuery()
-  }, [shouldSearch])
-
   const onAction = address => {
-    setValue('address', address)
-    setShouldSearch(false)
+    console.log(address.description)
+    setValue('address', address.description)
+    setValue('placeId', address.placeId)
     setCoincidences([])
+  }
+
+  const validateAddress = () => {
+    return watch('address') && watch('placeId') ? true : false
   }
   return (
     <>
@@ -51,28 +51,24 @@ export const StepWhere = () => {
         <Input
           autoFocus
           placeholder='Input the event address'
-          {...register('address', { required: true })}
+          {...register('address', { validate: validateAddress })}
           value={watch('address')}
           onChange={onInputChange}
           isInvalid={errors.address ? true : false}
           errorMessage={errors.address ? Constants.STEP_WHERE_ERROR : ''}
         />
-        {coincidences.length > 0 && (
-          <Listbox
-            aria-label='User Menu'
-            onAction={onAction}
-            className='z-20 p-0 gap-0 divide-y divide-default-300/50 dark:divide-default-100/80 bg-content1 w-full overflow-visible shadow-small rounded-medium'
-            itemClasses={{
-              base: 'px-3 first:rounded-t-medium last:rounded-b-medium rounded-none gap-3 h-12 data-[hover=true]:bg-default-100/80'
-            }}
-            items={coincidences}
-          >
-            {item => (
-              <ListboxItem key={item.description}>
+        {coincidences && (
+          <ul className='z-20 p-0 relative z-40 bg-white dark:bg-gray-900 w-full overflow-visible shadow-small rounded-md'>
+            {coincidences.map((item, index) => (
+              <li
+                key={index}
+                className='px-4 py-2 first:rounded-t-md last:rounded-b-md rounded-none hover:bg-gray-200 dark:hover:bg-gray-800 cursor-pointer'
+                onClick={() => onAction(item)}
+              >
                 {item.description}
-              </ListboxItem>
-            )}
-          </Listbox>
+              </li>
+            ))}
+          </ul>
         )}
       </div>
     </>
