@@ -70,6 +70,35 @@ export const httpUpdateUser = async user => {
     })
 }
 
+export const httpUpdateEvent = async event => {
+  return fetch(`${Constants.EVENTS_ENDPOINT_URL}/${event.id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(user)
+  })
+    .then(response => {
+      return response.json()
+    })
+    .catch(error => {
+      console.error('Error al realizar la solicitud:', error)
+      return null
+    })
+}
+export const httpDeleteEvent = async event => {
+  return fetch(`${Constants.EVENTS_ENDPOINT_URL}/${event.id}`, {
+    method: 'DELETE'
+  })
+    .then(response => {
+      return event
+    })
+    .catch(error => {
+      console.error('Error al eliminar el evento:', error)
+      return false
+    })
+}
+
 export const updateFollowingEvents = async (userId, eventId, method) => {
   return fetch(
     `${Constants.USERS_ENDPOINT_URL}/${userId}/updateFollowingEvent/${eventId}`,

@@ -1,26 +1,49 @@
-import { useLoaderData } from 'react-router'
 import { Avatar, Button, Card, Divider } from '@nextui-org/react'
 import Countdown from '../components/Countdown'
 import GoogleMap from '../components/GoogleMap'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import useFollow from '../hooks/useFollow'
 import { dateToStr } from '../utils/utils'
 import assets from '../assets'
 import { useState } from 'react'
 import EditEvent from '../components/EditEvent'
+import { useLoaderData, useNavigate, useParams } from 'react-router-dom'
+import { httpDeleteEvent } from '../utils/httpUtils'
+import DeleteModal from '../components/DeleteModal'
+import { deleteUserEvents } from '../redux/userSlice'
 
 export const Event = () => {
-  const event = useLoaderData()
+  const navigateTo = useNavigate()
   const user = useSelector(state => state.user)
+
+  const [isOpenModal, setIsOpenModal] = useState(false)
+  const dispatch = useDispatch()
+  const [event, setEvent] = useState(useLoaderData())
   const { isFollowing, toggleFollow } = useFollow(user, event)
   const [isEditing, setIsEditing] = useState(false)
 
+  const onDelete = async () => {
+    const deletedEvent = await httpDeleteEvent(event)
+    if (deletedEvent) {
+      dispatch(deleteUserEvents(deletedEvent))
+      navigateTo('/my-events')
+    }
+  }
   return (
     <div className='flex center pb-4'>
+      <DeleteModal
+        isOpen={isOpenModal}
+        setIsOpen={setIsOpenModal}
+        onDelete={onDelete}
+      />
       {event && (
         <Card className='p-6 md:w-[40rem]'>
           {isEditing ? (
-            <EditEvent event={event} setIsEditing={setIsEditing} />
+            <EditEvent
+              event={event}
+              setIsEditing={setIsEditing}
+              setEvent={setEvent}
+            />
           ) : (
             <>
               <div className='flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0'>
@@ -59,7 +82,7 @@ export const Event = () => {
                       </Button>
                       <Button
                         onClick={() => {
-                          setShowModalTrash(true)
+                          setIsOpenModal(true)
                         }}
                         color='danger'
                       >

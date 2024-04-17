@@ -3,9 +3,7 @@ import { useEffect, useState } from 'react'
 import Constants from '../../constants'
 import { getMatches } from '../../services/MapsService'
 import { useFormContext } from 'react-hook-form'
-import GoogleMap from '../GoogleMap'
-
-export const StepWhere = () => {
+export const FormAddress = props => {
   const {
     register,
     setValue,
@@ -15,42 +13,35 @@ export const StepWhere = () => {
   } = useFormContext()
   const [coincidences, setCoincidences] = useState([])
 
-  useEffect(() => {
-    const doQuery = async () => {
-      const results = await getMatches(watch('address'))
-      setCoincidences(
-        results.map(result => ({
-          description: result.description,
-          placeId: result.place_id
-        }))
-      )
-    }
-    doQuery()
-  }, [watch])
-
-  const onInputChange = ev => {
+  const searchResults = async () => {
     clearErrors('address')
-    setValue('address', ev.target.value)
+    const results = await getMatches(watch('address'))
+    setCoincidences(
+      results.map(result => ({
+        description: result.description,
+        placeId: result.place_id
+      }))
+    )
   }
 
   const selectItem = address => {
-    setValue('address', address.description)
+    clearErrors('address')
     setValue('placeId', address.placeId)
+    setValue('address', address.description)
     setCoincidences([])
   }
 
   const validateAddress = () => !!watch('address') && !!watch('placeId')
 
   return (
-    <div className='input-width'>
+    <div className={props.className}>
       <Input
-        autoFocus
-        placeholder='Input the event address'
+        label='Address'
         {...register('address', { validate: validateAddress })}
         value={watch('address')}
-        onChange={onInputChange}
+        onInput={searchResults}
         isInvalid={errors.address ? true : false}
-        errorMessage={errors.address ? Constants.STEP_WHERE_ERROR : ''}
+        errorMessage={errors.address && Constants.STEP_ADDRESS_ERROR}
       />
       {coincidences.length > 0 && (
         <ul className='z-20 p-0 relative z-40 bg-white dark:bg-default-100 w-full overflow-visible shadow-small rounded-md'>

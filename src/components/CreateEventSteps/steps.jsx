@@ -1,40 +1,40 @@
 import {
-  StepName,
-  StepImage,
-  StepType,
-  StepAssistants,
-  StepWhen,
-  StepWhere,
-  StepDescription
+  FormName,
+  FormImage,
+  FormType,
+  FormAssistants,
+  FormDate,
+  FormAddress,
+  FormDescription
 } from '.'
 import Constants from '../../constants'
 export const steps = [
   {
     title: Constants.QUESTION_STEP_NAME,
-    component: <StepName />
+    component: <FormName />
   },
   {
     title: Constants.QUESTION_STEP_TYPE,
-    component: <StepType />
+    component: <FormType />
   },
   {
     title: Constants.QUESTION_STEP_IMAGE,
-    component: <StepImage />
+    component: <FormImage />
   },
   {
-    title: Constants.QUESTION_STEP_WHEN,
-    component: <StepWhen />
+    title: Constants.QUESTION_STEP_DATE,
+    component: <FormDate />
   },
   {
-    title: Constants.QUESTION_STEP_WHERE,
-    component: <StepWhere />
+    title: Constants.QUESTION_STEP_ADDRESS,
+    component: <FormAddress className='input-width' />
   },
   {
     title: Constants.QUESTION_STEP_ASSISTANTS,
-    component: <StepAssistants />
+    component: <FormAssistants />
   },
   {
     title: Constants.QUESTION_STEP_DESCRIPTION,
-    component: <StepDescription />
+    component: <FormDescription />
   }
 ]

@@ -1,6 +1,5 @@
 import { Button } from '@nextui-org/button'
 import { useForm, FormProvider } from 'react-hook-form'
-
 import assets from '../assets'
 import { ProgressBar } from '../components/ProgressBar'
 import { useId, useState } from 'react'
@@ -9,8 +8,8 @@ import Constants from '../constants'
 import { useDispatch, useSelector } from 'react-redux'
 import { steps } from '../components/CreateEventSteps/steps'
 import { getNewEventRequest, uploadImage } from '../utils/utils'
-import { getUserById, saveEvent } from '../utils/httpUtils'
-import { updateUser } from '../redux/userSlice'
+import { saveEvent } from '../utils/httpUtils'
+import { addUserEvents } from '../redux/userSlice'
 
 export const CreateEvent = () => {
   const form = useForm({
@@ -49,11 +48,10 @@ export const CreateEvent = () => {
         : Constants.DEFAULT_EVENT_IMAGE_URL
 
       try {
-        const res = await saveEvent(
+        const newEvent = await saveEvent(
           getNewEventRequest(form.getValues(), newImage, user)
         )
-        const newUserData = await getUserById(user.id)
-        dispatch(updateUser(newUserData))
+        dispatch(addUserEvents(newEvent))
         navigateTo('/my-events')
       } catch (error) {
         alert('Error en la operación')

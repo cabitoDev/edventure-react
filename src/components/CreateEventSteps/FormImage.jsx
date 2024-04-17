@@ -1,10 +1,9 @@
 import { Button, Avatar } from '@nextui-org/react'
 import React, { useRef } from 'react'
 
-import assets from '../../assets'
 import { useFormContext } from 'react-hook-form'
 
-export const StepImage = () => {
+export const FormImage = () => {
   const { setValue, watch } = useFormContext()
   const inputFileRef = useRef()
   const onInputChange = ev => {

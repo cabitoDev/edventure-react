@@ -1,77 +1,85 @@
-import { Avatar, Button, Input, Textarea } from '@nextui-org/react'
-import { useForm } from 'react-hook-form'
-import Constants from '../constants'
-import { validateDate } from '../utils/utils'
+import { Button } from '@nextui-org/react'
+import { FormProvider, useForm } from 'react-hook-form'
+import { dateToInput } from '../utils/utils'
+import {
+  FormAddress,
+  FormAssistants,
+  FormDate,
+  FormDescription,
+  FormImage,
+  FormName,
+  FormType
+} from './CreateEventSteps'
+import assets from '../assets'
+import useUpdateEvent from '../hooks/useUpdateEvent'
+import { useDispatch, useSelector } from 'react-redux'
+import { getUserById } from '../utils/httpUtils'
+import { updateUserEvents } from '../redux/userSlice'
 
-const EditEvent = ({ event, setIsEditing }) => {
-  const {
-    register,
-    handleSubmit,
-    clearErrors,
-    formState: { errors }
-  } = useForm()
+const EditEvent = ({ event, setIsEditing, setEvent }) => {
+  const user = useSelector(state => state.user)
+  const { updateEventAsync, isLoading } = useUpdateEvent()
+  const dispatch = useDispatch()
+
+  const form = useForm({
+    defaultValues: {
+      ...event,
+      date: dateToInput(event.date),
+      image: { url: event.image }
+    }
+  })
 
   const onSubmit = async data => {
     console.log(data)
-    // const updatedUser = await updateEvent(data)
-    // if (!updatedUser) {
-    //   alert('Error updating user')
-    // }
-    // setIsEditing(false)
+    const updatedEvent = await updateEventAsync(data)
+    if (updatedEvent) {
+      dispatch(updateUserEvents(updatedEvent))
+      setEvent(updatedEvent)
+    }
+    setIsEditing(false)
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className='flex-column gap-5'>
-      <div className='center'>
-        <Avatar src={event.image} alt='Event Image' className='w-24 h-24' />
-      </div>
-
-      <div className='flex justify-between'>
-        <Input
-          {...register('name', { required: true, minLength: 5, maxLength: 20 })}
-          isInvalid={errors.name ? true : false}
-          defaultValue={event.name}
-          errorMessage={errors.name && Constants.STEP_NAME_ERROR}
-          label='Name'
-          onChange={() => clearErrors('name')}
-          labelPlacement='outside-left'
+    <FormProvider {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className='flex flex-col gap-5'
+      >
+        <img
+          onClick={() => setIsEditing(false)}
+          className='w-5 cursor-pointer self-end'
+          src={assets.exit}
+          alt='Exit'
         />
-        <Input
-          type='datetime-local'
-          defaultValue={new Date(event.date).toISOString().slice(0, 16)}
-          {...register('date', { validate: validateDate })}
-          isInvalid={errors.date ? true : false}
-          errorMessage={errors.date && Constants.STEP_DATE_ERROR}
-          labelPlacement='outside-left'
-          label='Date'
-        />
-      </div>
-      <Textarea
-        {...register('description', {
-          required: true,
-          minLength: 20,
-          maxLength: 100
-        })}
-        isInvalid={errors.description ? true : false}
-        defaultValue={event.description}
-        errorMessage={errors.description && Constants.STEP_DESCRIPTION_ERROR}
-        onChange={() => clearErrors('description')}
-        label='Description'
-      />
-      <input
-        type='text'
-        id='eventAddress'
-        name='eventAddress'
-        defaultValue={event.address}
-        className='rounded-md p-2'
-      />
+        <div className='flex justify-center'>
+          <FormImage />
+        </div>
+        <div className='flex flex-col md:flex-row md:justify-between gap-5'>
+          <div className='flex flex-col flex-grow'>
+            <FormName />
+          </div>
+          <div className='flex flex-col flex-grow'>
+            <FormDate />
+          </div>
+        </div>
+        <div className='flex flex-col md:flex-row md:justify-between gap-5'>
+          <div className='flex flex-col flex-grow'>
+            <FormType />
+          </div>
+          <div className='flex flex-col flex-grow'>
+            <FormAssistants />
+          </div>
+        </div>
 
-      <div className='flex justify-end'>
-        <Button type='submit' color='primary'>
-          Save
-        </Button>
-      </div>
-    </form>
+        <FormAddress />
+        <FormDescription />
+        <div className='flex justify-end'>
+          <Button isLoading={isLoading} type='submit' color='primary'>
+            Save
+          </Button>
+        </div>
+      </form>
+    </FormProvider>
   )
 }
 

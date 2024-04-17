@@ -3,7 +3,7 @@ import Constants from '../../constants'
 import { useFormContext } from 'react-hook-form'
 import { validateDate } from '../../utils/utils'
 
-export const StepWhen = () => {
+export const FormDate = props => {
   const {
     register,
     clearErrors,
@@ -13,15 +13,17 @@ export const StepWhen = () => {
 
   return (
     <Input
+      label='Date'
+      className={props.className}
+      placeholder=' '
       type='datetime-local'
-      autoFocus
       {...register('date', {
         validate: validateDate
       })}
       value={watch('date')}
       onInput={() => clearErrors()}
       isInvalid={errors.date ? true : false}
-      errorMessage={errors.date ? Constants.STEP_DATE_ERROR : ''}
+      errorMessage={errors.date && Constants.STEP_DATE_ERROR}
     />
   )
 }
