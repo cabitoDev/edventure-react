@@ -18,8 +18,8 @@ const useEventSearch = (allEvents, user) => {
 
     switch (filterOther) {
       case 'OWNER':
-        filteredEvents = filteredEvents.filter(
-          event => event.userOwner.id === user.id
+        filteredEvents = filteredEvents.filter(event =>
+          user.userEvents.some(ev => ev.id === event.id)
         )
         break
       case 'FOLLOWING':
@@ -28,10 +28,10 @@ const useEventSearch = (allEvents, user) => {
         )
         break
       case 'NOT_FOLLOWING':
-        filteredEvents = filteredEvents.filter(
-          event =>
-            !event.usersFollowing.some(follower => follower.id === user.id)
-        )
+        filteredEvents = filteredEvents.filter(event => {
+          !event.usersFollowing.some(follower => follower.id === user.id)
+          user.userEvents.some(ev => ev.id === event.id)
+        })
         break
       case 'ALL':
         break
