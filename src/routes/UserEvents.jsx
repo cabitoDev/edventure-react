@@ -1,22 +1,32 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import '../index.css'
-import { Button, Pagination } from '@nextui-org/react'
+import {
+  Button,
+  Input,
+  Pagination,
+  Radio,
+  RadioGroup,
+  Select,
+  SelectItem
+} from '@nextui-org/react'
 import { useNavigate } from 'react-router'
 import { EventCard } from '../components/CustomCard/EventCard'
+import useEventSearch from '../hooks/useEventSearch'
+import Constants from '../constants'
+import EventFilter from '../components/EventFilter'
 
 export const UserEvents = () => {
-  const userEvents = useSelector(state =>
-    state.user.userEvents.concat(state.user.followingEvents)
-  )
-  const [currentEvents, setcurrentEvents] = useState([])
-  useEffect(() => {
-    setcurrentEvents(userEvents.slice(0, 5))
-  }, [userEvents])
+  const user = useSelector(state => state.user)
+  const userEvents = user.userEvents.concat(user.followingEvents)
 
-  const handlePageChange = indexPage => {
-    setcurrentEvents(userEvents.slice((indexPage - 1) * 5, indexPage * 5))
-  }
+  const {
+    currentEvents,
+    handlePageChange,
+    handleSearchChange,
+    handleFilterChange,
+    handleFilterOtherChange
+  } = useEventSearch(userEvents, user)
 
   const navigateTo = useNavigate()
 
@@ -26,9 +36,21 @@ export const UserEvents = () => {
         <>
           <p className='text-2xl pl-10'>Your events:</p>
           <div class='flex-column gap-3 mx-10'>
-            {currentEvents.map(event => {
-              return <EventCard key={event.id} event={event}></EventCard>
-            })}
+            <EventFilter
+              handleSearchChange={handleSearchChange}
+              handleFilterChange={handleFilterChange}
+              handleFilterOtherChange={handleFilterOtherChange}
+              ownerOption
+            />
+            {currentEvents.length > 0 ? (
+              currentEvents.map(event => {
+                return <EventCard key={event.id} event={event}></EventCard>
+              })
+            ) : (
+              <div className='home-title'>
+                <p className='text-2xl'>No matches.</p>
+              </div>
+            )}
           </div>
           <Pagination
             showControls
