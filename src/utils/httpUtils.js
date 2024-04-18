@@ -114,8 +114,11 @@ export const updateFollowingEvents = async (userId, eventId, method) => {
       }
     }
   )
-    .then(response => {
-      return response.json()
+    .then(async response => {
+      if (response.ok) {
+        const updatedUser = await response.json()
+        return updatedUser
+      }
     })
     .catch(error => {
       console.error('Error al realizar la solicitud:', error)
