@@ -1,25 +1,33 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
 import '../index.css'
-import {
-  Button,
-  Input,
-  Pagination,
-  Radio,
-  RadioGroup,
-  Select,
-  SelectItem
-} from '@nextui-org/react'
+import { Button, Pagination } from '@nextui-org/react'
 import { useNavigate } from 'react-router'
 import { EventCard } from '../components/CustomCard/EventCard'
 import useEventSearch from '../hooks/useEventSearch'
-import Constants from '../constants'
 import EventFilter from '../components/EventFilter'
+import useUpdatedUser from '../hooks/useUpdatedUser'
 
 export const UserEvents = () => {
-  const user = useSelector(state => state.user)
-  const userEvents = user.userEvents.concat(user.followingEvents)
+  const { getUpdatedUser, isLoading } = useUpdatedUser()
+  const [user, setUser] = useState(null)
+  const [userEvents, setUserEvents] = useState([])
 
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const updatedUser = await getUpdatedUser()
+        setUser(updatedUser)
+        if (updatedUser) {
+          setUserEvents(
+            updatedUser.userEvents.concat(updatedUser.followingEvents)
+          )
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error)
+      }
+    }
+    fetchUserData()
+  }, [])
   const {
     currentEvents,
     handlePageChange,
@@ -30,6 +38,7 @@ export const UserEvents = () => {
 
   const navigateTo = useNavigate()
 
+  if (isLoading) return <>Loading</>
   return (
     <>
       {userEvents && userEvents.length > 0 ? (

@@ -67,6 +67,11 @@
         max-width: 350px;
         min-width: 350px
     }
+    .flex-responsive-2 {
+        align-items: start;
+        display: flex;
+        flex-direction:column;
+    }
   }
 @media screen and (max-width: 480px) {
     .hide-xs {

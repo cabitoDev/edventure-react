@@ -2,13 +2,14 @@ import { Button, Card, Image, Link } from '@nextui-org/react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 import useFollow from '../../hooks/useFollow'
+import { useState } from 'react'
 
 export const EventCard = props => {
   const { event, inExplore } = props
   const navigateTo = useNavigate()
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
-  const { isFollowing, toggleFollow } = useFollow(user, event)
+  const { followers, isFollowing, toggleFollow } = useFollow(user, event)
 
   return (
     <Card isHoverable className='rounded-lg shadow-md p-4'>
@@ -49,6 +50,7 @@ export const EventCard = props => {
           )}
         </div>
       </div>
+      <p className='self-end text-bold text-xs'>Followers: {followers}</p>
     </Card>
   )
 }

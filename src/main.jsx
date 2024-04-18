@@ -13,7 +13,7 @@ import { CreateEvent } from './routes/CreateEvent.jsx'
 import { Root } from './routes/Root.jsx'
 import { UserEvents } from './routes/UserEvents.jsx'
 import { Explore } from './routes/Explore.jsx'
-import { getEventById, getEvents } from './utils/httpUtils.js'
+import { getEventById, getEvents, getUserById } from './utils/httpUtils.js'
 import { Event } from './routes/Event.jsx'
 import { initializeApp } from 'firebase/app'
 

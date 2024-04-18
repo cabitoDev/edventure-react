@@ -9,7 +9,7 @@ const EventFilter = ({
   ownerOption
 }) => {
   return (
-    <div className='md:flex sm:flex-column justify-between gap-2 items-center'>
+    <div className='flex flex-responsive-2 justify-between gap-2 items-center'>
       <div className='flex-responsive gap-3'>
         <Input
           startContent={

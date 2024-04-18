@@ -7,30 +7,38 @@ const useEventSearch = (allEvents, user) => {
   const [filterOther, setFilterOther] = useState('ALL')
 
   useEffect(() => {
-    let filteredEvents = allEvents.filter(event =>
-      event.name.toLowerCase().includes(searchQuery.toLowerCase())
+    let filteredEvents = allEvents.filter(filteredEvent =>
+      filteredEvent.name.toLowerCase().includes(searchQuery.toLowerCase())
     )
     if (filterType) {
-      filteredEvents = filteredEvents.filter(event =>
-        filterType.toLowerCase().includes(event.type.toLowerCase())
+      filteredEvents = filteredEvents.filter(filteredEvent =>
+        filterType.toLowerCase().includes(filteredEvent.type.toLowerCase())
       )
     }
 
     switch (filterOther) {
       case 'OWNER':
-        filteredEvents = filteredEvents.filter(event =>
-          user.userEvents.some(ev => ev.id === event.id)
+        filteredEvents = filteredEvents.filter(filteredEvent =>
+          user.userEvents.some(ev => ev.id === filteredEvent.id)
         )
         break
       case 'FOLLOWING':
-        filteredEvents = filteredEvents.filter(event =>
-          event.usersFollowing.some(follower => follower.id === user.id)
-        )
+        filteredEvents = filteredEvents.filter(filteredEvent => {
+          if (filteredEvent.usersFollowing)
+            return filteredEvent.usersFollowing.some(
+              follower => follower.id === user.id
+            )
+        })
         break
       case 'NOT_FOLLOWING':
-        filteredEvents = filteredEvents.filter(event => {
-          !event.usersFollowing.some(follower => follower.id === user.id)
-          user.userEvents.some(ev => ev.id === event.id)
+        filteredEvents = filteredEvents.filter(filteredEvent => {
+          if (
+            filteredEvent.usersFollowing &&
+            filteredEvent.userOwner.id !== user.id
+          )
+            return !filteredEvent.usersFollowing.some(
+              follower => follower.id === user.id
+            )
         })
         break
       case 'ALL':
@@ -40,7 +48,7 @@ const useEventSearch = (allEvents, user) => {
     }
 
     setCurrentEvents(filteredEvents.slice(0, 5))
-  }, [searchQuery, filterType, filterOther])
+  }, [searchQuery, filterType, filterOther, allEvents])
 
   const handlePageChange = indexPage => {
     setCurrentEvents(allEvents.slice((indexPage - 1) * 5, indexPage * 5))

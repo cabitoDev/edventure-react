@@ -1,14 +1,19 @@
 import Constants from '../constants'
 
 export const getUserById = async id => {
-  return fetch(`${Constants.USERS_ENDPOINT_URL}/${id}`)
-    .then(response => {
-      return response.json()
-    })
-    .catch(error => {
+  try {
+    const response = await fetch(`${Constants.USERS_ENDPOINT_URL}/${id}`)
+    if (!response.ok) {
+      throw new Error('Error getting user info')
+    }
+    const userInfo = await response.json()
+    return userInfo
+  } catch {
+    error => {
       console.error('Error:', error.message)
       return null
-    })
+    }
+  }
 }
 
 export const getEventById = async id => {
