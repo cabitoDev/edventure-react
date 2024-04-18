@@ -1,7 +1,8 @@
-import { useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Button } from '@nextui-org/button'
 import { Avatar } from '@nextui-org/avatar'
+// eslint-disable-next-line no-unused-vars
 import appFirebase from '../firebase/firebase'
 import { Input } from '@nextui-org/input'
 import { useForm } from 'react-hook-form'
@@ -29,7 +30,7 @@ export const Profile = () => {
   const onSubmit = async data => {
     const updatedUser = await updateUserAsync(data)
     if (!updatedUser) {
-      alert('Error updating user')
+      console.error('Error updating user')
     }
     setIsEditing(false)
   }
@@ -60,10 +61,11 @@ export const Profile = () => {
       <div className='md:grid md:grid-cols-2 gap-4 flex flex-col'>
         <Input
           {...register('email', {
+            required: true,
             pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/
           })}
           value={watch('email')}
-          isInvalid={errors.email ? true : false}
+          isInvalid={errors.email && true}
           errorMessage={errors.email ? 'Input a correct email' : ''}
           id='email'
           isDisabled={!isEditing}
@@ -71,8 +73,12 @@ export const Profile = () => {
           label='Email'
         />
         <Input
-          {...register('nickname', { minLength: 5, maxLength: 20 })}
-          isInvalid={errors.nickname ? true : false}
+          {...register('nickname', {
+            required: true,
+            minLength: 5,
+            maxLength: 20
+          })}
+          isInvalid={errors.nickname && true}
           id='nickname'
           isDisabled={!isEditing}
           defaultValue={user.nickname}
@@ -83,20 +89,24 @@ export const Profile = () => {
         />
 
         <Input
-          {...register('name', { minLength: 2, maxLength: 20 })}
+          {...register('name', { required: true, minLength: 2, maxLength: 20 })}
           errorMessage={errors.name ? 'Required name between 5-20 char' : ''}
-          isInvalid={errors.name ? true : false}
+          isInvalid={errors.name && true}
           id='name'
           isDisabled={!isEditing}
           defaultValue={user.name}
           label='Name'
         />
         <Input
-          {...register('lastname', { minLength: 5, maxLength: 20 })}
+          {...register('lastname', {
+            required: true,
+            minLength: 5,
+            maxLength: 20
+          })}
           errorMessage={
             errors.lastname ? 'Required lastname between 5-20 char' : ''
           }
-          isInvalid={errors.lastname ? true : false}
+          isInvalid={errors.lastname && true}
           isDisabled={!isEditing}
           defaultValue={user.lastname}
           label='Lastname'

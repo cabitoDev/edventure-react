@@ -1,7 +1,7 @@
 'use client'
 
 import { useTheme } from 'next-themes'
-import { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Button, Switch } from '@nextui-org/react'
 import { SunIcon } from '../components/settings/Sun'
 import { MoonIcon } from '../components/settings/Moon'

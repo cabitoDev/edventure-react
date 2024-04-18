@@ -1,9 +1,9 @@
 import { Input } from '@nextui-org/react'
-import { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Constants from '../../constants'
 import { getMatches } from '../../services/MapsService'
 import { useFormContext } from 'react-hook-form'
-export const FormAddress = props => {
+export const FormAddress = () => {
   const {
     register,
     setValue,
@@ -34,7 +34,7 @@ export const FormAddress = props => {
   const validateAddress = () => !!watch('address') && !!watch('placeId')
 
   return (
-    <div className={props.className}>
+    <div>
       <Input
         label='Address'
         {...register('address', { validate: validateAddress })}

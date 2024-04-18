@@ -1,9 +1,9 @@
 import React from 'react'
-import { Card, Input } from '@nextui-org/react'
+import { Input } from '@nextui-org/react'
 import { useFormContext } from 'react-hook-form'
 import Constants from '../../constants'
 
-export const FormName = props => {
+export const FormName = () => {
   const {
     register,
     clearErrors,
@@ -17,7 +17,6 @@ export const FormName = props => {
       value={watch('name')}
       onInput={() => clearErrors('name')}
       label='Name'
-      className={props.className}
       isInvalid={errors.name ? true : false}
       errorMessage={errors.name && Constants.STEP_NAME_ERROR}
     />

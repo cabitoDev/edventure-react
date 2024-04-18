@@ -68,7 +68,9 @@ export const NavBar = () => {
               if (userLogged) {
                 dispatch(updateUser(userLogged))
                 navigateTo('/profile')
-              } else alert('fallo al hacer login')
+              } else {
+                console.error('fallo al hacer login')
+              }
             })
             .catch(() => {
               //handleError

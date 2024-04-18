@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
+import React, { useEffect, useState } from 'react'
 import { formatMilisec } from '../utils/utils'
 
 const Countdown = props => {
@@ -45,6 +46,10 @@ const Countdown = props => {
       </div>
     </div>
   )
+}
+
+Countdown.propTypes = {
+  date: PropTypes.string
 }
 
 export default Countdown

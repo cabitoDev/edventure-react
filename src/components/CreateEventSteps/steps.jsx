@@ -7,6 +7,7 @@ import {
   FormAddress,
   FormDescription
 } from '.'
+import React from 'react'
 import Constants from '../../constants'
 export const steps = [
   {
@@ -27,7 +28,7 @@ export const steps = [
   },
   {
     title: Constants.QUESTION_STEP_ADDRESS,
-    component: <FormAddress className='input-width' />
+    component: <FormAddress />
   },
   {
     title: Constants.QUESTION_STEP_ASSISTANTS,

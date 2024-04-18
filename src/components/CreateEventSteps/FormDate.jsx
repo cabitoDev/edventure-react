@@ -1,9 +1,11 @@
+import PropTypes from 'prop-types'
 import { Input } from '@nextui-org/react'
 import Constants from '../../constants'
 import { useFormContext } from 'react-hook-form'
 import { validateDate } from '../../utils/utils'
+import React from 'react'
 
-export const FormDate = props => {
+export const FormDate = () => {
   const {
     register,
     clearErrors,
@@ -14,7 +16,6 @@ export const FormDate = props => {
   return (
     <Input
       label='Date'
-      className={props.className}
       placeholder=' '
       type='datetime-local'
       {...register('date', {
@@ -26,4 +27,8 @@ export const FormDate = props => {
       errorMessage={errors.date && Constants.STEP_DATE_ERROR}
     />
   )
+}
+
+FormDate.propTypes = {
+  className: PropTypes.string
 }

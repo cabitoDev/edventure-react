@@ -3,7 +3,7 @@ import { Textarea } from '@nextui-org/react'
 import { useFormContext } from 'react-hook-form'
 import Constants from '../../constants'
 
-export const FormDescription = props => {
+export const FormDescription = () => {
   const {
     register,
     clearErrors,
@@ -13,7 +13,6 @@ export const FormDescription = props => {
 
   return (
     <Textarea
-      classNames={props.className}
       label='Description'
       {...register('description', {
         required: true,
@@ -22,7 +21,6 @@ export const FormDescription = props => {
       })}
       value={watch('description')}
       onInput={() => clearErrors('description')}
-      className={props.className}
       isInvalid={errors.description ? true : false}
       errorMessage={errors.description && Constants.STEP_DESCRIPTION_ERROR}
     />

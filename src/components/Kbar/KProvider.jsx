@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import {
   KBarProvider,
   KBarPortal,
@@ -6,6 +7,7 @@ import {
   KBarSearch
 } from 'kbar'
 import { SearchIcon } from '../Navbar/SearchIcon'
+import React from 'react'
 import KResults from './KResults'
 import Kbd from './Kbd'
 
@@ -36,4 +38,9 @@ export const KProvider = props => {
       </KBarProvider>
     </>
   )
+}
+
+KProvider.propTypes = {
+  actions: PropTypes.array,
+  children: PropTypes.node
 }

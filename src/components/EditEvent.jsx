@@ -1,6 +1,8 @@
+import PropTypes from 'prop-types'
 import { Button } from '@nextui-org/react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { dateToInput } from '../utils/utils'
+import React from 'react'
 import {
   FormAddress,
   FormAssistants,
@@ -12,12 +14,10 @@ import {
 } from './CreateEventSteps'
 import assets from '../assets'
 import useUpdateEvent from '../hooks/useUpdateEvent'
-import { useDispatch, useSelector } from 'react-redux'
-import { getUserById } from '../utils/httpUtils'
+import { useDispatch } from 'react-redux'
 import { updateUserEvents } from '../redux/userSlice'
 
 const EditEvent = ({ event, setIsEditing, setEvent }) => {
-  const user = useSelector(state => state.user)
   const { updateEventAsync, isLoading } = useUpdateEvent()
   const dispatch = useDispatch()
 
@@ -81,6 +81,15 @@ const EditEvent = ({ event, setIsEditing, setEvent }) => {
       </form>
     </FormProvider>
   )
+}
+
+EditEvent.propTypes = {
+  event: PropTypes.shape({
+    date: PropTypes.string,
+    image: PropTypes.string
+  }),
+  setEvent: PropTypes.func,
+  setIsEditing: PropTypes.func
 }
 
 export default EditEvent

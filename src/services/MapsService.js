@@ -1,5 +1,5 @@
 export const getMatches = async text => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     try {
       console.log(window.google)
       new window.google.maps.places.AutocompleteService().getPlacePredictions(

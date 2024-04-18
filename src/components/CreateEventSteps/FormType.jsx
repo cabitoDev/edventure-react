@@ -1,8 +1,9 @@
 import { Select, SelectItem } from '@nextui-org/react'
 import Constants from '../../constants'
 import { useFormContext } from 'react-hook-form'
+import React from 'react'
 
-export const FormType = props => {
+export const FormType = () => {
   const {
     register,
     clearErrors,
@@ -17,7 +18,6 @@ export const FormType = props => {
       defaultOpen={!watch('type')}
       label='Type of event'
       onClick={() => clearErrors('type')}
-      className={props.className}
       isInvalid={errors.type ? true : false}
       errorMessage={errors.type && Constants.STEP_TYPE_ERROR}
     >

@@ -38,13 +38,15 @@ export const UserEvents = () => {
 
   const navigateTo = useNavigate()
 
-  if (isLoading) return <>Loading</>
+  if (isLoading) {
+    return <>Loading</>
+  }
   return (
     <>
       {userEvents && userEvents.length > 0 ? (
         <>
           <p className='text-2xl pl-10'>Your events:</p>
-          <div class='flex-column gap-3 mx-10'>
+          <div className='flex-column gap-3 mx-10'>
             <EventFilter
               handleSearchChange={handleSearchChange}
               handleFilterChange={handleFilterChange}
@@ -72,7 +74,7 @@ export const UserEvents = () => {
         </>
       ) : (
         <div className='home-title'>
-          <p className='text-2xl'>You don't have any future event.</p>
+          <p className='text-2xl'>You dont have any future event.</p>
           <div className='flex gap-3'>
             <Button color='primary' onClick={() => navigateTo('/explore')}>
               Explore

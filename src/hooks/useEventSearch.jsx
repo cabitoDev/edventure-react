@@ -24,21 +24,16 @@ const useEventSearch = (allEvents, user) => {
         break
       case 'FOLLOWING':
         filteredEvents = filteredEvents.filter(filteredEvent => {
-          if (filteredEvent.usersFollowing)
-            return filteredEvent.usersFollowing.some(
-              follower => follower.id === user.id
-            )
+          return filteredEvent.usersFollowing.some(
+            follower => follower.id === user.id
+          )
         })
         break
       case 'NOT_FOLLOWING':
         filteredEvents = filteredEvents.filter(filteredEvent => {
-          if (
-            filteredEvent.usersFollowing &&
-            filteredEvent.userOwner.id !== user.id
+          return !filteredEvent.usersFollowing.some(
+            follower => (follower.id === user.id) !== filteredEvent.userOwner.id
           )
-            return !filteredEvent.usersFollowing.some(
-              follower => follower.id === user.id
-            )
         })
         break
       case 'ALL':

@@ -1,5 +1,7 @@
+import PropTypes from 'prop-types'
 import { Card, CardHeader, CardBody } from '@nextui-org/react'
 import { useNavigate } from 'react-router-dom'
+import React from 'react'
 
 export const HomeCard = props => {
   const navigateTo = useNavigate()
@@ -21,4 +23,10 @@ export const HomeCard = props => {
       </CardBody>
     </Card>
   )
+}
+
+HomeCard.propTypes = {
+  route: PropTypes.string,
+  text: PropTypes.string,
+  title: PropTypes.string
 }

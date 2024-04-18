@@ -8,11 +8,9 @@ export const getUserById = async id => {
     }
     const userInfo = await response.json()
     return userInfo
-  } catch {
-    error => {
-      console.error('Error:', error.message)
-      return null
-    }
+  } catch (error) {
+    console.error('Error:', error.message)
+    return null
   }
 }
 
@@ -81,7 +79,7 @@ export const httpUpdateEvent = async event => {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(user)
+    body: JSON.stringify(event)
   })
     .then(response => {
       return response.json()
@@ -96,7 +94,9 @@ export const httpDeleteEvent = async event => {
     method: 'DELETE'
   })
     .then(response => {
-      return event
+      if (response.ok) {
+        return event
+      }
     })
     .catch(error => {
       console.error('Error al eliminar el evento:', error)
@@ -138,6 +138,6 @@ export const saveEvent = async eventInfo => {
     return await response.json()
   } catch (error) {
     console.error('Error al realizar la solicitud:', error)
-    throw error // Rechaza la promesa para que el error se maneje externamente
+    throw error
   }
 }

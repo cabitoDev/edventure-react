@@ -1,8 +1,8 @@
-import { Select, SelectItem } from '@nextui-org/react'
+import React, { Select, SelectItem } from '@nextui-org/react'
 import Constants from '../../constants'
 import { useFormContext } from 'react-hook-form'
 
-export const FormAssistants = props => {
+export const FormAssistants = () => {
   const {
     register,
     clearErrors,
@@ -17,7 +17,6 @@ export const FormAssistants = props => {
       onClick={() => clearErrors('assistants')}
       defaultOpen={!watch('assistants')}
       label='Number of assistants'
-      className={props.className}
       isInvalid={errors.assistants ? true : false}
       errorMessage={errors.assistants && Constants.STEP_ASSISTANTS_ERROR}
     >

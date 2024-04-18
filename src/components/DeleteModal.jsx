@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import {
   Button,
   Modal,
@@ -5,6 +6,7 @@ import {
   ModalContent,
   ModalFooter
 } from '@nextui-org/react'
+import React from 'react'
 
 const DeleteModal = ({ isOpen, setIsOpen, onDelete }) => {
   return (
@@ -37,5 +39,11 @@ const DeleteModal = ({ isOpen, setIsOpen, onDelete }) => {
       </ModalContent>
     </Modal>
   )
+}
+
+DeleteModal.propTypes = {
+  isOpen: PropTypes.bool,
+  onDelete: PropTypes.func,
+  setIsOpen: PropTypes.func
 }
 export default DeleteModal

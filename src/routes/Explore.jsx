@@ -1,14 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import {
-  Button,
-  Input,
-  Pagination,
-  Radio,
-  RadioGroup,
-  Select,
-  SelectItem
-} from '@nextui-org/react'
+import { Button, Pagination } from '@nextui-org/react'
 import { useLoaderData } from 'react-router-dom'
 import useEventSearch from '../hooks/useEventSearch'
 import { EventCard } from '../components/CustomCard/EventCard'
@@ -26,7 +18,7 @@ export const Explore = () => {
     handleFilterChange,
     handleFilterOtherChange
   } = useEventSearch(allEvents, user)
-  if (allEvents)
+  if (allEvents) {
     return (
       <>
         {allEvents && allEvents.length > 0 ? (
@@ -70,5 +62,6 @@ export const Explore = () => {
         )}
       </>
     )
+  }
   return <>Loading</>
 }

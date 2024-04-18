@@ -2,7 +2,7 @@ import { Button } from '@nextui-org/button'
 import { useForm, FormProvider } from 'react-hook-form'
 import assets from '../assets'
 import { ProgressBar } from '../components/ProgressBar'
-import { useId, useState } from 'react'
+import React, { useId, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Constants from '../constants'
 import { useDispatch, useSelector } from 'react-redux'
@@ -54,16 +54,12 @@ export const CreateEvent = () => {
         dispatch(addUserEvents(newEvent))
         navigateTo('/my-events')
       } catch (error) {
-        alert('Error en la operación')
+        console.error(error)
         console.error('Error:', error.message)
       } finally {
         setSendingEvent(false)
       }
     }
-  }
-
-  const onError = errors => {
-    console.error('Validation errors:', errors)
   }
 
   return (

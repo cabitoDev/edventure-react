@@ -1,13 +1,12 @@
+import React from 'react'
 import { Button, Card, Image, Link } from '@nextui-org/react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 import useFollow from '../../hooks/useFollow'
-import { useState } from 'react'
 
-export const EventCard = props => {
-  const { event, inExplore } = props
+export const EventCard = prop => {
+  const { event, inExplore } = prop
   const navigateTo = useNavigate()
-  const dispatch = useDispatch()
   const user = useSelector(state => state.user)
   const { followers, isFollowing, toggleFollow } = useFollow(user, event)
 

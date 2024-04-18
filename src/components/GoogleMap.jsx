@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
 
 const GoogleMap = ({ placeId }) => {
@@ -25,6 +26,10 @@ const GoogleMap = ({ placeId }) => {
   }, [placeId])
 
   return <div id='map' style={{ width: '100%', height: '400px' }}></div>
+}
+
+GoogleMap.propTypes = {
+  placeId: PropTypes.string
 }
 
 export default GoogleMap

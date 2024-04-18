@@ -1,4 +1,4 @@
-import { Button, Avatar } from '@nextui-org/react'
+import { Avatar } from '@nextui-org/react'
 import React, { useRef } from 'react'
 
 import { useFormContext } from 'react-hook-form'
