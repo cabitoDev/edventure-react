@@ -19,6 +19,7 @@ export const FormDate = () => {
       placeholder=' '
       type='datetime-local'
       {...register('date', {
+        required: true,
         validate: validateDate
       })}
       value={watch('date')}

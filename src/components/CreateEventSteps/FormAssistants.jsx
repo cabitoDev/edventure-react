@@ -1,6 +1,7 @@
-import React, { Select, SelectItem } from '@nextui-org/react'
+import { Select, SelectItem } from '@nextui-org/react'
 import Constants from '../../constants'
 import { useFormContext } from 'react-hook-form'
+import React from 'react'
 
 export const FormAssistants = () => {
   const {
