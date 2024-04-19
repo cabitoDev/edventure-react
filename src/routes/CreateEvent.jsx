@@ -8,7 +8,7 @@ import Constants from '../constants'
 import { useDispatch, useSelector } from 'react-redux'
 import { steps } from '../components/CreateEventSteps/steps'
 import { getNewEventRequest, uploadImage } from '../utils/utils'
-import { saveEvent } from '../utils/httpUtils'
+import { httpPost } from '../utils/httpUtils'
 import { addUserEvents } from '../redux/userSlice'
 
 export const CreateEvent = () => {
@@ -47,18 +47,18 @@ export const CreateEvent = () => {
         ? await uploadImage('events', id, imgFile)
         : Constants.DEFAULT_EVENT_IMAGE_URL
 
-      try {
-        const newEvent = await saveEvent(
-          getNewEventRequest(form.getValues(), newImage, user)
-        )
+      const newEvent = await httpPost(
+        Constants.EVENTS_ENDPOINT_URL,
+        getNewEventRequest(form.getValues(), newImage, user)
+      )
+      if (newEvent) {
         dispatch(addUserEvents(newEvent))
         navigateTo('/my-events')
-      } catch (error) {
-        console.error(error)
-        console.error('Error:', error.message)
-      } finally {
-        setSendingEvent(false)
+      } else {
+        console.error('Error creating the event')
       }
+
+      setSendingEvent(false)
     }
   }
 

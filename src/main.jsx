@@ -13,8 +13,9 @@ import { CreateEvent } from './routes/CreateEvent.jsx'
 import { Root } from './routes/Root.jsx'
 import { UserEvents } from './routes/UserEvents.jsx'
 import { Explore } from './routes/Explore.jsx'
-import { getEventById, getEvents } from './utils/httpUtils.js'
+import { httpGet } from './utils/httpUtils.js'
 import { Event } from './routes/Event.jsx'
+import Constants from './constants.js'
 
 const router = createBrowserRouter([
   {
@@ -44,12 +45,15 @@ const router = createBrowserRouter([
       {
         path: 'explore',
         element: <Explore />,
-        loader: getEvents
+        loader: () => {
+          return httpGet(Constants.EVENTS_ENDPOINT_URL)
+        }
       },
       {
         path: 'event/:id',
         element: <Event />,
-        loader: ({ params }) => getEventById(params.id)
+        loader: ({ params }) =>
+          httpGet(Constants.EVENTS_ENDPOINT_URL, params.id)
       }
     ]
   }

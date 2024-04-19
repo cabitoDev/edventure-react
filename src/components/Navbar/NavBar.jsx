@@ -24,7 +24,7 @@ import { updateUser } from '../../redux/userSlice'
 import { useNavigate } from 'react-router-dom'
 import { Auth0Lock } from 'auth0-lock'
 import Constants from '../../constants'
-import { saveUser } from '../../utils/httpUtils'
+import { httpPost } from '../../utils/httpUtils'
 import { getLoginRequest } from '../../utils/utils'
 import { useLogout } from '../../hooks/useLogout'
 
@@ -63,7 +63,7 @@ export const NavBar = () => {
             console.error('Error al obtener el perfil de usuario:', error)
             return
           }
-          await saveUser(getLoginRequest(profile))
+          await httpPost(Constants.USERS_ENDPOINT_URL, getLoginRequest(profile))
             .then(userLogged => {
               if (userLogged) {
                 dispatch(updateUser(userLogged))
