@@ -1,34 +1,41 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button, Pagination, Spinner } from '@nextui-org/react'
-import useEventSearch from '../hooks/useEventSearch'
-import { EventCard } from '../components/CustomCard/EventCard'
+import { useEventSearch } from '../hooks'
+import { EventCard, EventFilter } from '../components'
 import { useSelector } from 'react-redux'
-import EventFilter from '../components/EventFilter'
 import { useQuery } from 'react-query'
-import { httpGet } from '../utils/httpUtils'
+import { httpGet } from '../utils'
 import Constants from '../constants'
 
-export const Explore = () => {
-  const { data: eventsInfo, status } = useQuery('eventsInfo', () =>
-    httpGet(Constants.EVENTS_ENDPOINT_URL)
+const Explore = () => {
+  const stateUser = useSelector(state => state.user)
+  const { data: user, status: userStatus } = useQuery('updatedUser', () =>
+    httpGet(Constants.USERS_ENDPOINT_URL, stateUser.id)
   )
-  const allEvents = eventsInfo || []
+  const { data: allEvents, status: eventsStatus } = useQuery(
+    'eventsInfo',
+    async () => {
+      const events = await httpGet(Constants.EVENTS_ENDPOINT_URL)
+
+      return events
+    }
+  )
   const navigateTo = useNavigate()
-  const user = useSelector(state => state.user)
   const {
     currentEvents,
     handlePageChange,
     handleSearchChange,
     handleFilterChange,
-    handleFilterOtherChange
+    handleFilterOtherChange,
+    isSearching
   } = useEventSearch(allEvents, user)
 
-  if (status === 'loading') {
+  if (userStatus === 'loading' || eventsStatus === 'loading' || isSearching) {
     return <Spinner className='center pt-40' />
   }
 
-  if (allEvents) {
+  if (allEvents && user) {
     return (
       <>
         {allEvents.length > 0 ? (
@@ -42,7 +49,12 @@ export const Explore = () => {
               />
               {currentEvents.length > 0 ? (
                 currentEvents.map(event => (
-                  <EventCard key={event.id} event={event} inExplore />
+                  <EventCard
+                    key={event.id}
+                    event={event}
+                    inExplore
+                    user={user}
+                  />
                 ))
               ) : (
                 <div className='home-title'>
@@ -74,3 +86,4 @@ export const Explore = () => {
     )
   }
 }
+export default Explore

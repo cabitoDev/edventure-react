@@ -1,28 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../index.css'
 import { Button, Pagination, Spinner } from '@nextui-org/react'
 import { useNavigate } from 'react-router'
-import { EventCard } from '../components/CustomCard/EventCard'
-import useEventSearch from '../hooks/useEventSearch'
-import EventFilter from '../components/EventFilter'
-import useUpdatedUser from '../hooks/useUpdatedUser'
+import { useEventSearch } from '../hooks'
+import { EventFilter, EventCard } from '../components'
 import { useQuery } from 'react-query'
+import { httpGet } from '../utils'
+import Constants from '../constants'
+import { useSelector } from 'react-redux'
 
-export const UserEvents = () => {
-  const { getUpdatedUser } = useUpdatedUser()
-  const { data: user, status } = useQuery('updatedUser', getUpdatedUser)
-  const userEvents = user ? user.userEvents.concat(user.followingEvents) : []
+const UserEvents = () => {
+  const stateUser = useSelector(state => state.user)
+  const [userEvents, setUserEvents] = useState()
+
+  const { data: user, status } = useQuery('updatedUser', async () => {
+    const updatedUser = await httpGet(
+      Constants.USERS_ENDPOINT_URL,
+      stateUser.id
+    )
+    setUserEvents(updatedUser.userEvents.concat(updatedUser.followingEvents))
+    return updatedUser
+  })
+
   const {
     currentEvents,
     handlePageChange,
     handleSearchChange,
     handleFilterChange,
-    handleFilterOtherChange
+    handleFilterOtherChange,
+    isSearching
   } = useEventSearch(userEvents, user)
 
   const navigateTo = useNavigate()
 
-  if (status === 'loading') {
+  if (!userEvents || isSearching || status === 'loading') {
     return <Spinner className='center pt-40' />
   }
   return (
@@ -58,7 +69,7 @@ export const UserEvents = () => {
         </>
       ) : (
         <div className='home-title'>
-          <p className='text-2xl'>You donmaint have any future event.</p>
+          <p className='text-2xl'>You dont have any future event.</p>
           <div className='flex gap-3'>
             <Button color='primary' onClick={() => navigateTo('/explore')}>
               Explore
@@ -72,3 +83,4 @@ export const UserEvents = () => {
     </>
   )
 }
+export default UserEvents

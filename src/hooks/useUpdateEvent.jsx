@@ -1,6 +1,6 @@
 import { useId, useState } from 'react'
 import Constants from '../constants'
-import { uploadImage } from '../utils/utils'
+import { uploadImage } from '../utils'
 
 const useUpdateEvent = () => {
   const id = useId()

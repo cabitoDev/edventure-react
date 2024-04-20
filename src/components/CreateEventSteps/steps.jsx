@@ -9,7 +9,7 @@ import {
 } from '.'
 import React from 'react'
 import Constants from '../../constants'
-export const steps = [
+const steps = [
   {
     title: Constants.QUESTION_STEP_NAME,
     component: <FormName />
@@ -39,3 +39,4 @@ export const steps = [
     component: <FormDescription />
   }
 ]
+export default steps

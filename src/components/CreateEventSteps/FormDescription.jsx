@@ -3,7 +3,7 @@ import { Textarea } from '@nextui-org/react'
 import { useFormContext } from 'react-hook-form'
 import Constants from '../../constants'
 
-export const FormDescription = () => {
+const FormDescription = () => {
   const {
     register,
     clearErrors,
@@ -26,3 +26,4 @@ export const FormDescription = () => {
     />
   )
 }
+export default FormDescription

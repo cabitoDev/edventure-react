@@ -1,17 +1,14 @@
 import { Button } from '@nextui-org/button'
 import { useForm, FormProvider } from 'react-hook-form'
 import assets from '../assets'
-import { ProgressBar } from '../components/ProgressBar'
+import { ProgressBar, steps } from '../components'
 import React, { useId, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Constants from '../constants'
-import { useDispatch, useSelector } from 'react-redux'
-import { steps } from '../components/CreateEventSteps/steps'
-import { getNewEventRequest, uploadImage } from '../utils/utils'
-import { httpPost } from '../utils/httpUtils'
-import { addUserEvents } from '../redux/userSlice'
+import { useSelector } from 'react-redux'
+import { getNewEventRequest, uploadImage, httpPost } from '../utils'
 
-export const CreateEvent = () => {
+const CreateEvent = () => {
   const form = useForm({
     defaultValues: { image: { url: Constants.DEFAULT_EVENT_IMAGE_URL } }
   })
@@ -20,7 +17,6 @@ export const CreateEvent = () => {
   const user = useSelector(state => state.user)
   const [indexStep, setIndexStep] = useState(0)
   const [sendingEvent, setSendingEvent] = useState(false)
-  const dispatch = useDispatch()
 
   const handleNextStep = () => {
     form.trigger().then(isValid => {
@@ -52,7 +48,6 @@ export const CreateEvent = () => {
         getNewEventRequest(form.getValues(), newImage, user)
       )
       if (newEvent) {
-        dispatch(addUserEvents(newEvent))
         navigateTo('/my-events')
       } else {
         console.error('Error creating the event')
@@ -108,3 +103,4 @@ export const CreateEvent = () => {
     </FormProvider>
   )
 }
+export default CreateEvent

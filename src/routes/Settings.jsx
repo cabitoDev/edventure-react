@@ -1,15 +1,11 @@
-'use client'
-
 import { useTheme } from 'next-themes'
 import React, { useState } from 'react'
 import { Button, Switch } from '@nextui-org/react'
-import { SunIcon } from '../components/settings/Sun'
-import { MoonIcon } from '../components/settings/Moon'
-import { useLogout } from '../hooks/useLogout'
-import useUpdateUser from '../hooks/useUpdateUser'
+import { SunIcon, MoonIcon } from '../components'
+import { useLogout, useUpdateUser } from '../hooks'
 import { useSelector } from 'react-redux'
 
-export function Settings () {
+const Settings = () => {
   const { theme, setTheme } = useTheme()
   const logout = useLogout()
   const user = useSelector(state => state.user)
@@ -69,3 +65,4 @@ export function Settings () {
     </div>
   )
 }
+export default Settings

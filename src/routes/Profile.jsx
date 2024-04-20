@@ -1,16 +1,14 @@
 import React, { useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Button } from '@nextui-org/button'
-import { Avatar } from '@nextui-org/avatar'
+import { Button, Avatar, Input } from '@nextui-org/react'
 // eslint-disable-next-line no-unused-vars
 import appFirebase from '../firebase/firebase'
-import { Input } from '@nextui-org/input'
 import { useForm } from 'react-hook-form'
 import assets from '../assets'
-import { uploadImage } from '../utils/utils'
-import useUpdateUser from '../hooks/useUpdateUser'
+import { uploadImage } from '../utils'
+import { useUpdateUser } from '../hooks'
 
-export const Profile = () => {
+const Profile = () => {
   const {
     register,
     handleSubmit,
@@ -151,3 +149,4 @@ export const Profile = () => {
     </form>
   )
 }
+export default Profile

@@ -1,7 +1,7 @@
 import './ReactLogo.css'
 import React from 'react'
 
-export const ReactLogo = () => {
+const ReactLogo = () => {
   return (
     <>
       <div className='circles'>
@@ -13,3 +13,4 @@ export const ReactLogo = () => {
     </>
   )
 }
+export default ReactLogo

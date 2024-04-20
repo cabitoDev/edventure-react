@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { updateUser } from '../redux/userSlice'
+import { updateUser } from '../redux'
 import Constants from '../constants'
 
 const useUpdateUser = () => {

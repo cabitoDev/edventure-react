@@ -46,7 +46,7 @@ export const httpDelete = async (baseUrl, id) => {
   if (!response.ok) {
     throw new Error('Network response was not ok')
   }
-  return response.json()
+  return true
 }
 
 export const updateFollowingEvents = async (userId, eventId, method) => {
@@ -58,7 +58,8 @@ export const updateFollowingEvents = async (userId, eventId, method) => {
     }
   })
   if (response.ok) {
-    return true
+    const userUpdated = await response.json()
+    return userUpdated
   } else {
     console.error(`Error in the request to ${endpoint}`)
     return null

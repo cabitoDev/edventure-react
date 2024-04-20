@@ -1,15 +1,11 @@
 import React from 'react'
-import { NavBar } from '../components/Navbar/NavBar'
 import { Outlet } from 'react-router'
 import { useNavigate } from 'react-router-dom'
-
-import { KProvider } from '../components/Kbar/KProvider'
-import { Kactions } from '../components/Kbar/Kactions'
 import { useSelector } from 'react-redux'
-import { Home } from './Home'
-import { TransitionAnimation } from '../components/TransitionAnimation'
+import { Home } from '.'
+import { TransitionAnimation, KProvider, Kactions, NavBar } from '../components'
 
-export const Root = () => {
+const Root = () => {
   const navigateTo = useNavigate()
   const isLogged = useSelector(state => state.user)
 
@@ -33,3 +29,4 @@ export const Root = () => {
     </TransitionAnimation>
   )
 }
+export default Root

@@ -1,9 +1,8 @@
 import { Avatar } from '@nextui-org/react'
 import React, { useRef } from 'react'
-
 import { useFormContext } from 'react-hook-form'
 
-export const FormImage = () => {
+const FormImage = () => {
   const { setValue, watch } = useFormContext()
   const inputFileRef = useRef()
   const onInputChange = ev => {
@@ -34,3 +33,4 @@ export const FormImage = () => {
     </>
   )
 }
+export default FormImage

@@ -1,8 +1,7 @@
-import { Input } from '@nextui-org/input'
+import { Input, Kbd } from '@nextui-org/react'
 import { useKBar } from 'kbar'
 import React from 'react'
-import { SearchIcon } from '../Navbar/SearchIcon'
-import { Kbd } from '@nextui-org/kbd'
+import { SearchIcon } from '../Navbar'
 const KInput = () => {
   const { query } = useKBar()
 

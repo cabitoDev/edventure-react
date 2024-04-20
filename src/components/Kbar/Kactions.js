@@ -1,4 +1,4 @@
-export const Kactions = [
+const Kactions = [
   {
     id: 'create',
     name: 'Create event',
@@ -37,3 +37,4 @@ export const Kactions = [
     route: '/my-events'
   }
 ]
+export default Kactions

@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types'
-import { Link } from '@nextui-org/link'
-import { NavbarMenu, NavbarMenuItem } from '@nextui-org/navbar'
+import { NavbarMenu, NavbarMenuItem, Link } from '@nextui-org/react'
 import React from 'react'
 import { useNavigate } from 'react-router'
-import { useLogout } from '../../hooks/useLogout'
+import { useLogout } from '../../hooks'
 
 const NavBarMenu = ({ userOptions, setIsMenuOpen }) => {
   const navigateTo = useNavigate()

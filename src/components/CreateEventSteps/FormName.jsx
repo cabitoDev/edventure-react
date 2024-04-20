@@ -3,7 +3,7 @@ import { Input } from '@nextui-org/react'
 import { useFormContext } from 'react-hook-form'
 import Constants from '../../constants'
 
-export const FormName = () => {
+const FormName = () => {
   const {
     register,
     clearErrors,
@@ -22,3 +22,4 @@ export const FormName = () => {
     />
   )
 }
+export default FormName

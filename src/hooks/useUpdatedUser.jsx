@@ -1,10 +1,10 @@
 import { useSelector } from 'react-redux'
-import { httpGet } from '../utils/httpUtils'
+import { httpGet } from '../utils'
 import Constants from '../constants'
 
 const useUpdatedUser = () => {
   const user = useSelector(state => state.user)
-  async function getUpdatedUser () {
+  const getUpdatedUser = async () => {
     try {
       const userInfo = await httpGet(Constants.USERS_ENDPOINT_URL, user.id)
       if (!userInfo) {

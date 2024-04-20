@@ -1,8 +1,8 @@
 import { useDispatch } from 'react-redux'
-import { updateUser } from '../redux/userSlice'
+import { updateUser } from '../redux'
 import { useNavigate } from 'react-router-dom'
 
-export const useLogout = () => {
+const useLogout = () => {
   const dispatch = useDispatch()
   const navigateTo = useNavigate()
 
@@ -13,3 +13,4 @@ export const useLogout = () => {
 
   return logout
 }
+export default useLogout

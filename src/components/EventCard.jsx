@@ -1,14 +1,11 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import { Button, Card, Image, Link } from '@nextui-org/react'
-import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
-import useFollow from '../../hooks/useFollow'
 
-export const EventCard = prop => {
-  const { event, inExplore } = prop
+const EventCard = props => {
+  const { event, inExplore, user } = props
   const navigateTo = useNavigate()
-  const user = useSelector(state => state.user)
-  const { followers, isFollowing, toggleFollow } = useFollow(user, event)
 
   return (
     <Card isHoverable className='rounded-lg shadow-md p-4'>
@@ -33,23 +30,23 @@ export const EventCard = prop => {
           <p className='hide-xs'>{event.description}</p>
           {inExplore && (
             <div className='self-end'>
-              {event.userOwner.id === user.id ? (
+              {event.userOwner.id === user.id && (
                 <p className='text-green-600'>Owner</p>
-              ) : (
-                <Button
-                  onClick={toggleFollow}
-                  variant={isFollowing ? 'bordered' : 'solid'}
-                  className='z-20'
-                  color='primary'
-                >
-                  {isFollowing ? 'Following' : 'Follow'}
-                </Button>
               )}
             </div>
           )}
         </div>
       </div>
-      <p className='self-end text-bold text-xs'>Followers: {followers}</p>
+      <p className='self-end text-bold text-s'>
+        Followers: {event.usersFollowing.length}
+      </p>
     </Card>
   )
 }
+
+EventCard.propTypes = {
+  event: PropTypes.object,
+  inExplore: PropTypes.bool,
+  user: PropTypes.object
+}
+export default EventCard

@@ -1,9 +1,7 @@
 import React from 'react'
 import Constants from '../constants'
-import { HomeCard } from '../components/CustomCard/HomeCard'
-import { ReactLogo } from '../components/ReactLogo/ReactLogo'
-
-export const Home = () => {
+import { HomeCard, ReactLogo } from '../components'
+const Home = () => {
   return (
     <>
       <div className='margin-md flex-column gap-md mx-3'>
@@ -40,3 +38,4 @@ export const Home = () => {
     </>
   )
 }
+export default Home

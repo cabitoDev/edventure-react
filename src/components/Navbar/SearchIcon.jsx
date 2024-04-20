@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-export const SearchIcon = ({
+const SearchIcon = ({
   size = 18,
   strokeWidth = 1.5,
   width,
@@ -40,3 +40,4 @@ SearchIcon.propTypes = {
   strokeWidth: PropTypes.number,
   width: PropTypes.number
 }
+export default SearchIcon

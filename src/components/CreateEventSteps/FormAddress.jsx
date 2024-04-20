@@ -2,7 +2,7 @@ import { Input } from '@nextui-org/react'
 import React, { useState } from 'react'
 import Constants from '../../constants'
 import { useFormContext } from 'react-hook-form'
-export const FormAddress = () => {
+const FormAddress = () => {
   const {
     register,
     setValue,
@@ -46,7 +46,7 @@ export const FormAddress = () => {
   const validateAddress = () => !!watch('address') && !!watch('placeId')
 
   return (
-    <div>
+    <div className='input-width'>
       <Input
         label='Address'
         {...register('address', { validate: validateAddress })}
@@ -71,3 +71,4 @@ export const FormAddress = () => {
     </div>
   )
 }
+export default FormAddress

@@ -1,20 +1,16 @@
 import { Avatar, Button, Card, Divider, Spinner } from '@nextui-org/react'
-import Countdown from '../components/Countdown'
-import GoogleMap from '../components/GoogleMap'
+import { GoogleMap, Countdown, DeleteModal, EditEvent } from '../components'
 import { useDispatch, useSelector } from 'react-redux'
-import useFollow from '../hooks/useFollow'
-import { dateToStr } from '../utils/utils'
+import { useFollow } from '../hooks'
 import assets from '../assets'
 import React, { useState } from 'react'
-import EditEvent from '../components/EditEvent'
 import { useNavigate, useParams } from 'react-router-dom'
-import { httpDelete, httpGet } from '../utils/httpUtils'
-import DeleteModal from '../components/DeleteModal'
-import { deleteUserEvents } from '../redux/userSlice'
+import { httpDelete, httpGet, dateToStr } from '../utils'
+import { deleteUserEvents } from '../redux'
 import Constants from '../constants'
 import { useQuery } from 'react-query'
 
-export const Event = () => {
+const Event = () => {
   const navigateTo = useNavigate()
   const user = useSelector(state => state.user)
 
@@ -22,15 +18,10 @@ export const Event = () => {
   const dispatch = useDispatch()
   const id = useParams().id
   const [event, setEvent] = useState(null)
-  const { status } = useQuery(
-    'event',
-    () => httpGet(Constants.EVENTS_ENDPOINT_URL, id),
-    {
-      onSuccess: data => {
-        setEvent(data)
-      }
-    }
-  )
+  const { status } = useQuery('event', async () => {
+    const eventInfo = await httpGet(Constants.EVENTS_ENDPOINT_URL, id)
+    setEvent(eventInfo)
+  })
   const { followers, isFollowing, toggleFollow } = useFollow(user, event)
   const [isEditing, setIsEditing] = useState(false)
 
@@ -173,3 +164,4 @@ export const Event = () => {
     )
   }
 }
+export default Event

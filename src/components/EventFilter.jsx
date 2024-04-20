@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { Input, Select, SelectItem, Radio, RadioGroup } from '@nextui-org/react'
-import { SearchIcon } from './Navbar/SearchIcon'
+import { SearchIcon } from './Navbar'
 import Constants from '../constants'
 import React from 'react'
 
@@ -24,6 +24,7 @@ const EventFilter = ({
         />
         <Select
           selectionMode='multiple'
+          aria-label='type-select'
           placeholder='Filter by type...'
           onChange={value => handleFilterChange(value)}
           className='ml-2 rounded-md'

@@ -1,14 +1,15 @@
 import PropTypes from 'prop-types'
-import { Avatar } from '@nextui-org/avatar'
 import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
-  DropdownTrigger
-} from '@nextui-org/dropdown'
+  DropdownTrigger,
+  User
+} from '@nextui-org/react'
 import React from 'react'
 import { useNavigate } from 'react-router'
-import { useLogout } from '../../hooks/useLogout'
+import { useLogout } from '../../hooks'
+
 const NavBarDropdown = ({ user, profileOptions }) => {
   const navigateTo = useNavigate()
   const logout = useLogout()
@@ -16,12 +17,14 @@ const NavBarDropdown = ({ user, profileOptions }) => {
   return (
     <Dropdown placement='bottom-end'>
       <DropdownTrigger>
-        <Avatar
+        <User
           as='button'
           className='transition-transform'
           color='secondary'
           size='sm'
-          src={user.avatar}
+          avatarProps={{
+            src: user.avatar
+          }}
         />
       </DropdownTrigger>
       <DropdownMenu aria-label='Profile Actions' variant='flat'>
@@ -47,11 +50,7 @@ const NavBarDropdown = ({ user, profileOptions }) => {
 }
 
 NavBarDropdown.propTypes = {
-  profileOptions: PropTypes.shape({
-    map: PropTypes.func
-  }),
-  user: PropTypes.shape({
-    avatar: PropTypes.any
-  })
+  profileOptions: PropTypes.array,
+  user: PropTypes.object
 }
 export default NavBarDropdown

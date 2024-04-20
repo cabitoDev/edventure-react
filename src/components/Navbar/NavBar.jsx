@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   Navbar,
   NavbarBrand,
@@ -9,25 +9,23 @@ import {
 } from '@nextui-org/react'
 import { useDispatch, useSelector } from 'react-redux'
 import assets from '../../assets'
-import { updateUser } from '../../redux/userSlice'
+import { updateUser } from '../../redux'
 import { useNavigate } from 'react-router-dom'
 import Constants from '../../constants'
-import { httpPost } from '../../utils/httpUtils'
-import { getLoginRequest } from '../../utils/utils'
+import { getLoginRequest, httpPost } from '../../utils'
 import { lock, checkLogged } from '../../auth/auth-lock'
-import KInput from '../Kbar/KInput'
-import { profileOptions, userOptions } from './navBarOptions'
-import NavBarDropdown from './NavBarDropdown'
-import NavBarMenu from './NavBarMenu'
+import { NavBarMenu, NavBarDropdown } from '.'
+import { KInput } from '../Kbar'
+import { userOptions, profileOptions } from './navBarOptions'
 
-export const NavBar = () => {
+const NavBar = () => {
   const user = useSelector(state => {
     return state.user
   })
   const navigateTo = useNavigate()
   const dispatch = useDispatch()
 
-  lock.on('authenticated', authResult => {
+  const handleAuthenticated = authResult => {
     lock.hide()
     lock.getUserInfo(authResult.accessToken, async (error, profile) => {
       if (error) {
@@ -45,7 +43,16 @@ export const NavBar = () => {
         //handleError
       }
     })
-  })
+  }
+
+  useEffect(() => {
+    lock.on('authenticated', handleAuthenticated)
+
+    return () => {
+      lock.off('authenticated', handleAuthenticated)
+    }
+  }, [])
+
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
 
   return (
@@ -101,3 +108,4 @@ export const NavBar = () => {
     </Navbar>
   )
 }
+export default NavBar

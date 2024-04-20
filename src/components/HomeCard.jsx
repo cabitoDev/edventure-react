@@ -3,7 +3,7 @@ import { Card, CardHeader, CardBody } from '@nextui-org/react'
 import { useNavigate } from 'react-router-dom'
 import React from 'react'
 
-export const HomeCard = props => {
+const HomeCard = props => {
   const navigateTo = useNavigate()
 
   return (
@@ -30,3 +30,5 @@ HomeCard.propTypes = {
   text: PropTypes.string,
   title: PropTypes.string
 }
+
+export default HomeCard

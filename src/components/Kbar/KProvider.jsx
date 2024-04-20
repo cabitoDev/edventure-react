@@ -6,12 +6,11 @@ import {
   KBarAnimator,
   KBarSearch
 } from 'kbar'
-import { SearchIcon } from '../Navbar/SearchIcon'
+import { KResults, Kbd } from '.'
 import React from 'react'
-import KResults from './KResults'
-import Kbd from './Kbd'
+import { SearchIcon } from '../Navbar'
 
-export const KPortal = () => {
+const KPortal = () => {
   return (
     <KBarPortal>
       <KBarPositioner className='z-30 backdrop-blur-md backdrop-filter'>
@@ -29,7 +28,7 @@ export const KPortal = () => {
     </KBarPortal>
   )
 }
-export const KProvider = props => {
+const KProvider = props => {
   return (
     <>
       <KBarProvider actions={props.actions}>
@@ -44,3 +43,4 @@ KProvider.propTypes = {
   actions: PropTypes.array,
   children: PropTypes.node
 }
+export default KProvider

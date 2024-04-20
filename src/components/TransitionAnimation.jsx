@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import { motion } from 'framer-motion'
 import React from 'react'
 
-export const TransitionAnimation = props => {
+const TransitionAnimation = props => {
   return (
     <motion.div
       className='gap-md flex-column'
@@ -18,3 +18,4 @@ export const TransitionAnimation = props => {
 TransitionAnimation.propTypes = {
   children: PropTypes.node
 }
+export default TransitionAnimation

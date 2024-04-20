@@ -1,7 +1,6 @@
 import cx from 'classnames'
 import { KBarResults, useMatches } from 'kbar'
-import { cloneElement } from 'react'
-import React from 'react'
+import React, { cloneElement } from 'react'
 const KResults = () => {
   const { results } = useMatches()
 

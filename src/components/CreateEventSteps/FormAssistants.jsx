@@ -3,7 +3,7 @@ import Constants from '../../constants'
 import { useFormContext } from 'react-hook-form'
 import React from 'react'
 
-export const FormAssistants = () => {
+const FormAssistants = () => {
   const {
     register,
     clearErrors,
@@ -29,3 +29,4 @@ export const FormAssistants = () => {
     </Select>
   )
 }
+export default FormAssistants
