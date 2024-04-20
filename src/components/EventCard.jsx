@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { Button, Card, Image, Link } from '@nextui-org/react'
+import { Card, Image, Link } from '@nextui-org/react'
 import { useNavigate } from 'react-router'
 
 const EventCard = props => {

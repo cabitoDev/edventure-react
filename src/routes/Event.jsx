@@ -6,23 +6,26 @@ import assets from '../assets'
 import React, { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { httpDelete, httpGet, dateToStr } from '../utils'
-import { deleteUserEvents } from '../redux'
 import Constants from '../constants'
 import { useQuery } from 'react-query'
 
 const Event = () => {
   const navigateTo = useNavigate()
-  const user = useSelector(state => state.user)
-
   const [isOpenModal, setIsOpenModal] = useState(false)
-  const dispatch = useDispatch()
   const id = useParams().id
+  const stateUser = useSelector(state => state.user)
+  const { data: user, status: userStatus } = useQuery('updatedUser', () =>
+    httpGet(Constants.USERS_ENDPOINT_URL, stateUser.id)
+  )
   const [event, setEvent] = useState(null)
-  const { status } = useQuery('event', async () => {
+  const { status: eventStatus } = useQuery('event', async () => {
     const eventInfo = await httpGet(Constants.EVENTS_ENDPOINT_URL, id)
     setEvent(eventInfo)
   })
-  const { followers, isFollowing, toggleFollow } = useFollow(user, event)
+  const { followers, isFollowing, toggleFollow, isLoading } = useFollow(
+    user,
+    event
+  )
   const [isEditing, setIsEditing] = useState(false)
 
   const onDelete = async () => {
@@ -31,11 +34,10 @@ const Event = () => {
       event.id
     )
     if (deletedEvent) {
-      dispatch(deleteUserEvents(deletedEvent))
       navigateTo('/my-events')
     }
   }
-  if (status === 'loading') {
+  if (isLoading || userStatus === 'loading' || eventStatus === 'loading') {
     return <Spinner className='center pt-40' />
   }
   if (event) {

@@ -1,12 +1,21 @@
 import { updateFollowingEvents } from '../utils'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const useFollow = (user, event) => {
   const isInitiallyFollowing = user?.followingEvents.some(
     followedEvent => followedEvent.id === event?.id
   )
-  const [isFollowing, setIsFollowing] = useState(isInitiallyFollowing)
-  const [followers, setFollowers] = useState(event?.usersFollowing.length)
+  const [isFollowing, setIsFollowing] = useState()
+  const [followers, setFollowers] = useState()
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    if (event && user) {
+      setIsFollowing(isInitiallyFollowing)
+      setFollowers(event.usersFollowing.length)
+      setIsLoading(false)
+    }
+  }, [event, user])
 
   const toggleFollow = () => {
     if (isFollowing) {
@@ -19,9 +28,10 @@ const useFollow = (user, event) => {
 
       updateFollowingEvents(user.id, event.id, 'PUT')
     }
+    setIsLoading(false)
   }
 
-  return { followers, isFollowing, toggleFollow }
+  return { followers, isFollowing, toggleFollow, isLoading }
 }
 
 export default useFollow
