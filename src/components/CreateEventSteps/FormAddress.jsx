@@ -1,7 +1,6 @@
 import { Input } from '@nextui-org/react'
 import React, { useState } from 'react'
 import Constants from '../../constants'
-import { getMatches } from '../../services/MapsService'
 import { useFormContext } from 'react-hook-form'
 export const FormAddress = () => {
   const {
@@ -12,6 +11,19 @@ export const FormAddress = () => {
     formState: { errors }
   } = useFormContext()
   const [coincidences, setCoincidences] = useState([])
+
+  const getMatches = async text => {
+    return new Promise(resolve => {
+      try {
+        new window.google.maps.places.AutocompleteService().getPlacePredictions(
+          { input: text, types: ['address'] },
+          resolve
+        )
+      } catch (e) {
+        console.error(e)
+      }
+    })
+  }
 
   const searchResults = async () => {
     clearErrors('address')

@@ -1,14 +1,10 @@
-import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { httpGet } from '../utils/httpUtils'
 import Constants from '../constants'
 
 const useUpdatedUser = () => {
   const user = useSelector(state => state.user)
-  const [isLoading, setIsLoading] = useState(false)
-
   async function getUpdatedUser () {
-    setIsLoading(true)
     try {
       const userInfo = await httpGet(Constants.USERS_ENDPOINT_URL, user.id)
       if (!userInfo) {
@@ -19,12 +15,10 @@ const useUpdatedUser = () => {
     } catch (error) {
       console.error('Error updating user:', error)
       return null
-    } finally {
-      setIsLoading(false)
     }
   }
 
-  return { getUpdatedUser, isLoading }
+  return { getUpdatedUser }
 }
 
 export default useUpdatedUser

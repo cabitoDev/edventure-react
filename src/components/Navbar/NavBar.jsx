@@ -1,89 +1,51 @@
-import React, { useEffect } from 'react'
-import { useKBar } from 'kbar'
+import React from 'react'
 import {
   Navbar,
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  NavbarMenu,
-  NavbarMenuItem,
   Link,
-  NavbarMenuToggle,
-  Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownItem,
-  Avatar,
-  Input,
-  Kbd
+  NavbarMenuToggle
 } from '@nextui-org/react'
 import { useDispatch, useSelector } from 'react-redux'
-import { SearchIcon } from './SearchIcon'
 import assets from '../../assets'
 import { updateUser } from '../../redux/userSlice'
 import { useNavigate } from 'react-router-dom'
-import { Auth0Lock } from 'auth0-lock'
 import Constants from '../../constants'
 import { httpPost } from '../../utils/httpUtils'
 import { getLoginRequest } from '../../utils/utils'
-import { useLogout } from '../../hooks/useLogout'
+import { lock, checkLogged } from '../../auth/auth-lock'
+import KInput from '../Kbar/KInput'
+import { profileOptions, userOptions } from './navBarOptions'
+import NavBarDropdown from './NavBarDropdown'
+import NavBarMenu from './NavBarMenu'
 
 export const NavBar = () => {
-  const { query } = useKBar()
   const user = useSelector(state => {
     return state.user
   })
   const navigateTo = useNavigate()
   const dispatch = useDispatch()
-  const logout = useLogout()
-  const [lock, setLock] = React.useState()
 
-  useEffect(() => {
-    setLock(
-      new Auth0Lock(
-        window.location.origin.includes('edventure-six.vercel.app')
-          ? Constants.CLIENT_PRO
-          : Constants.CLIENT_DEV,
-        Constants.DOMAIN,
-        {
-          auth: {
-            redirect: false
-          }
-        }
+  lock.on('authenticated', authResult => {
+    lock.hide()
+    lock.getUserInfo(authResult.accessToken, async (error, profile) => {
+      if (error) {
+        console.error('Error getting user:', error)
+        return
+      }
+      const userLogged = await httpPost(
+        Constants.USERS_ENDPOINT_URL,
+        getLoginRequest(profile)
       )
-    )
-  }, [])
-
-  useEffect(() => {
-    if (lock) {
-      lock.on('authenticated', authResult => {
-        lock.hide()
-        lock.getUserInfo(authResult.accessToken, async (error, profile) => {
-          if (error) {
-            console.error('Error al obtener el perfil de usuario:', error)
-            return
-          }
-          await httpPost(Constants.USERS_ENDPOINT_URL, getLoginRequest(profile))
-            .then(userLogged => {
-              if (userLogged) {
-                dispatch(updateUser(userLogged))
-                navigateTo('/profile')
-              } else {
-                console.error('fallo al hacer login')
-              }
-            })
-            .catch(() => {
-              //handleError
-            })
-        })
-      })
-    }
-  }, [lock])
-
-  const showAuth0 = () => {
-    lock.show()
-  }
-
+      if (userLogged) {
+        dispatch(updateUser(userLogged))
+        navigateTo('/profile')
+      } else {
+        //handleError
+      }
+    })
+  })
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
 
   return (
@@ -94,184 +56,47 @@ export const NavBar = () => {
           <img
             className='hover:cursor-pointer logo'
             src={assets.logo}
-            onClick={() => {
-              navigateTo('/')
-            }}
+            onClick={() => navigateTo('/')}
           />
         </NavbarBrand>
       </NavbarContent>
-
       <NavbarContent className='hidden sm:flex gap-4' justify='center'>
-        <NavbarItem>
-          <Link
-            onClick={() => {
-              navigateTo('/my-events')
-            }}
-            color='foreground'
-            className='hover:cursor-pointer'
-          >
-            My events
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link
-            onClick={() => {
-              navigateTo('/explore')
-            }}
-            color='foreground'
-            className='hover:cursor-pointer'
-          >
-            Explore events
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link
-            onClick={() => {
-              navigateTo('/create')
-            }}
-            color='foreground'
-            className='hover:cursor-pointer'
-          >
-            Create event
-          </Link>
-        </NavbarItem>
+        {userOptions.map((option, index) => (
+          <NavbarItem key={index}>
+            <Link
+              onClick={() => {
+                checkLogged(user)
+                navigateTo(option.path)
+              }}
+              color='foreground'
+              className='hover:cursor-pointer'
+            >
+              {option.label}
+            </Link>
+          </NavbarItem>
+        ))}
       </NavbarContent>
       <NavbarContent justify='end'>
-        <div onClick={query.toggle}>
-          <Input
-            className='w-min'
-            startContent={
-              <div className='flex gap-1'>
-                <SearchIcon />
-                <div className='flex hide-xs gap-1'>
-                  <Kbd>Ctrl</Kbd>
-                  <Kbd>K</Kbd>
-                </div>
-              </div>
-            }
-          />
-        </div>
-
-        {!user && lock && (
+        {user && (
+          <>
+            <KInput />
+            <NavBarDropdown user={user} profileOptions={profileOptions} />
+          </>
+        )}
+        {!user && (
           <NavbarItem key='signup'>
             <Link
               className='hover:cursor-pointer'
               color='primary'
-              onClick={showAuth0}
+              onClick={() => checkLogged(user)}
             >
               Sign Up
             </Link>
           </NavbarItem>
         )}
-        {user && (
-          <Dropdown placement='bottom-end'>
-            <DropdownTrigger>
-              <Avatar
-                as='button'
-                className='transition-transform'
-                color='secondary'
-                size='sm'
-                src={user.avatar}
-              />
-            </DropdownTrigger>
-            <DropdownMenu aria-label='Profile Actions' variant='flat'>
-              <DropdownItem
-                textValue='Settings'
-                onClick={() => {
-                  navigateTo('/settings')
-                }}
-              >
-                Settings
-              </DropdownItem>
-              <DropdownItem
-                textValue='profile'
-                key='profile'
-                onClick={() => {
-                  navigateTo('/profile')
-                }}
-              >
-                Profile
-              </DropdownItem>
-              <DropdownItem textValue='Log Out' onClick={logout}>
-                <p className='text-pink-600' key='logout'>
-                  Log Out
-                </p>
-              </DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
-        )}
       </NavbarContent>
       {user && (
-        <NavbarMenu>
-          <NavbarMenuItem>
-            <Link
-              color='foreground'
-              className='hover:cursor-pointer'
-              onClick={() => {
-                setIsMenuOpen(false)
-                navigateTo('/my-events')
-              }}
-            >
-              My events
-            </Link>
-          </NavbarMenuItem>
-          <NavbarMenuItem>
-            <Link
-              color='foreground'
-              className='hover:cursor-pointer'
-              onClick={() => {
-                setIsMenuOpen(false)
-                navigateTo('/explore')
-              }}
-            >
-              Explore events
-            </Link>
-          </NavbarMenuItem>
-          <NavbarMenuItem>
-            <Link
-              color='foreground'
-              className='hover:cursor-pointer'
-              onClick={() => {
-                setIsMenuOpen(false)
-                navigateTo('/create')
-              }}
-            >
-              Create event
-            </Link>
-          </NavbarMenuItem>
-          <NavbarMenuItem>
-            <Link
-              color='foreground'
-              className='hover:cursor-pointer'
-              onClick={() => {
-                setIsMenuOpen(false)
-                navigateTo('/settings')
-              }}
-            >
-              Settings
-            </Link>
-          </NavbarMenuItem>
-          <NavbarMenuItem key='profile'>
-            <Link
-              color='foreground'
-              className='hover:cursor-pointer'
-              onClick={() => {
-                setIsMenuOpen(false)
-                navigateTo('/profile')
-              }}
-            >
-              Profile
-            </Link>
-          </NavbarMenuItem>
-          <NavbarMenuItem key='logout'>
-            <Link
-              className='text-pink-600 hover:cursor-pointer'
-              onClick={logout}
-            >
-              Log Out
-            </Link>
-          </NavbarMenuItem>
-        </NavbarMenu>
+        <NavBarMenu userOptions={userOptions} setIsMenuOpen={setIsMenuOpen} />
       )}
     </Navbar>
   )

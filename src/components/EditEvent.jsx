@@ -30,7 +30,6 @@ const EditEvent = ({ event, setIsEditing, setEvent }) => {
   })
 
   const onSubmit = async data => {
-    console.log(data)
     const updatedEvent = await updateEventAsync(data)
     if (updatedEvent) {
       dispatch(updateUserEvents(updatedEvent))

@@ -9,7 +9,7 @@ const useFollow = (user, event) => {
     followedEvent => followedEvent.id === event.id
   )
   const [isFollowing, setIsFollowing] = useState(isInitiallyFollowing)
-  const [followers, setFollowers] = useState(event.usersFollowing.length)
+  const [followers, setFollowers] = useState(event?.usersFollowing.length || 0)
 
   const toggleFollow = () => {
     if (isFollowing) {

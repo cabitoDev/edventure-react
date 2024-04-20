@@ -1,33 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import '../index.css'
-import { Button, Pagination } from '@nextui-org/react'
+import { Button, Pagination, Spinner } from '@nextui-org/react'
 import { useNavigate } from 'react-router'
 import { EventCard } from '../components/CustomCard/EventCard'
 import useEventSearch from '../hooks/useEventSearch'
 import EventFilter from '../components/EventFilter'
 import useUpdatedUser from '../hooks/useUpdatedUser'
+import { useQuery } from 'react-query'
 
 export const UserEvents = () => {
-  const { getUpdatedUser, isLoading } = useUpdatedUser()
-  const [user, setUser] = useState(null)
-  const [userEvents, setUserEvents] = useState([])
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const updatedUser = await getUpdatedUser()
-        setUser(updatedUser)
-        if (updatedUser) {
-          setUserEvents(
-            updatedUser.userEvents.concat(updatedUser.followingEvents)
-          )
-        }
-      } catch (error) {
-        console.error('Error fetching user data:', error)
-      }
-    }
-    fetchUserData()
-  }, [])
+  const { getUpdatedUser } = useUpdatedUser()
+  const { data: user, status } = useQuery('updatedUser', getUpdatedUser)
+  const userEvents = user ? user.userEvents.concat(user.followingEvents) : []
   const {
     currentEvents,
     handlePageChange,
@@ -38,8 +22,8 @@ export const UserEvents = () => {
 
   const navigateTo = useNavigate()
 
-  if (isLoading) {
-    return <>Loading</>
+  if (status === 'loading') {
+    return <Spinner className='center pt-40' />
   }
   return (
     <>
@@ -70,11 +54,11 @@ export const UserEvents = () => {
             total={Math.ceil(userEvents.length / 5)}
             color='primary'
             onChange={handlePageChange}
-          />{' '}
+          />
         </>
       ) : (
         <div className='home-title'>
-          <p className='text-2xl'>You dont have any future event.</p>
+          <p className='text-2xl'>You donmaint have any future event.</p>
           <div className='flex gap-3'>
             <Button color='primary' onClick={() => navigateTo('/explore')}>
               Explore

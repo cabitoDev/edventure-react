@@ -13,10 +13,9 @@ import { CreateEvent } from './routes/CreateEvent.jsx'
 import { Root } from './routes/Root.jsx'
 import { UserEvents } from './routes/UserEvents.jsx'
 import { Explore } from './routes/Explore.jsx'
-import { httpGet } from './utils/httpUtils.js'
 import { Event } from './routes/Event.jsx'
-import Constants from './constants.js'
-
+import { QueryClientProvider } from 'react-query'
+import { QueryClient } from 'react-query'
 const router = createBrowserRouter([
   {
     path: '/',
@@ -44,27 +43,26 @@ const router = createBrowserRouter([
       },
       {
         path: 'explore',
-        element: <Explore />,
-        loader: () => {
-          return httpGet(Constants.EVENTS_ENDPOINT_URL)
-        }
+        element: <Explore />
       },
       {
         path: 'event/:id',
-        element: <Event />,
-        loader: ({ params }) =>
-          httpGet(Constants.EVENTS_ENDPOINT_URL, params.id)
+        element: <Event />
       }
     ]
   }
 ])
 
+const queryClient = new QueryClient()
+
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <NextUIProvider>
-    <ThemeProvider attribute='class' defaultTheme='dark'>
-      <Provider store={store}>
-        <RouterProvider router={router} />
-      </Provider>
-    </ThemeProvider>
-  </NextUIProvider>
+  <QueryClientProvider client={queryClient}>
+    <NextUIProvider>
+      <ThemeProvider attribute='class' defaultTheme='dark'>
+        <Provider store={store}>
+          <RouterProvider router={router} />
+        </Provider>
+      </ThemeProvider>
+    </NextUIProvider>
+  </QueryClientProvider>
 )
