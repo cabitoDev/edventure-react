@@ -2,7 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button, Pagination, Spinner } from '@nextui-org/react'
 import { useEventSearch } from '../hooks'
-import { EventCard, EventFilter } from '../components'
+import { EventCard, EventFilter, TransitionAnimation } from '../components'
 import { useSelector } from 'react-redux'
 import { useQuery } from 'react-query'
 import { httpGet } from '../utils'
@@ -32,12 +32,12 @@ const Explore = () => {
   } = useEventSearch(allEvents, user)
 
   if (userStatus === 'loading' || eventsStatus === 'loading' || isSearching) {
-    return <Spinner className='center pt-40' />
+    return <Spinner className='center pt-40 flex' />
   }
 
   if (allEvents && user) {
     return (
-      <>
+      <TransitionAnimation className='gap-md flex-column'>
         {allEvents.length > 0 ? (
           <div className='flex-column gap-4'>
             <p className='ml-10 text-2xl'>Explore events:</p>
@@ -82,7 +82,7 @@ const Explore = () => {
             </Button>
           </div>
         )}
-      </>
+      </TransitionAnimation>
     )
   }
 }

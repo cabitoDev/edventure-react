@@ -1,7 +1,7 @@
 import { useTheme } from 'next-themes'
 import React, { useState } from 'react'
 import { Button, Switch } from '@nextui-org/react'
-import { SunIcon, MoonIcon } from '../components'
+import { SunIcon, MoonIcon, TransitionAnimation } from '../components'
 import { useLogout, useUpdateUser } from '../hooks'
 import { useSelector } from 'react-redux'
 
@@ -13,7 +13,7 @@ const Settings = () => {
   const [showEmail, setShowEmail] = useState(user.showEmail)
 
   return (
-    <div className='flex-column center gap-4'>
+    <TransitionAnimation className='flex-column center gap-4'>
       <p className='text-2xl align-start pb-5'>Settings:</p>
       <div className='flex-column gap-4'>
         <Switch
@@ -62,7 +62,7 @@ const Settings = () => {
       >
         Log Out
       </Button>
-    </div>
+    </TransitionAnimation>
   )
 }
 export default Settings

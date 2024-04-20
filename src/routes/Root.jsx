@@ -3,7 +3,7 @@ import { Outlet } from 'react-router'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { Home } from '.'
-import { TransitionAnimation, KProvider, Kactions, NavBar } from '../components'
+import { KProvider, Kactions, NavBar } from '../components'
 
 const Root = () => {
   const navigateTo = useNavigate()
@@ -19,14 +19,10 @@ const Root = () => {
     }
   })
   return (
-    <TransitionAnimation>
-      <KProvider actions={actions}>
-        <NavBar />
-        <TransitionAnimation>
-          {isLogged ? <Outlet /> : <Home />}
-        </TransitionAnimation>
-      </KProvider>
-    </TransitionAnimation>
+    <KProvider actions={actions}>
+      <NavBar />
+      {isLogged ? <Outlet /> : <Home />}
+    </KProvider>
   )
 }
 export default Root

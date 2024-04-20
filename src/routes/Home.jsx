@@ -1,9 +1,9 @@
 import React from 'react'
 import Constants from '../constants'
-import { HomeCard, ReactLogo } from '../components'
+import { HomeCard, ReactLogo, TransitionAnimation } from '../components'
 const Home = () => {
   return (
-    <>
+    <TransitionAnimation className='gap-md flex-column'>
       <div className='margin-md flex-column gap-md mx-3'>
         <div className='home-title'>
           <p className='text-3xl'>{Constants.HOME_TITLE}</p>
@@ -35,7 +35,7 @@ const Home = () => {
           <span>{Constants.DEP_WITH_REACT}</span>
         </div>
       </div>
-    </>
+    </TransitionAnimation>
   )
 }
 export default Home
