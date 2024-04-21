@@ -2,8 +2,11 @@ import { Select, SelectItem } from '@nextui-org/react'
 import Constants from '../../constants'
 import { useFormContext } from 'react-hook-form'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 const FormAssistants = () => {
+  const { t } = useTranslation('edventure')
+
   const {
     register,
     clearErrors,
@@ -17,7 +20,7 @@ const FormAssistants = () => {
       defaultSelectedKeys={[watch('assistants')]}
       onClick={() => clearErrors('assistants')}
       defaultOpen={!watch('assistants')}
-      label='Number of assistants'
+      label={t('NUMBER_ASSISTANTS')}
       isInvalid={errors.assistants ? true : false}
       errorMessage={errors.assistants && Constants.STEP_ASSISTANTS_ERROR}
     >

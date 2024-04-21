@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import Constants from '../constants'
+import { httpPut } from '../utils'
 
 const useUpdateUser = () => {
   const user = useSelector(state => state.user)
@@ -8,30 +9,16 @@ const useUpdateUser = () => {
 
   async function updateUserAsync (userUpdatedInfo) {
     setIsLoading(true)
-    try {
-      const response = await fetch(
-        `${Constants.USERS_ENDPOINT_URL}/${user.id}`,
-        {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(userUpdatedInfo)
-        }
-      )
-
-      if (!response.ok) {
-        throw new Error('Failed to update user')
-      }
-
-      const updatedUser = await response.json()
-      return updatedUser
-    } catch (error) {
-      console.error('Error updating user:', error)
-      return null
-    } finally {
-      setIsLoading(false)
+    const updatedUser = await httpPut(
+      Constants.USERS_ENDPOINT_URL,
+      userUpdatedInfo,
+      user.id
+    )
+    if (!updatedUser) {
+      throw new Error('Failed getting user')
     }
+    setIsLoading(false)
+    return updatedUser
   }
 
   return { updateUserAsync, isLoading }

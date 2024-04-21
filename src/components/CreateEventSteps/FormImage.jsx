@@ -4,6 +4,7 @@ import { useFormContext } from 'react-hook-form'
 
 const FormImage = () => {
   const { setValue, watch } = useFormContext()
+
   const inputFileRef = useRef()
   const onInputChange = ev => {
     setValue('image', {

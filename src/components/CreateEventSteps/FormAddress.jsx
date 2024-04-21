@@ -1,7 +1,7 @@
 import { Input } from '@nextui-org/react'
 import React, { useState } from 'react'
-import Constants from '../../constants'
 import { useFormContext } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 const FormAddress = () => {
   const {
     register,
@@ -10,6 +10,8 @@ const FormAddress = () => {
     watch,
     formState: { errors }
   } = useFormContext()
+  const { t } = useTranslation('edventure')
+
   const [coincidences, setCoincidences] = useState([])
 
   const getMatches = async text => {
@@ -48,12 +50,12 @@ const FormAddress = () => {
   return (
     <div className='input-width'>
       <Input
-        label='Address'
+        label={t('ADDRESS_LABEL')}
         {...register('address', { validate: validateAddress })}
         value={watch('address')}
         onInput={searchResults}
         isInvalid={errors.address ? true : false}
-        errorMessage={errors.address && Constants.STEP_ADDRESS_ERROR}
+        errorMessage={errors.address && t('ERROR_ADDRESS')}
       />
       {coincidences.length > 0 && (
         <ul className='z-20 p-0 relative z-40 bg-white dark:bg-default-100 w-full overflow-visible shadow-small rounded-md'>

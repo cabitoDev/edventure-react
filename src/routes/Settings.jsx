@@ -4,9 +4,13 @@ import { Button, Switch } from '@nextui-org/react'
 import { SunIcon, MoonIcon, TransitionAnimation } from '../components'
 import { useLogout, useUpdateUser } from '../hooks'
 import { useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
+import { changeLanguage } from 'i18next'
 
 const Settings = () => {
   const { theme, setTheme } = useTheme()
+  const { t } = useTranslation('edventure')
+
   const logout = useLogout()
   const user = useSelector(state => state.user)
   const { updateUserAsync } = useUpdateUser()
@@ -14,7 +18,7 @@ const Settings = () => {
 
   return (
     <TransitionAnimation className='flex-column center gap-4'>
-      <p className='text-2xl align-start pb-5'>Settings:</p>
+      <p className='text-2xl align-start pb-5'>{t('SETTINGS')}</p>
       <div className='flex-column gap-4'>
         <Switch
           size='md'
@@ -25,9 +29,9 @@ const Settings = () => {
           }}
         >
           <div className='flex flex-col gap-1'>
-            <p className='text-medium'>Public email</p>
+            <p className='text-medium'>{t('PUBLIC_EMAIL')}</p>
             <p className='text-tiny text-default-400'>
-              People will be able to contact you by your profile email.
+              {t('PUBLIC_EMAIL_MESSAGE')}
             </p>
           </div>
         </Switch>
@@ -48,19 +52,37 @@ const Settings = () => {
           }
         >
           <div className='flex flex-col gap-1'>
-            <p className='text-medium'>Change theme</p>
+            <p className='text-medium'>{t('CHANGE_THEME')}</p>
             <p className='text-tiny text-default-400'>
-              Set the current aplication theme to light/dark.
+              {t('CHANGE_THEME_MESSAGE')}
             </p>
           </div>
         </Switch>
+        <div className='flex  gap-3 items-center'>
+          <p className='text-medium'>{t('CHANGE_LANGUAGE')}</p>
+          <Button
+            variant='bordered'
+            color='primary'
+            onClick={() => changeLanguage('es')}
+          >
+            spanish
+          </Button>
+          <Button
+            variant='bordered'
+            color='primary'
+            onClick={() => changeLanguage('en')}
+          >
+            english
+          </Button>
+        </div>
       </div>
       <Button
+        color='danger'
         className='text-pink-600 hover:cursor-pointer mt-8'
         variant='bordered'
         onClick={logout}
       >
-        Log Out
+        {t('LOGOUT')}
       </Button>
     </TransitionAnimation>
   )

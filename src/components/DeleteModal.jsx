@@ -7,8 +7,11 @@ import {
   ModalFooter
 } from '@nextui-org/react'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 const DeleteModal = ({ isOpen, setIsOpen, onDelete }) => {
+  const { t } = useTranslation('edventure')
+
   return (
     <Modal
       className='flex mr-[23px] center w-[90%]'
@@ -19,9 +22,7 @@ const DeleteModal = ({ isOpen, setIsOpen, onDelete }) => {
       <ModalContent>
         <>
           <ModalBody>
-            <p className='text-xl p-4'>
-              Are you sure you want to delete this event?
-            </p>
+            <p className='text-xl p-4'>{t('DELETE_MODAL_TEXT')}</p>
           </ModalBody>
           <ModalFooter>
             <Button
@@ -29,10 +30,10 @@ const DeleteModal = ({ isOpen, setIsOpen, onDelete }) => {
               variant='light'
               onPress={() => setIsOpen(false)}
             >
-              Cancel
+              {t('CANCEL')}
             </Button>
             <Button color='danger' onPress={onDelete}>
-              Delete
+              {t('DELETE')}
             </Button>
           </ModalFooter>
         </>

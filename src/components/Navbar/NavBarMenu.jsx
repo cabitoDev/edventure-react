@@ -3,10 +3,13 @@ import { NavbarMenu, NavbarMenuItem, Link } from '@nextui-org/react'
 import React from 'react'
 import { useNavigate } from 'react-router'
 import { useLogout } from '../../hooks'
+import { useTranslation } from 'react-i18next'
 
 const NavBarMenu = ({ userOptions, setIsMenuOpen }) => {
   const navigateTo = useNavigate()
   const logout = useLogout()
+  const { t } = useTranslation('edventure')
+
   return (
     <NavbarMenu>
       {userOptions.map((option, index) => (
@@ -19,13 +22,13 @@ const NavBarMenu = ({ userOptions, setIsMenuOpen }) => {
               navigateTo(option.path)
             }}
           >
-            {option.label}
+            {t(option.label)}
           </Link>
         </NavbarMenuItem>
       ))}
       <NavbarMenuItem key='logout'>
         <Link className='text-pink-600 hover:cursor-pointer' onClick={logout}>
-          Log Out
+          {t('LOGOUT')}
         </Link>
       </NavbarMenuItem>
     </NavbarMenu>

@@ -14,9 +14,11 @@ import {
 } from './CreateEventSteps'
 import assets from '../assets'
 import useUpdateEvent from '../hooks/useUpdateEvent'
+import { useTranslation } from 'react-i18next'
 
 const EditEvent = ({ event, setIsEditing, setEvent }) => {
   const { updateEventAsync, isLoading } = useUpdateEvent()
+  const { t } = useTranslation('edventure')
 
   const form = useForm({
     defaultValues: {
@@ -70,7 +72,7 @@ const EditEvent = ({ event, setIsEditing, setEvent }) => {
         <FormDescription />
         <div className='flex justify-end'>
           <Button isLoading={isLoading} type='submit' color='primary'>
-            Save
+            {t('SAVE')}
           </Button>
         </div>
       </form>

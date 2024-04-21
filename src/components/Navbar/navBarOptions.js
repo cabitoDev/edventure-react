@@ -1,10 +1,10 @@
 export const userOptions = [
-  { path: '/my-events', label: 'My events' },
-  { path: '/explore', label: 'Explore events' },
-  { path: '/create', label: 'Create event' }
+  { path: '/my-events', label: 'MY_EVENTS' },
+  { path: '/explore', label: 'EXPLORE_EVENTS' },
+  { path: '/create', label: 'CREATE_EVENT' }
 ]
 
 export const profileOptions = [
-  { path: '/settings', label: 'Settings' },
-  { path: '/profile', label: 'Profile' }
+  { path: '/settings', label: 'SETTINGS' },
+  { path: '/profile', label: 'PROFILE' }
 ]

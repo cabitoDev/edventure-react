@@ -2,6 +2,7 @@ import { Select, SelectItem } from '@nextui-org/react'
 import Constants from '../../constants'
 import { useFormContext } from 'react-hook-form'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 const FormType = () => {
   const {
@@ -10,20 +11,21 @@ const FormType = () => {
     watch,
     formState: { errors }
   } = useFormContext()
+  const { t } = useTranslation('edventure')
 
   return (
     <Select
       {...register('type', { required: true })}
       defaultSelectedKeys={[watch('type')]}
       defaultOpen={!watch('type')}
-      label='Type of event'
+      label={t('EVENT_TYPE')}
       onClick={() => clearErrors('type')}
       isInvalid={errors.type ? true : false}
-      errorMessage={errors.type && Constants.STEP_TYPE_ERROR}
+      errorMessage={errors.type && t('ERROR_TYPE')}
     >
       {Constants.EVENT_TYPES.map(type => (
         <SelectItem key={type} value={type}>
-          {type}
+          {t(type)}
         </SelectItem>
       ))}
     </Select>

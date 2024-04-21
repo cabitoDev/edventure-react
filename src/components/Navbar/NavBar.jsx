@@ -17,11 +17,13 @@ import { lock, checkLogged } from '../../auth/auth-lock'
 import { NavBarMenu, NavBarDropdown } from '.'
 import { KInput } from '../Kbar'
 import { userOptions, profileOptions } from './navBarOptions'
+import { useTranslation } from 'react-i18next'
 
 const NavBar = () => {
   const user = useSelector(state => {
     return state.user
   })
+  const { t } = useTranslation('edventure')
   const navigateTo = useNavigate()
   const dispatch = useDispatch()
 
@@ -78,7 +80,7 @@ const NavBar = () => {
               color='foreground'
               className='hover:cursor-pointer'
             >
-              {option.label}
+              {t(option.label)}
             </Link>
           </NavbarItem>
         ))}

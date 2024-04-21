@@ -4,8 +4,11 @@ import Constants from '../../constants'
 import { useFormContext } from 'react-hook-form'
 import { validateDate } from '../../utils'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 const FormDate = () => {
+  const { t } = useTranslation('edventure')
+
   const {
     register,
     clearErrors,
@@ -15,7 +18,7 @@ const FormDate = () => {
 
   return (
     <Input
-      label='Date'
+      label={t('DATE')}
       placeholder=' '
       type='datetime-local'
       {...register('date', {

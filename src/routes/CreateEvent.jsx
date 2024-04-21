@@ -7,8 +7,10 @@ import { useNavigate } from 'react-router-dom'
 import Constants from '../constants'
 import { useSelector } from 'react-redux'
 import { getNewEventRequest, uploadImage, httpPost } from '../utils'
+import { useTranslation } from 'react-i18next'
 
 const CreateEvent = () => {
+  const { t } = useTranslation('edventure')
   const form = useForm({
     defaultValues: { image: { url: Constants.DEFAULT_EVENT_IMAGE_URL } }
   })
@@ -69,7 +71,9 @@ const CreateEvent = () => {
         >
           <div className='center flex-column mg-top-bt max-width-90'>
             <div className=' flex-column gap-5 items-center'>
-              <p className='text-3xl text-center'>{steps[indexStep].title}</p>
+              <p className='text-3xl text-center'>
+                {t(steps[indexStep].title)}
+              </p>
               {steps[indexStep].component}
             </div>
             <div className='flex bottom-20 absolute w-10/12 gap-4 flex-col'>

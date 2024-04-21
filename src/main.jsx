@@ -16,6 +16,7 @@ import {
   Home
 } from './routes'
 import { QueryClientProvider, QueryClient } from 'react-query'
+import '../i18next.config.js'
 const router = createBrowserRouter([
   {
     path: '/',

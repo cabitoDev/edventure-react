@@ -8,6 +8,7 @@ import { useQuery } from 'react-query'
 import { httpGet } from '../utils'
 import Constants from '../constants'
 import { useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 
 const UserEvents = () => {
   const stateUser = useSelector(state => state.user)
@@ -32,6 +33,7 @@ const UserEvents = () => {
   } = useEventSearch(userEvents, user)
 
   const navigateTo = useNavigate()
+  const { t } = useTranslation('edventure')
 
   if (!userEvents || isSearching || status === 'loading') {
     return <Spinner className='center pt-40 flex' />
@@ -40,7 +42,7 @@ const UserEvents = () => {
     <TransitionAnimation className='gap-md flex-column'>
       {userEvents && userEvents.length > 0 ? (
         <>
-          <p className='text-2xl pl-10'>Your events:</p>
+          <p className='text-2xl pl-10'>{t('YOUR_EVENTS')}</p>
           <div className='flex-column gap-3 mx-10'>
             <EventFilter
               handleSearchChange={handleSearchChange}
@@ -54,7 +56,7 @@ const UserEvents = () => {
               })
             ) : (
               <div className='title'>
-                <p className='text-2xl'>No matches.</p>
+                <p className='text-2xl'>{t('NO_MATCHES')}</p>
               </div>
             )}
           </div>
@@ -69,13 +71,13 @@ const UserEvents = () => {
         </>
       ) : (
         <div className='title'>
-          <p className='text-2xl'>You dont have any future event.</p>
+          <p className='text-2xl'>{t('NO_FUTURE_EVENTS')}</p>
           <div className='flex gap-3'>
             <Button color='primary' onClick={() => navigateTo('/explore')}>
-              Explore
+              {t('EXPLORE')}
             </Button>
             <Button color='success' onClick={() => navigateTo('/create')}>
-              Create
+              {t('CREATE')}
             </Button>
           </div>
         </div>

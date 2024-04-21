@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux'
 import { useQuery } from 'react-query'
 import { httpGet } from '../utils'
 import Constants from '../constants'
+import { useTranslation } from 'react-i18next'
 
 const Explore = () => {
   const stateUser = useSelector(state => state.user)
@@ -22,6 +23,7 @@ const Explore = () => {
     }
   )
   const navigateTo = useNavigate()
+  const { t } = useTranslation('edventure')
   const {
     currentEvents,
     handlePageChange,
@@ -40,10 +42,11 @@ const Explore = () => {
       <TransitionAnimation className='gap-md flex-column'>
         {allEvents.length > 0 ? (
           <div className='flex-column gap-4'>
-            <p className='ml-10 text-2xl'>Explore events:</p>
+            <p className='ml-10 text-2xl'>{t('EXPLORE_EVENTS')}</p>
             <div className='flex-column gap-3 mx-10'>
               <EventFilter
-                handleSearchChange={handleSearchChange}
+                h
+                andleSearchChange={handleSearchChange}
                 handleFilterChange={handleFilterChange}
                 handleFilterOtherChange={handleFilterOtherChange}
               />
@@ -58,7 +61,7 @@ const Explore = () => {
                 ))
               ) : (
                 <div className='title'>
-                  <p className='text-2xl'>No matches.</p>
+                  <p className='text-2xl'>{t('NO_MATCHES')}</p>
                 </div>
               )}
             </div>
@@ -76,9 +79,9 @@ const Explore = () => {
           </div>
         ) : (
           <div className='title'>
-            <p className='text-2xl'>There are no events created yet.</p>
+            <p className='text-2xl'>{t('NO_EVENTS_CREATED')}</p>
             <Button color='success' onClick={() => navigateTo('/create')}>
-              Create
+              {t('CREATE')}
             </Button>
           </div>
         )}

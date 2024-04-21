@@ -1,38 +1,38 @@
 const Kactions = [
   {
     id: 'create',
-    name: 'Create event',
+    name: 'CREATE_EVENT',
     keywords: 'new event create',
     route: 'create'
   },
   {
     id: 'explore',
-    name: 'Explore',
+    name: 'EXPLORE',
     keywords: '',
     route: 'explore'
   },
   {
     id: 'home',
-    name: 'Home',
+    name: 'HOME',
     keywords: '',
     route: '/'
   },
   {
     id: 'profile',
-    name: 'Profile',
+    name: 'PROFILE',
     keywords: '',
     route: 'profile'
   },
   {
     id: 'settings',
-    name: 'Settings',
+    name: 'SETTINGS',
     keywords: '',
     route: 'settings'
   },
 
   {
     id: 'myevents',
-    name: 'My events',
+    name: 'MY_EVENTS',
     keywords: '',
     route: '/my-events'
   }

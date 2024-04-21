@@ -1,7 +1,7 @@
 import React from 'react'
 import { Input } from '@nextui-org/react'
 import { useFormContext } from 'react-hook-form'
-import Constants from '../../constants'
+import { useTranslation } from 'react-i18next'
 
 const FormName = () => {
   const {
@@ -10,15 +10,16 @@ const FormName = () => {
     watch,
     formState: { errors }
   } = useFormContext()
+  const { t } = useTranslation('edventure')
 
   return (
     <Input
       {...register('name', { required: true, minLength: 5, maxLength: 20 })}
       value={watch('name')}
       onInput={() => clearErrors('name')}
-      label='Name'
+      label={t('NAME')}
       isInvalid={errors.name ? true : false}
-      errorMessage={errors.name && Constants.STEP_NAME_ERROR}
+      errorMessage={errors.name && t('ERROR_NAME')}
     />
   )
 }

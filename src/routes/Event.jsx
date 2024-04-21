@@ -14,9 +14,11 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { httpDelete, httpGet, dateToStr } from '../utils'
 import Constants from '../constants'
 import { useQuery } from 'react-query'
+import { useTranslation } from 'react-i18next'
 
 const Event = () => {
   const navigateTo = useNavigate()
+  const { t } = useTranslation('edventure')
   const [isOpenModal, setIsOpenModal] = useState(false)
   const id = useParams().id
   const stateUser = useSelector(state => state.user)
@@ -88,7 +90,7 @@ const Event = () => {
                             color={isFollowing ? 'error' : 'primary'}
                             className='px-4'
                           >
-                            {isFollowing ? 'Unfollow' : 'Follow'}
+                            {isFollowing ? t('UNFOLLOW') : t('FOLLOW')}
                           </Button>
                         </div>
                       ) : (
@@ -114,7 +116,7 @@ const Event = () => {
                     </div>
                   </div>
                   <p className='self-end pt-3 text-bold text-s'>
-                    Followers: {followers}
+                    {t('FOLLOWERS')} {followers}
                   </p>
                   <Divider className='my-6' />
                   <div className='flex flex-col md:flex-row justify-between space-y-6 md:space-y-0 md:space-x-6 center'>
@@ -126,9 +128,9 @@ const Event = () => {
 
                   <Divider className='my-6' />
                   <div className='flex justify-between'>
-                    <span className='text-gray-500'>{event.type}</span>
+                    <span className='text-gray-500'>{t(event.type)}</span>
                     <span className='text-gray-500'>
-                      {event.assistants} assistants
+                      {event.assistants} {t('ASSISTANTS')}
                     </span>
                   </div>
 
@@ -138,7 +140,7 @@ const Event = () => {
 
                   <div className='text-lg flex-column gap-3'>
                     <p>
-                      <strong>Address:</strong> {event.address}
+                      <strong>{t('ADDRESS')}</strong> {event.address}
                     </p>
                     <GoogleMap placeId={event.placeId} />
                   </div>

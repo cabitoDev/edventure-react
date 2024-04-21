@@ -8,34 +8,33 @@ import {
   FormDescription
 } from '.'
 import React from 'react'
-import Constants from '../../constants'
 const steps = [
   {
-    title: Constants.QUESTION_STEP_NAME,
+    title: 'QUESTION_NAME',
     component: <FormName />
   },
   {
-    title: Constants.QUESTION_STEP_TYPE,
+    title: 'QUESTION_TYPE',
     component: <FormType />
   },
   {
-    title: Constants.QUESTION_STEP_IMAGE,
+    title: 'QUESTION_IMAGE',
     component: <FormImage />
   },
   {
-    title: Constants.QUESTION_STEP_DATE,
+    title: 'QUESTION_DATE',
     component: <FormDate />
   },
   {
-    title: Constants.QUESTION_STEP_ADDRESS,
+    title: 'QUESTION_ADDRESS',
     component: <FormAddress />
   },
   {
-    title: Constants.QUESTION_STEP_ASSISTANTS,
+    title: 'QUESTION_ASSISTANTS',
     component: <FormAssistants />
   },
   {
-    title: Constants.QUESTION_STEP_DESCRIPTION,
+    title: 'QUESTION_DESCRIPTION',
     component: <FormDescription />
   }
 ]

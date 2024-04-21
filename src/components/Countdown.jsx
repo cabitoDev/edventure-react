@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { formatMilisec } from '../utils/utils'
+import { useTranslation } from 'react-i18next'
 
 const Countdown = props => {
   const [difference, setDifference] = useState(
@@ -15,6 +16,7 @@ const Countdown = props => {
 
     return () => clearInterval(intervalId)
   }, [props.date])
+  const { t } = useTranslation('edventure')
 
   const { days, hours, minutes, seconds } = formatMilisec(difference)
 
@@ -24,25 +26,25 @@ const Countdown = props => {
         <span className='countdown font-thin text-3xl'>
           <span>{days}</span>
         </span>
-        days
+        {t('DAYS')}
       </div>
       <div>
         <span className='countdown font-thin text-3xl'>
           <span>{hours}</span>
         </span>
-        hours
+        {t('HOUR')}
       </div>
       <div>
         <span className='countdown font-thin text-3xl'>
           <span>{minutes}</span>
         </span>
-        min
+        {t('MIN')}
       </div>
       <div>
         <span className='countdown font-thin text-3xl'>
           <span>{seconds}</span>
         </span>
-        sec
+        {t('SEC')}
       </div>
     </div>
   )

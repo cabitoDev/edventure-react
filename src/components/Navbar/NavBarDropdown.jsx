@@ -9,10 +9,12 @@ import {
 import React from 'react'
 import { useNavigate } from 'react-router'
 import { useLogout } from '../../hooks'
+import { useTranslation } from 'react-i18next'
 
 const NavBarDropdown = ({ user, profileOptions }) => {
   const navigateTo = useNavigate()
   const logout = useLogout()
+  const { t } = useTranslation('edventure')
 
   return (
     <Dropdown placement='bottom-end'>
@@ -31,17 +33,17 @@ const NavBarDropdown = ({ user, profileOptions }) => {
         {profileOptions.map((option, index) => (
           <DropdownItem
             key={index}
-            textValue={option.label}
+            textValue={t(option.label)}
             onClick={() => {
               navigateTo(option.path)
             }}
           >
-            {option.label}
+            {t(option.label)}
           </DropdownItem>
         ))}
         <DropdownItem textValue='Log Out' onClick={logout}>
           <p className='text-pink-600' key='logout'>
-            Log Out
+            {t('LOGOUT')}
           </p>
         </DropdownItem>
       </DropdownMenu>

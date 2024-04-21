@@ -1,7 +1,7 @@
 import React from 'react'
 import { Textarea } from '@nextui-org/react'
 import { useFormContext } from 'react-hook-form'
-import Constants from '../../constants'
+import { useTranslation } from 'react-i18next'
 
 const FormDescription = () => {
   const {
@@ -10,10 +10,11 @@ const FormDescription = () => {
     watch,
     formState: { errors }
   } = useFormContext()
+  const { t } = useTranslation('edventure')
 
   return (
     <Textarea
-      label='Description'
+      label={t('DESCRIPTION')}
       {...register('description', {
         required: true,
         minLength: 20,
@@ -22,7 +23,7 @@ const FormDescription = () => {
       value={watch('description')}
       onInput={() => clearErrors('description')}
       isInvalid={errors.description ? true : false}
-      errorMessage={errors.description && Constants.STEP_DESCRIPTION_ERROR}
+      errorMessage={errors.description && t('ERROR_DESCRIPTION')}
     />
   )
 }

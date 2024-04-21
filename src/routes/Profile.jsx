@@ -10,6 +10,7 @@ import { useUpdateUser } from '../hooks'
 import { TransitionAnimation } from '../components'
 import Constants from '../constants'
 import { useQuery } from 'react-query'
+import { useTranslation } from 'react-i18next'
 
 const Profile = () => {
   const stateUser = useSelector(state => state.user)
@@ -24,6 +25,7 @@ const Profile = () => {
   } = useForm({
     defaultValues: user
   })
+  const { t } = useTranslation('edventure')
   const avatarInputRef = useRef()
   const [isEditing, setIsEditing] = useState(false)
   const { updateUserAsync, isLoading } = useUpdateUser()
@@ -62,7 +64,9 @@ const Profile = () => {
           >
             <Avatar className='w-40 h-40' src={user.avatar} />
           </button>
-          <p>Member since {new Date(user.loggedDate).toDateString()}</p>
+          <p>
+            {t('MEMBER_SINCE')} {new Date(user.loggedDate).toDateString()}
+          </p>
         </div>
         <input
           ref={avatarInputRef}
@@ -79,11 +83,11 @@ const Profile = () => {
             })}
             value={watch('email')}
             isInvalid={errors.email && true}
-            errorMessage={errors.email ? 'Input a correct email' : ''}
+            errorMessage={errors.email ? t('EMAIL_ERROR') : ''}
             id='email'
             isDisabled={!isEditing}
             defaultValue={user.email}
-            label='Email'
+            label={t('EMAIL')}
           />
           <Input
             {...register('nickname', {
@@ -95,10 +99,8 @@ const Profile = () => {
             id='nickname'
             isDisabled={!isEditing}
             defaultValue={user.nickname}
-            errorMessage={
-              errors.nickname ? 'Required nickname between 5-20 char' : ''
-            }
-            label='Nickname'
+            errorMessage={errors.nickname ? t('NICKNAME_ERROR') : ''}
+            label={t('NICKNAME')}
           />
 
           <Input
@@ -107,12 +109,12 @@ const Profile = () => {
               minLength: 2,
               maxLength: 20
             })}
-            errorMessage={errors.name ? 'Required name between 5-20 char' : ''}
+            errorMessage={errors.name ? t('NAME_ERROR') : ''}
             isInvalid={errors.name && true}
             id='name'
             isDisabled={!isEditing}
             defaultValue={user.name}
-            label='Name'
+            label={t('NAME')}
           />
           <Input
             {...register('lastname', {
@@ -120,13 +122,11 @@ const Profile = () => {
               minLength: 5,
               maxLength: 20
             })}
-            errorMessage={
-              errors.lastname ? 'Required lastname between 5-20 char' : ''
-            }
+            errorMessage={errors.lastname ? t('LASTNAME_ERROR') : ''}
             isInvalid={errors.lastname && true}
             isDisabled={!isEditing}
             defaultValue={user.lastname}
-            label='Lastname'
+            label={t('LASTNAME')}
           />
         </div>
 
@@ -137,7 +137,7 @@ const Profile = () => {
             type='submit'
             className='self-end'
           >
-            Save
+            {t('SAVE')}
           </Button>
         ) : (
           <Button
@@ -150,20 +150,22 @@ const Profile = () => {
             color='primary'
             className='self-end'
           >
-            Edit
+            {t('EDIT')}
             <img src={assets.edit} />
           </Button>
         )}
         <div className='flex justify-between w-full'>
           <div className='flex flex-col items-center'>
             <p className='text-5xl font-thin'>{user.userEvents.length}</p>
-            <p className='text-sm text-gray-500 text-center'>Events created</p>
+            <p className='text-sm text-gray-500 text-center'>
+              {t('EVENTS_CREATED')}
+            </p>
           </div>
 
           <div className='flex flex-col items-center'>
             <p className='text-5xl font-thin'>{user.followingEvents.length}</p>
             <p className='text-sm text-gray-500 text-center'>
-              Events following
+              {t('EVENTS_FOLLOWING')}
             </p>
           </div>
         </div>
