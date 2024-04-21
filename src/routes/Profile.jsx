@@ -1,16 +1,21 @@
 import React, { useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Button, Avatar, Input } from '@nextui-org/react'
+import { Button, Avatar, Input, Spinner } from '@nextui-org/react'
 // eslint-disable-next-line no-unused-vars
 import appFirebase from '../firebase/firebase'
 import { useForm } from 'react-hook-form'
 import assets from '../assets'
-import { uploadImage } from '../utils'
+import { httpGet, uploadImage } from '../utils'
 import { useUpdateUser } from '../hooks'
 import { TransitionAnimation } from '../components'
+import Constants from '../constants'
+import { useQuery } from 'react-query'
 
 const Profile = () => {
-  const user = useSelector(state => state.user)
+  const stateUser = useSelector(state => state.user)
+  const { data: user, status: userStatus } = useQuery('updatedUser', () =>
+    httpGet(Constants.USERS_ENDPOINT_URL, stateUser.id)
+  )
   const {
     register,
     handleSubmit,
@@ -37,6 +42,9 @@ const Profile = () => {
   }
   const onError = async data => {
     console.log(data)
+  }
+  if (userStatus === 'loading') {
+    return <Spinner className='center pt-40 flex' />
   }
 
   return (

@@ -14,12 +14,9 @@ import {
 } from './CreateEventSteps'
 import assets from '../assets'
 import useUpdateEvent from '../hooks/useUpdateEvent'
-import { useDispatch } from 'react-redux'
-import { updateUserEvents } from '../redux/userSlice'
 
 const EditEvent = ({ event, setIsEditing, setEvent }) => {
   const { updateEventAsync, isLoading } = useUpdateEvent()
-  const dispatch = useDispatch()
 
   const form = useForm({
     defaultValues: {
@@ -32,7 +29,6 @@ const EditEvent = ({ event, setIsEditing, setEvent }) => {
   const onSubmit = async data => {
     const updatedEvent = await updateEventAsync(data)
     if (updatedEvent) {
-      dispatch(updateUserEvents(updatedEvent))
       setEvent(updatedEvent)
     }
     setIsEditing(false)

@@ -1,10 +1,8 @@
 import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { updateUser } from '../redux'
+import { useSelector } from 'react-redux'
 import Constants from '../constants'
 
 const useUpdateUser = () => {
-  const dispatch = useDispatch()
   const user = useSelector(state => state.user)
   const [isLoading, setIsLoading] = useState(false)
 
@@ -27,7 +25,6 @@ const useUpdateUser = () => {
       }
 
       const updatedUser = await response.json()
-      dispatch(updateUser(updatedUser))
       return updatedUser
     } catch (error) {
       console.error('Error updating user:', error)
