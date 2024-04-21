@@ -90,9 +90,6 @@ const Event = () => {
                           >
                             {isFollowing ? 'Unfollow' : 'Follow'}
                           </Button>
-                          <p className='text-bold text-s'>
-                            Followers: {followers}
-                          </p>
                         </div>
                       ) : (
                         <>
@@ -116,7 +113,9 @@ const Event = () => {
                       )}
                     </div>
                   </div>
-
+                  <p className='self-end pt-3 text-bold text-s'>
+                    Followers: {followers}
+                  </p>
                   <Divider className='my-6' />
                   <div className='flex flex-col md:flex-row justify-between space-y-6 md:space-y-0 md:space-x-6 center'>
                     <div className='flex flex-col items-end space-y-2 center'>

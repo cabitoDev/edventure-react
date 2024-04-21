@@ -53,7 +53,7 @@ const UserEvents = () => {
                 return <EventCard key={event.id} event={event}></EventCard>
               })
             ) : (
-              <div className='home-title'>
+              <div className='title'>
                 <p className='text-2xl'>No matches.</p>
               </div>
             )}
@@ -68,7 +68,7 @@ const UserEvents = () => {
           />
         </>
       ) : (
-        <div className='home-title'>
+        <div className='title'>
           <p className='text-2xl'>You dont have any future event.</p>
           <div className='flex gap-3'>
             <Button color='primary' onClick={() => navigateTo('/explore')}>

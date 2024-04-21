@@ -2,13 +2,13 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-.home-title,
+.title,
 .flex-column {
   display: flex;
   flex-direction: column;
 }
 
-.home-title,
+.title,
 .center {
   align-items: center;
   align-self: center;
@@ -22,7 +22,7 @@
   padding: 1rem 0 2rem 0;
 }
 
-.home-title {
+.title {
   text-align: center;
   margin: 10% 0 12% 0;
   gap: 1rem;

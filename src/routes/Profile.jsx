@@ -10,14 +10,16 @@ import { useUpdateUser } from '../hooks'
 import { TransitionAnimation } from '../components'
 
 const Profile = () => {
+  const user = useSelector(state => state.user)
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors }
-  } = useForm()
+  } = useForm({
+    defaultValues: user
+  })
   const avatarInputRef = useRef()
-  const user = useSelector(state => state.user)
   const [isEditing, setIsEditing] = useState(false)
   const { updateUserAsync, isLoading } = useUpdateUser()
 
@@ -33,11 +35,14 @@ const Profile = () => {
     }
     setIsEditing(false)
   }
+  const onError = async data => {
+    console.log(data)
+  }
 
   return (
     <TransitionAnimation className='gap-md flex-column'>
       <form
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(onSubmit, onError)}
         className='flex-column gap-4 ml-10 mr-10 center pb-3'
       >
         <div className='flex-column gap-3 center'>

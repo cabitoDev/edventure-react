@@ -57,7 +57,7 @@ const Explore = () => {
                   />
                 ))
               ) : (
-                <div className='home-title'>
+                <div className='title'>
                   <p className='text-2xl'>No matches.</p>
                 </div>
               )}
@@ -75,7 +75,7 @@ const Explore = () => {
             />
           </div>
         ) : (
-          <div className='home-title'>
+          <div className='title'>
             <p className='text-2xl'>There are no events created yet.</p>
             <Button color='success' onClick={() => navigateTo('/create')}>
               Create

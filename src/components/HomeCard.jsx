@@ -1,34 +1,41 @@
 import PropTypes from 'prop-types'
-import { Card, CardHeader, CardBody } from '@nextui-org/react'
-import { useNavigate } from 'react-router-dom'
+import { Card, CardHeader, Image, CardFooter } from '@nextui-org/react'
 import React from 'react'
 
-const HomeCard = props => {
-  const navigateTo = useNavigate()
-
+const HomeCard = ({ headerTitle, headerSubtitle, description, image }) => {
   return (
     <Card
-      onClick={() => {
-        navigateTo(props.route)
-      }}
-      isHoverable
-      isPressable
-      className='py-4'
+      isFooterBlurred
+      className='w-full h-[300px] col-span-12 sm:col-span-7'
     >
-      <CardHeader className='pb-0 pt-2 px-4 flex-col items-start'>
-        <h4 className='font-bold text-large self-center'>{props.title}</h4>
+      <CardHeader className='absolute z-10 top-1 flex-col items-start'>
+        <p className='text-tiny text-white/60 uppercase font-bold'>
+          {headerSubtitle}
+        </p>
+        <h4 className='text-white/90 font-medium text-xl'>{headerTitle}</h4>
       </CardHeader>
-      <CardBody>
-        <p className='text-center'>{props.text}</p>
-      </CardBody>
+      <Image
+        removeWrapper
+        alt='Relaxing app background'
+        className='z-0 w-full h-full object-cover'
+        src={image}
+      />
+      <CardFooter className='absolute bg-black/40 bottom-0 z-10 border-t-1 border-default-600 dark:border-default-100'>
+        <div className='flex flex-grow gap-2 items-center'>
+          <div className='flex flex-col'>
+            <p className='text-tiny text-white/60'>{description}</p>
+          </div>
+        </div>
+      </CardFooter>
     </Card>
   )
 }
 
 HomeCard.propTypes = {
-  route: PropTypes.string,
-  text: PropTypes.string,
-  title: PropTypes.string
+  description: PropTypes.string,
+  headerSubtitle: PropTypes.string,
+  headerTitle: PropTypes.string,
+  image: PropTypes.string
 }
 
 export default HomeCard

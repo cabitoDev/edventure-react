@@ -5,30 +5,30 @@ const Home = () => {
   return (
     <TransitionAnimation className='gap-md flex-column'>
       <div className='margin-md flex-column gap-md mx-3'>
-        <div className='home-title'>
+        <div className='title'>
           <p className='text-3xl'>{Constants.HOME_TITLE}</p>
           <p>{Constants.HOME_SUBTITLE}</p>
         </div>
 
-        <div className='flex-column gap-4 sm:grid sm:grid-cols-2'>
+        <div className='flex flex-responsive-2 gap-3'>
           <HomeCard
-            route='my-events'
-            title={Constants.CARD_YOUR_EVENTS_TITLE}
-            text={Constants.CARD_YOUR_EVENTS_TEXT}
-          ></HomeCard>
+            image={Constants.HOME_CREATE_IMAGE}
+            headerTitle={Constants.CARD_CREATE_EVENTS_TITLE}
+            headerSubtitle={Constants.CARD_CREATE_EVENTS_SUBTITLE}
+            description={Constants.CARD_CREATE_EVENTS_TEXT}
+          />
           <HomeCard
-            route='create'
-            title={Constants.CARD_CREATE_EVENTS_TITLE}
-            text={Constants.CARD_CREATE_EVENTS_TEXT}
-          ></HomeCard>
+            image={Constants.HOME_EXPLORE_IMAGE}
+            headerTitle={Constants.CARD_EXPLORE_EVENTS_TITLE}
+            headerSubtitle={Constants.CARD_EXPLORE_EVENTS_SUBTITLE}
+            description={Constants.CARD_EXPLORE_EVENTS_TEXT}
+          />
           <HomeCard
-            title={Constants.CARD_INTERACT_TITLE}
-            text={Constants.CARD_INTERACT_TEXT}
-          ></HomeCard>
-          <HomeCard
-            title={Constants.CARD_TRACKING_TITLE}
-            text={Constants.CARD_TRACKING_TEXT}
-          ></HomeCard>
+            image={Constants.HOME_CONNECT_IMAGE}
+            headerTitle={Constants.CARD_CONNECT_TITLE}
+            headerSubtitle={Constants.CARD_CONNECT_SUBTITLE}
+            description={Constants.CARD_CONNECT_TEXT}
+          />
         </div>
         <div className='flex-column center pd-top-bottom'>
           <ReactLogo />
