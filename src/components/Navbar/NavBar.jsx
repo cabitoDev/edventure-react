@@ -99,7 +99,7 @@ const NavBar = () => {
               color='primary'
               onClick={() => checkLogged(user)}
             >
-              Sign Up
+              {t('SIGN_UP')}
             </Link>
           </NavbarItem>
         )}
