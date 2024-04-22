@@ -77,7 +77,7 @@ const Event = () => {
                       <div className='flex flex-col'>
                         <h1 className='text-3xl font-semibold'>{event.name}</h1>
                         <p className='text-sm text-green-600'>
-                          {event.userOwner.id === user.id && 'Owner'}
+                          {event.userOwner.id === user.id && t('OWNER')}
                         </p>
                       </div>
                     </div>
