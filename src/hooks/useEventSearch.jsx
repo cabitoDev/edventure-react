@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-const useEventSearch = (allEvents, user) => {
+const useEventSearch = (allEvents, user, inExplore) => {
   const [currentEvents, setCurrentEvents] = useState([])
   const [isSearching, setIsSearching] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
@@ -40,6 +40,11 @@ const useEventSearch = (allEvents, user) => {
           })
           break
         case 'ALL':
+          if (inExplore) {
+            filteredEvents = filteredEvents.filter(filteredEvent =>
+              user.userEvents.some(ev => ev.id !== filteredEvent.id)
+            )
+          }
           break
         default:
           break

@@ -42,7 +42,7 @@ const NavBar = () => {
         dispatch(updateUser(userLogged))
         navigateTo('/profile')
       } else {
-        //handleError
+        console.error('Error in login')
       }
     })
   }

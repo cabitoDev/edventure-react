@@ -22,7 +22,7 @@ const FormAssistants = () => {
       defaultOpen={!watch('assistants')}
       label={t('NUMBER_ASSISTANTS')}
       isInvalid={errors.assistants ? true : false}
-      errorMessage={errors.assistants && Constants.STEP_ASSISTANTS_ERROR}
+      errorMessage={errors.assistants && t('ERROR_ASSISTANTS')}
     >
       {Constants.ASSISTANTS_NUMBER.map(assistants => (
         <SelectItem key={assistants} value={assistants}>

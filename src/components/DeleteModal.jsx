@@ -14,6 +14,7 @@ const DeleteModal = ({ isOpen, setIsOpen, onDelete }) => {
 
   return (
     <Modal
+      hideCloseButton
       className='flex mr-[23px] center w-[90%]'
       isOpen={isOpen}
       isDismissable={false}

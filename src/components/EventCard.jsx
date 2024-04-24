@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router'
 import { useTranslation } from 'react-i18next'
 
 const EventCard = props => {
-  const { event, inExplore, user } = props
+  const { event, userId } = props
   const navigateTo = useNavigate()
   const { t } = useTranslation('edventure')
 
@@ -30,13 +30,11 @@ const EventCard = props => {
             <p className='text-gray-500'>{t(event.type)}</p>
           </div>
           <p className='hide-xs'>{event.description}</p>
-          {inExplore && (
-            <div className='self-end'>
-              {event.userOwner.id === user.id && (
-                <p className='text-green-600'>{t('OWNER')}</p>
-              )}
-            </div>
-          )}
+          <div className='self-end'>
+            {event.userOwner.id === userId && (
+              <p className='text-green-600'>{t('OWNER')}</p>
+            )}
+          </div>
         </div>
       </div>
       <p className='self-end text-bold text-s'>
@@ -48,7 +46,6 @@ const EventCard = props => {
 
 EventCard.propTypes = {
   event: PropTypes.object,
-  inExplore: PropTypes.bool,
-  user: PropTypes.object
+  userId: PropTypes.number
 }
 export default EventCard

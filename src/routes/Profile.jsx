@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Button, Avatar, Input, Spinner } from '@nextui-org/react'
 // eslint-disable-next-line no-unused-vars
@@ -21,10 +21,18 @@ const Profile = () => {
     register,
     handleSubmit,
     watch,
+    getValues,
+    setValue,
     formState: { errors }
-  } = useForm({
-    defaultValues: user
-  })
+  } = useForm()
+  useEffect(() => {
+    if (user) {
+      Object.keys(user).forEach(key => {
+        setValue(key, user[key])
+      })
+    }
+  }, [user, setValue])
+
   const { t } = useTranslation('edventure')
   const avatarInputRef = useRef()
   const [isEditing, setIsEditing] = useState(false)
@@ -43,7 +51,7 @@ const Profile = () => {
     setIsEditing(false)
   }
   const onError = async data => {
-    console.log(data)
+    console.log(getValues())
   }
   if (userStatus === 'loading') {
     return <Spinner className='center pt-40 flex' />

@@ -28,7 +28,7 @@ const FormDate = () => {
       value={watch('date')}
       onInput={() => clearErrors()}
       isInvalid={errors.date ? true : false}
-      errorMessage={errors.date && Constants.STEP_DATE_ERROR}
+      errorMessage={errors.date && t('ERROR_DATE')}
     />
   )
 }

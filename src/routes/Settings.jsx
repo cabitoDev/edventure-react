@@ -58,21 +58,21 @@ const Settings = () => {
             </p>
           </div>
         </Switch>
-        <div className='flex  gap-3 items-center'>
+        <div className='flex  gap-3 items-center center pt-4'>
           <p className='text-medium'>{t('CHANGE_LANGUAGE')}</p>
           <Button
             variant='bordered'
             color='primary'
             onClick={() => changeLanguage('es')}
           >
-            spanish
+            {t('LANGUAGE_SPANISH')}
           </Button>
           <Button
             variant='bordered'
             color='primary'
             onClick={() => changeLanguage('en')}
           >
-            english
+            {t('LANGUAGE_ENGLISH')}
           </Button>
         </div>
       </div>

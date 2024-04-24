@@ -31,7 +31,7 @@ const Explore = () => {
     handleFilterChange,
     handleFilterOtherChange,
     isSearching
-  } = useEventSearch(allEvents, user)
+  } = useEventSearch(allEvents, user, true)
 
   if (userStatus === 'loading' || eventsStatus === 'loading' || isSearching) {
     return <Spinner className='center pt-40 flex' />
@@ -45,19 +45,13 @@ const Explore = () => {
             <p className='ml-10 text-2xl'>{t('EXPLORE_EVENTS')}</p>
             <div className='flex-column gap-3 mx-10'>
               <EventFilter
-                h
-                andleSearchChange={handleSearchChange}
+                handleSearchChange={handleSearchChange}
                 handleFilterChange={handleFilterChange}
                 handleFilterOtherChange={handleFilterOtherChange}
               />
               {currentEvents.length > 0 ? (
                 currentEvents.map(event => (
-                  <EventCard
-                    key={event.id}
-                    event={event}
-                    inExplore
-                    user={user}
-                  />
+                  <EventCard key={event.id} event={event} userId={user.id} />
                 ))
               ) : (
                 <div className='title'>
