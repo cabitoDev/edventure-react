@@ -81,3 +81,7 @@ export const dateToStr = dateStr => {
 
   return `${formattedDay}/${formattedMonth}/${year} ${hours}:${minutes}`
 }
+
+export const isUserOwner = (event, user) => {
+  return event.userOwner.id === user.id
+}

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { Button } from '@nextui-org/react'
 import { FormProvider, useForm } from 'react-hook-form'
-import { dateToInput } from '../utils/utils'
+import { dateToInput } from '../../utils/utils'
 import React from 'react'
 import {
   FormAddress,
@@ -11,9 +11,9 @@ import {
   FormImage,
   FormName,
   FormType
-} from './CreateEventSteps'
-import assets from '../assets'
-import useUpdateEvent from '../hooks/useUpdateEvent'
+} from '../CreateEventSteps'
+import assets from '../../../public/assets'
+import useUpdateEvent from '../../hooks/useUpdateEvent'
 import { useTranslation } from 'react-i18next'
 
 const EditEvent = ({ event, setIsEditing, setEvent }) => {

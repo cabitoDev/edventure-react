@@ -6,6 +6,7 @@ import check from './check.svg'
 import edit from './edit.svg'
 import trash from './trash.svg'
 import exit from './exit.svg'
+import chart from './chart.svg'
 
 const assets = {
   logo,
@@ -15,7 +16,8 @@ const assets = {
   check,
   edit,
   trash,
-  exit
+  exit,
+  chart
 }
 
 export default assets

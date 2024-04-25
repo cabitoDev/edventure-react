@@ -1,6 +1,6 @@
 import { Button } from '@nextui-org/button'
 import { useForm, FormProvider } from 'react-hook-form'
-import assets from '../assets'
+import assets from '../../public/assets'
 import { ProgressBar, TransitionAnimation, steps } from '../components'
 import React, { useId, useState } from 'react'
 import { useNavigate } from 'react-router-dom'

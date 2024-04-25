@@ -1,9 +1,11 @@
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Constants from '../constants'
 import { httpPut } from '../utils'
+import { updateUser } from '../redux'
 
 const useUpdateUser = () => {
+  const dispatch = useDispatch()
   const user = useSelector(state => state.user)
   const [isLoading, setIsLoading] = useState(false)
 
@@ -18,6 +20,7 @@ const useUpdateUser = () => {
       throw new Error('Failed getting user')
     }
     setIsLoading(false)
+    dispatch(updateUser(updatedUser))
     return updatedUser
   }
 

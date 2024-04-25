@@ -7,13 +7,13 @@ const useFollow = (user, event) => {
   )
   const [isFollowing, setIsFollowing] = useState()
   const [followers, setFollowers] = useState()
-  const [isLoading, setIsLoading] = useState(true)
+  const [followLoading, setFollowLoading] = useState(true)
 
   useEffect(() => {
     if (event && user) {
       setIsFollowing(isInitiallyFollowing)
       setFollowers(event.usersFollowing.length)
-      setIsLoading(false)
+      setFollowLoading(false)
     }
   }, [event, user])
 
@@ -28,10 +28,10 @@ const useFollow = (user, event) => {
 
       updateFollowingEvents(user.id, event.id, 'PUT')
     }
-    setIsLoading(false)
+    setFollowLoading(false)
   }
 
-  return { followers, isFollowing, toggleFollow, isLoading }
+  return { followers, isFollowing, toggleFollow, followLoading }
 }
 
 export default useFollow

@@ -1,5 +1,5 @@
 import Auth0Lock from 'auth0-lock'
-import Constants from '../constants'
+import Constants from '../../constants'
 
 export const lock = new Auth0Lock(
   window.location.origin.includes('edventure-six.vercel.app')
