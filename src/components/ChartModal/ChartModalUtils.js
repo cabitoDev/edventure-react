@@ -1,13 +1,14 @@
 export const getChartData = followersHistory => {
-  return Object.keys(transformFollowersHistory(followersHistory)).map(date => ({
+  const transformedHistory = transformFollowersHistory(followersHistory)
+  return Object.keys(transformedHistory).map(date => ({
     x: date,
-    y: transformFollowersHistory(followersHistory)[date]
+    y: transformedHistory[date]
   }))
 }
 
 export const isDesiredPosition = (index, totalTicks) => {
   const step = Math.floor(totalTicks / 3)
-  return index % step === 0 || index === totalTicks - 1
+  return index % step === 0 || index === totalTicks - 1 || index === 0
 }
 
 export const transformFollowersHistory = followersHistory => {

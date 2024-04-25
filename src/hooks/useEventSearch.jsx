@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { isUserOwner } from '../utils'
 
 const useEventSearch = (allEvents, user, inExplore) => {
   const [currentEvents, setCurrentEvents] = useState([])
@@ -25,24 +26,25 @@ const useEventSearch = (allEvents, user, inExplore) => {
           )
           break
         case 'FOLLOWING':
-          filteredEvents = filteredEvents.filter(filteredEvent => {
-            return filteredEvent.usersFollowing.some(
+          filteredEvents = filteredEvents.filter(filteredEvent =>
+            filteredEvent.usersFollowing.some(
               follower => follower.id === user.id
             )
-          })
+          )
           break
         case 'NOT_FOLLOWING':
-          filteredEvents = filteredEvents.filter(filteredEvent => {
-            return !filteredEvent.usersFollowing.some(
-              follower =>
-                (follower.id === user.id) !== filteredEvent.userOwner.id
-            )
-          })
+          filteredEvents = filteredEvents.filter(
+            filteredEvent =>
+              !filteredEvent.usersFollowing.some(
+                follower => follower.id === user.id
+              ) && !isUserOwner(filteredEvent, user)
+          )
           break
         case 'ALL':
           if (inExplore) {
-            filteredEvents = filteredEvents.filter(filteredEvent =>
-              user.userEvents.some(ev => ev.id !== filteredEvent.id)
+            filteredEvents = filteredEvents.filter(
+              filteredEvent =>
+                !user.userEvents.some(ev => ev.id === filteredEvent.id)
             )
           }
           break

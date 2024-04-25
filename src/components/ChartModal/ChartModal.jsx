@@ -6,7 +6,7 @@ import { getChartData, isDesiredPosition } from './ChartModalUtils'
 import { useTranslation } from 'react-i18next'
 
 const ChartModal = ({ followersHistory, isOpen, onClose }) => {
-  const data = getChartData(followersHistory)
+  const chartData = getChartData(followersHistory)
   const { t } = useTranslation('edventure')
   return (
     <Modal
@@ -16,40 +16,44 @@ const ChartModal = ({ followersHistory, isOpen, onClose }) => {
       isDismissable
     >
       <ModalContent className='flex pt-6 bg-gray-800'>
-        <VictoryChart width={600} height={400} scale={{ x: 'time' }}>
-          <VictoryAxis
-            style={{
-              axisLabel: { fill: 'white' },
-              axis: { fill: 'white', stroke: 'white' },
-              ticks: { stroke: 'white' },
-              tickLabels: {
-                fill: 'white',
-                padding: 5,
-                display: ({ index, ticks }) =>
-                  isDesiredPosition(index, ticks.length) ? 'block' : 'none'
-              }
-            }}
-          />
-          <VictoryAxis
-            label={t('FOLLOWERS')}
-            dependentAxis
-            tickFormat={t => Math.round(t)}
-            style={{
-              axisLabel: { padding: 30, fill: 'white' },
-              axis: { fill: 'white', stroke: 'white' },
-              ticks: { stroke: 'white' },
-              tickLabels: { fill: 'white', padding: 5 }
-            }}
-          />
-          <VictoryLine
-            data={data}
-            x='x'
-            y='y'
-            style={{
-              data: { stroke: '#007bff' }
-            }}
-          />
-        </VictoryChart>
+        {Object.keys(chartData).length <= 1 ? (
+          <p className='center flex pb-4'>No stats available yet.</p>
+        ) : (
+          <VictoryChart width={600} height={400} scale={{ x: 'time' }}>
+            <VictoryAxis
+              style={{
+                axisLabel: { fill: 'white' },
+                axis: { fill: 'white', stroke: 'white' },
+                ticks: { stroke: 'white' },
+                tickLabels: {
+                  fill: 'white',
+                  padding: 5,
+                  display: ({ index, ticks }) =>
+                    isDesiredPosition(index, ticks.length) ? 'block' : 'none'
+                }
+              }}
+            />
+            <VictoryAxis
+              label={t('FOLLOWERS')}
+              dependentAxis
+              tickFormat={t => Math.round(t)}
+              style={{
+                axisLabel: { padding: 30, fill: 'white' },
+                axis: { fill: 'white', stroke: 'white' },
+                ticks: { stroke: 'white' },
+                tickLabels: { fill: 'white', padding: 5 }
+              }}
+            />
+            <VictoryLine
+              data={chartData}
+              x='x'
+              y='y'
+              style={{
+                data: { stroke: '#007bff' }
+              }}
+            />
+          </VictoryChart>
+        )}
       </ModalContent>
     </Modal>
   )
