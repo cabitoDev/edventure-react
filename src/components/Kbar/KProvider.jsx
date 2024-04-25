@@ -18,7 +18,7 @@ const KPortal = () => {
           <div className='mx-2 flex items-end justify-between py-4'>
             <SearchIcon />
             <KBarSearch className='w-full rounded-md border-b border-none border-gray-300 bg-transparent pt-2 text-gray-100 outline-none pl-2' />
-            <Kbd>esc</Kbd>
+            <Kbd className='hide-xs'>esc</Kbd>
           </div>
 
           <KResults />
