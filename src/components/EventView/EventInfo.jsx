@@ -13,7 +13,7 @@ import { ChartModal } from '../ChartModal'
 
 const EventInfo = ({ user, event, setIsEditing }) => {
   const { t } = useTranslation('edventure')
-  const { onDelete, isOpenDelete, setIsOpenDelete } = useDeleteModal()
+  const { onDelete, isOpenDelete, setIsOpenDelete } = useDeleteModal(event.id)
   const [isOpenChart, setIsOpenChart] = useState(false)
   const { followers, isFollowing, toggleFollow, followLoading } = useFollow(
     user,
