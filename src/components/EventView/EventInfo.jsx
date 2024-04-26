@@ -53,6 +53,7 @@ const EventInfo = ({ user, event, setIsEditing }) => {
                 isOpen={isOpenDelete}
                 setIsOpen={setIsOpenDelete}
                 onDelete={onDelete}
+                text={t('DELETE_MODAL_TEXT')}
               />
               <Button
                 onClick={() => {

@@ -9,10 +9,10 @@ const HomeCard = ({ headerTitle, headerSubtitle, description, image }) => {
       className='w-full h-[300px] col-span-12 sm:col-span-7'
     >
       <CardHeader className='absolute z-10 top-1 flex-col items-start'>
-        <p className='text-shadow text-tiny text-white/60 uppercase font-bold'>
+        <p className='text-shadow text-tiny text-white/80 uppercase font-bold'>
           {headerSubtitle}
         </p>
-        <h4 className='text-shadow text-white/90 font-medium text-xl'>
+        <h4 className='text-shadow text-white font-medium text-xl'>
           {headerTitle}
         </h4>
       </CardHeader>

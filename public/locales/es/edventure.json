@@ -21,6 +21,8 @@
   "DATE": "Fecha",
   "DAYS": "días",
   "DELETE": "Eliminar",
+  "DELETE_ACCOUNT": "Eliminar cuenta",
+  "DELETE_ACCOUNT_MODAL": "¿Estás seguro de que quieres eliminar tu cuenta?",
   "DELETE_MODAL_TEXT": "¿Estás seguro de que quieres eliminar este evento?",
   "DEP_WITH_REACT": "Desplegado con React",
   "DESCRIPTION": "Descripción",

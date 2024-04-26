@@ -9,7 +9,7 @@ import {
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-const DeleteModal = ({ isOpen, setIsOpen, onDelete }) => {
+const DeleteModal = ({ isOpen, setIsOpen, onDelete, text }) => {
   const { t } = useTranslation('edventure')
 
   return (
@@ -21,7 +21,7 @@ const DeleteModal = ({ isOpen, setIsOpen, onDelete }) => {
     >
       <ModalContent>
         <ModalBody>
-          <p className='text-xl p-4'>{t('DELETE_MODAL_TEXT')}</p>
+          <p className='text-xl p-4 text-center'>{text}</p>
         </ModalBody>
         <ModalFooter>
           <Button
@@ -43,6 +43,7 @@ const DeleteModal = ({ isOpen, setIsOpen, onDelete }) => {
 DeleteModal.propTypes = {
   isOpen: PropTypes.bool,
   onDelete: PropTypes.func,
-  setIsOpen: PropTypes.func
+  setIsOpen: PropTypes.func,
+  text: PropTypes.string
 }
 export default DeleteModal

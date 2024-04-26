@@ -1,20 +1,36 @@
 import { useTheme } from 'next-themes'
 import React, { useState } from 'react'
 import { Button, Switch } from '@nextui-org/react'
-import { SunIcon, MoonIcon, TransitionAnimation } from '../components'
+import {
+  SunIcon,
+  MoonIcon,
+  TransitionAnimation,
+  DeleteModal
+} from '../components'
 import { useLogout, useUpdateUser } from '../hooks'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { changeLanguage } from 'i18next'
+import { httpDelete } from '../utils'
+import Constants from '../constants'
+import { useNavigate } from 'react-router-dom'
+import { updateUser } from '../redux'
 
 const Settings = () => {
   const { theme, setTheme } = useTheme()
   const { t } = useTranslation('edventure')
-
+  const navigateTo = useNavigate()
+  const dispatch = useDispatch()
   const logout = useLogout()
   const user = useSelector(state => state.user)
   const { updateUserAsync } = useUpdateUser()
   const [showEmail, setShowEmail] = useState(user.showEmail)
+  const [isOpenDelete, setIsOpenDelete] = useState(false)
+  const deleteAccount = async () => {
+    await httpDelete(Constants.USERS_ENDPOINT_URL, user.id)
+    dispatch(updateUser(null))
+    navigateTo('/')
+  }
 
   return (
     <TransitionAnimation className='flex-column center gap-4'>
@@ -76,6 +92,21 @@ const Settings = () => {
           </Button>
         </div>
       </div>
+      <Button
+        color='danger'
+        className='text-pink-600 hover:cursor-pointer mt-8'
+        variant='bordered'
+        onClick={() => setIsOpenDelete(true)}
+      >
+        {t('DELETE_ACCOUNT')}
+      </Button>
+      <DeleteModal
+        className='flex mr-[23px] center w-[90%]'
+        isOpen={isOpenDelete}
+        setIsOpen={setIsOpenDelete}
+        onDelete={deleteAccount}
+        text={t('DELETE_ACCOUNT_MODAL')}
+      />
       <Button
         color='danger'
         className='text-pink-600 hover:cursor-pointer mt-8'

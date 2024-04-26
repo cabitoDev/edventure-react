@@ -21,6 +21,8 @@
   "DATE": "Date",
   "DAYS": "days",
   "DELETE": "Delete",
+  "DELETE_ACCOUNT": "Delete account",
+  "DELETE_ACCOUNT_MODAL": "Are you sure you want to delete your account?",
   "DELETE_MODAL_TEXT": "Are you sure you want to delete this event?",
   "DEP_WITH_REACT": "Deployed with React",
   "DESCRIPTION": "Description",
