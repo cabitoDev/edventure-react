@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import {
   Navbar,
   NavbarBrand,
@@ -7,53 +7,19 @@ import {
   Link,
   NavbarMenuToggle
 } from '@nextui-org/react'
-import { useDispatch, useSelector } from 'react-redux'
 import assets from '../../../public/assets'
-import { updateUser } from '../../redux'
 import { useNavigate } from 'react-router-dom'
-import Constants from '../../constants'
-import { getLoginRequest, httpPost } from '../../utils'
-import { lock, checkLogged } from '../../config/auth/auth-lock'
+
 import { NavBarMenu, NavBarDropdown } from '.'
 import { KInput } from '../Kbar'
 import { userOptions, profileOptions } from './navBarOptions'
 import { useTranslation } from 'react-i18next'
+import useAuthentication from '../../hooks/useAuthentication'
 
 const NavBar = () => {
-  const user = useSelector(state => {
-    return state.user
-  })
+  const { user, showLogin } = useAuthentication()
   const { t } = useTranslation('edventure')
   const navigateTo = useNavigate()
-  const dispatch = useDispatch()
-
-  const handleAuthenticated = authResult => {
-    lock.hide()
-    lock.getUserInfo(authResult.accessToken, async (error, profile) => {
-      if (error) {
-        console.error('Error getting user:', error)
-        return
-      }
-      const userLogged = await httpPost(
-        Constants.USERS_ENDPOINT_URL,
-        getLoginRequest(profile)
-      )
-      if (userLogged) {
-        dispatch(updateUser(userLogged))
-        navigateTo('/profile')
-      } else {
-        console.error('Error in login')
-      }
-    })
-  }
-
-  useEffect(() => {
-    lock.on('authenticated', handleAuthenticated)
-
-    return () => {
-      lock.off('authenticated', handleAuthenticated)
-    }
-  }, [])
 
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
 
@@ -74,7 +40,9 @@ const NavBar = () => {
           <NavbarItem key={index}>
             <Link
               onClick={() => {
-                checkLogged(user)
+                if (!user) {
+                  showLogin() // Mostrar login si el usuario no está autenticado
+                }
                 navigateTo(option.path)
               }}
               color='foreground'
@@ -97,7 +65,7 @@ const NavBar = () => {
             <Link
               className='hover:cursor-pointer'
               color='primary'
-              onClick={() => checkLogged(user)}
+              onClick={() => showLogin()} // Mostrar login al hacer clic en 'SIGN_UP'
             >
               {t('SIGN_UP')}
             </Link>
@@ -110,4 +78,5 @@ const NavBar = () => {
     </Navbar>
   )
 }
+
 export default NavBar

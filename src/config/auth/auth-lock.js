@@ -12,9 +12,3 @@ export const lock = new Auth0Lock(
     }
   }
 )
-
-export const checkLogged = user => {
-  if (!user) {
-    lock.show()
-  }
-}

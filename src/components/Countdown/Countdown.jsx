@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import { formatMilisec } from '../utils/utils'
+import { formatMilisec } from '../../utils/utils'
 import { useTranslation } from 'react-i18next'
 
 const Countdown = props => {
@@ -11,13 +11,17 @@ const Countdown = props => {
   useEffect(() => {
     const intervalId = setInterval(() => {
       const newDifference = new Date(props.date) - new Date()
-      setDifference(newDifference)
+      if (newDifference <= 0) {
+        clearInterval(intervalId)
+      } else {
+        setDifference(newDifference)
+      }
     }, 1000)
 
     return () => clearInterval(intervalId)
   }, [props.date])
-  const { t } = useTranslation('edventure')
 
+  const { t } = useTranslation('edventure')
   const { days, hours, minutes, seconds } = formatMilisec(difference)
 
   return (

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { Input, Select, SelectItem, Radio, RadioGroup } from '@nextui-org/react'
-import { SearchIcon } from './Navbar'
-import Constants from '../constants'
+import { SearchIcon } from '../Navbar'
+import Constants from '../../constants'
 import { useTranslation } from 'react-i18next'
 import React from 'react'
 

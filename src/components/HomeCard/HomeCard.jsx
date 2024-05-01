@@ -18,7 +18,7 @@ const HomeCard = ({ headerTitle, headerSubtitle, description, image }) => {
       </CardHeader>
       <Image
         removeWrapper
-        alt='Relaxing app background'
+        alt='Decorative image of home landing'
         className='z-0 w-full h-full object-cover'
         src={image}
       />

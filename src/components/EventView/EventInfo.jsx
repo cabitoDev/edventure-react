@@ -5,10 +5,10 @@ import React, { useState } from 'react'
 import { useFollow } from '../../hooks'
 import { Avatar, Button, Divider, Spinner } from '@nextui-org/react'
 import { dateToStr, isUserOwner } from '../../utils'
-import DeleteModal from '../DeleteModal'
+import DeleteModal from '../DeleteModal/DeleteModal'
 import assets from '../../../public/assets'
-import Countdown from '../Countdown'
-import GoogleMap from '../GoogleMap'
+import { Countdown } from '../Countdown'
+import GoogleMap from '../GoogleMap/GoogleMap'
 import { ChartModal } from '../ChartModal'
 
 const EventInfo = ({ user, event, setIsEditing }) => {
