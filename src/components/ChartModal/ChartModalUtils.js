@@ -14,12 +14,12 @@ export const isDesiredPosition = (index, totalTicks) => {
 export const transformFollowersHistory = followersHistory => {
   const newFollowersHistory = {}
   const dates = Object.keys(followersHistory)
-  const firstDate = new Date(dates[0].split('/').reverse().join('-'))
-  const lastDate = new Date(
+  const lastDate = new Date(dates[0].split('/').reverse().join('-'))
+  const firstDate = new Date(
     dates[dates.length - 1].split('/').reverse().join('-')
   )
   let currentDate = new Date(firstDate)
-  let previousDate = undefined
+  let previousDate
   while (currentDate <= lastDate) {
     const formatedCurrentDate = formatDate(currentDate)
     newFollowersHistory[formatedCurrentDate] =
