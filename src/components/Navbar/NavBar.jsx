@@ -29,6 +29,7 @@ const NavBar = () => {
         {user && <NavbarMenuToggle className='sm:hidden' />}
         <NavbarBrand>
           <img
+            data-testid='LOGO'
             className='hover:cursor-pointer logo'
             src={assets.logo}
             onClick={() => navigateTo('/')}

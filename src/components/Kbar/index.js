@@ -1,5 +1,5 @@
 export { default as Kactions } from './Kactions'
-export { default as Kbd } from './Kbd'
+export { default as Kbd } from '../Kbd/Kbd'
 export { default as KInput } from './KInput'
 export { default as KProvider } from './KProvider'
 export { default as KResults } from './KResults'

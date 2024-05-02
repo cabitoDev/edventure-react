@@ -10,6 +10,7 @@ const ChartModal = ({ followersHistory, isOpen, onClose }) => {
   const { t } = useTranslation('edventure')
   return (
     <Modal
+      data-testid='chart-modal'
       className='flex mr-[23px] center w-[90%]'
       isOpen={isOpen}
       onClose={onClose}
@@ -17,9 +18,14 @@ const ChartModal = ({ followersHistory, isOpen, onClose }) => {
     >
       <ModalContent className='flex pt-6 bg-gray-800'>
         {Object.keys(chartData).length <= 1 ? (
-          <p className='center flex pb-4'>No stats available yet.</p>
+          <p className='center flex pb-4'>{t('NO_STATS_YET')}</p>
         ) : (
-          <VictoryChart width={600} height={400} scale={{ x: 'time' }}>
+          <VictoryChart
+            data-testid='victory-chart'
+            width={600}
+            height={400}
+            scale={{ x: 'time' }}
+          >
             <VictoryAxis
               style={{
                 axisLabel: { fill: 'white' },

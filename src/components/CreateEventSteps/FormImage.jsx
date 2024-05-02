@@ -22,7 +22,11 @@ const FormImage = () => {
             inputFileRef.current.click()
           }}
         >
-          <Avatar className='w-40 h-40 text-large' src={watch('image').url} />
+          <Avatar
+            data-testid='EVENT_IMAGE'
+            className='w-40 h-40 text-large'
+            src={watch('image').url}
+          />
         </button>
         <input
           style={{ display: 'none' }}
