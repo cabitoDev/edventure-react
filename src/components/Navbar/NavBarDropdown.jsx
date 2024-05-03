@@ -20,6 +20,7 @@ const NavBarDropdown = ({ user, profileOptions }) => {
     <Dropdown placement='bottom-end'>
       <DropdownTrigger>
         <User
+          data-testid='NAVBAR_AVATAR'
           as='button'
           className='transition-transform'
           color='secondary'
@@ -30,9 +31,9 @@ const NavBarDropdown = ({ user, profileOptions }) => {
         />
       </DropdownTrigger>
       <DropdownMenu aria-label='Profile Actions' variant='flat'>
-        {profileOptions.map((option, index) => (
+        {profileOptions.map(option => (
           <DropdownItem
-            key={index}
+            key={option.label}
             textValue={t(option.label)}
             onClick={() => {
               navigateTo(option.path)
@@ -41,7 +42,7 @@ const NavBarDropdown = ({ user, profileOptions }) => {
             {t(option.label)}
           </DropdownItem>
         ))}
-        <DropdownItem textValue='Log Out' onClick={logout}>
+        <DropdownItem onClick={logout}>
           <p className='text-pink-600' key='logout'>
             {t('LOGOUT')}
           </p>

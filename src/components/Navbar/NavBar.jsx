@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Navbar,
   NavbarBrand,
@@ -21,7 +21,7 @@ const NavBar = () => {
   const { t } = useTranslation('edventure')
   const navigateTo = useNavigate()
 
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
     <Navbar isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
@@ -37,12 +37,12 @@ const NavBar = () => {
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent className='hidden sm:flex gap-4' justify='center'>
-        {userOptions.map((option, index) => (
-          <NavbarItem key={index}>
+        {userOptions.map(option => (
+          <NavbarItem key={option.label}>
             <Link
               onClick={() => {
                 if (!user) {
-                  showLogin() // Mostrar login si el usuario no está autenticado
+                  showLogin()
                 }
                 navigateTo(option.path)
               }}
@@ -66,7 +66,7 @@ const NavBar = () => {
             <Link
               className='hover:cursor-pointer'
               color='primary'
-              onClick={() => showLogin()} // Mostrar login al hacer clic en 'SIGN_UP'
+              onClick={() => showLogin()}
             >
               {t('SIGN_UP')}
             </Link>

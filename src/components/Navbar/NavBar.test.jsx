@@ -1,18 +1,26 @@
 import { expect, test, vi } from 'vitest'
 import React from 'react'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, cleanup } from '@testing-library/react'
 import NavBar from './NavBar'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import { userOptions } from './navBarOptions'
+
+vi.mock('kbar', () => ({
+  useKBar: vi.fn(() => ({
+    query: {
+      toggle: vi.fn()
+    }
+  }))
+}))
 
 test('NavBar renders correctly when user is not logged', () => {
   const store = {
-    getState: () => ({}),
-    dispatch: () => {},
-    subscribe: () => {},
-    replaceReducer: () => {}
+    getState: vi.fn().mockReturnValue({}),
+    dispatch: vi.fn(),
+    subscribe: vi.fn(),
+    replaceReducer: vi.fn()
   }
+
   render(
     <Provider store={store}>
       <BrowserRouter>
@@ -23,17 +31,37 @@ test('NavBar renders correctly when user is not logged', () => {
   screen.getByTestId('LOGO')
   screen.getByText('EXPLORE_EVENTS')
   screen.getByText('CREATE_EVENT')
-  screen.getByText('SIGN_UP')
+  screen.getByText('SIGN_UP').click()
+  expect()
 })
 
-test('NavBarMenu should work', () => {
-  const setIsMenuOpen = vi.fn()
+const useHistoryMock = {
+  push: vi.fn()
+}
+React.useHistory = () => useHistoryMock
 
-  userOptions.forEach(option => {
-    const link = screen.getByText(option.label)
-    fireEvent.click(link)
-    setTimeout(() => {
-      expect(setIsMenuOpen).toHaveBeenCalledWith(false)
-    }, 1000)
-  })
+test('NavBar renders correctly when user is logged', () => {
+  cleanup()
+  const store = {
+    getState: vi.fn().mockReturnValue({
+      user: {
+        id: 12478
+      }
+    }),
+    dispatch: vi.fn(),
+    subscribe: vi.fn(),
+    replaceReducer: vi.fn()
+  }
+
+  render(
+    <Provider store={store}>
+      <BrowserRouter>
+        <NavBar />
+      </BrowserRouter>
+    </Provider>
+  )
+  screen.getByTestId('LOGO')
+  screen.getByText('EXPLORE_EVENTS')
+  screen.getByText('CREATE_EVENT')
+  screen.getByTestId('NAVBAR_AVATAR').click()
 })
