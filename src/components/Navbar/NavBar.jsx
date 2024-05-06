@@ -62,7 +62,7 @@ const NavBar = () => {
           </>
         )}
         {!user && (
-          <NavbarItem key='signup'>
+          <NavbarItem key='signup' data-testid='SIGN_UP'>
             <Link
               className='hover:cursor-pointer'
               color='primary'

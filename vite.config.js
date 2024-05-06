@@ -6,5 +6,9 @@ export default defineConfig({
   plugins: [react()],
   test: {
     environment: 'happy-dom'
+  },
+  server: {
+    host: '127.0.0.1',
+    port: 5173
   }
 })
