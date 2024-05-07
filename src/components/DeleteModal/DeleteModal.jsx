@@ -31,7 +31,11 @@ const DeleteModal = ({ isOpen, setIsOpen, onDelete, text }) => {
           >
             {t('CANCEL')}
           </Button>
-          <Button color='danger' onPress={onDelete}>
+          <Button
+            data-testid='CONFIRM_DELETE'
+            color='danger'
+            onPress={onDelete}
+          >
             {t('DELETE')}
           </Button>
         </ModalFooter>

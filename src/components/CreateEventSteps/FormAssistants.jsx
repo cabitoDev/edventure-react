@@ -16,6 +16,7 @@ const FormAssistants = () => {
 
   return (
     <Select
+      data-testid={'SELECT_ASSISTANTS'}
       {...register('assistants', { required: true })}
       defaultSelectedKeys={[watch('assistants')]}
       onClick={() => clearErrors('assistants')}
@@ -25,7 +26,11 @@ const FormAssistants = () => {
       errorMessage={errors.assistants && t('ERROR_ASSISTANTS')}
     >
       {Constants.ASSISTANTS_NUMBER.map(assistants => (
-        <SelectItem key={assistants} value={assistants}>
+        <SelectItem
+          data-testid={assistants}
+          key={assistants}
+          value={assistants}
+        >
           {assistants}
         </SelectItem>
       ))}

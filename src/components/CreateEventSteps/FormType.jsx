@@ -15,6 +15,7 @@ const FormType = () => {
 
   return (
     <Select
+      data-testid={'SELECT_TYPE'}
       {...register('type', { required: true })}
       defaultSelectedKeys={[watch('type')]}
       defaultOpen={!watch('type')}
@@ -24,7 +25,7 @@ const FormType = () => {
       errorMessage={errors.type && t('ERROR_TYPE')}
     >
       {Constants.EVENT_TYPES.map(type => (
-        <SelectItem key={type} value={type}>
+        <SelectItem data-testid={type} key={type} value={type}>
           {t(type)}
         </SelectItem>
       ))}

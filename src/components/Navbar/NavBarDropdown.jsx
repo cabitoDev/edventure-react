@@ -33,6 +33,7 @@ const NavBarDropdown = ({ user, profileOptions }) => {
       <DropdownMenu aria-label='Profile Actions' variant='flat'>
         {profileOptions.map(option => (
           <DropdownItem
+            data-testid={option.label}
             key={option.label}
             textValue={t(option.label)}
             onClick={() => {

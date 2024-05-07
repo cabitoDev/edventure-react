@@ -43,7 +43,9 @@ const UserEvents = () => {
       <TransitionAnimation className='gap-md flex-column'>
         {userEvents && userEvents.length > 0 ? (
           <>
-            <p className='text-2xl pl-10'>{t('YOUR_EVENTS')}</p>
+            <p data-testid='YOUR_EVENTS' className='text-2xl pl-10'>
+              {t('YOUR_EVENTS')}
+            </p>
             <div className='flex-column gap-3 mx-10'>
               <EventFilter
                 handleSearchChange={handleSearchChange}

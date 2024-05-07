@@ -14,6 +14,7 @@ const FormDescription = () => {
 
   return (
     <Textarea
+      data-testid={'INPUT_DESCRIPTION'}
       label={t('DESCRIPTION')}
       {...register('description', {
         required: true,

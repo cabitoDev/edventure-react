@@ -80,6 +80,7 @@ const CreateEvent = () => {
               <div className='flex justify-between w-full flex-row-reverse'>
                 {indexStep > 0 && (
                   <Button
+                    data-testid={'BUTTON_BACK'}
                     color='primary'
                     isDisabled={sendingEvent}
                     radius='full'
@@ -91,6 +92,7 @@ const CreateEvent = () => {
                 )}
 
                 <Button
+                  data-testid={'BUTTON_NEXT'}
                   isLoading={sendingEvent}
                   className='order-first child-color-white'
                   color='success'

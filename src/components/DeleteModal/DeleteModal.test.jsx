@@ -18,7 +18,7 @@ test('DeleteModal renders correctly', () => {
 
   screen.getByText('Are you sure you want to delete?')
   const cancelButton = screen.getByText('CANCEL')
-  const deleteButton = screen.getByText('DELETE')
+  const deleteButton = screen.getByText('CONFIRM_DELETE')
   cancelButton.click()
   expect(setIsOpenMock).toHaveBeenCalledWith(false)
   deleteButton.click()

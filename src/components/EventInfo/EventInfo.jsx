@@ -56,6 +56,7 @@ const EventInfo = ({ user, event, setIsEditing }) => {
                 text={t('DELETE_MODAL_TEXT')}
               />
               <Button
+                data-testid='EDIT'
                 onClick={() => {
                   setIsEditing(true)
                 }}
@@ -64,6 +65,7 @@ const EventInfo = ({ user, event, setIsEditing }) => {
                 <img src={assets.edit} />
               </Button>
               <Button
+                data-testid='DELETE'
                 onClick={() => {
                   setIsOpenDelete(true)
                 }}

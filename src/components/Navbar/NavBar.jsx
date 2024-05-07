@@ -38,7 +38,7 @@ const NavBar = () => {
       </NavbarContent>
       <NavbarContent className='hidden sm:flex gap-4' justify='center'>
         {userOptions.map(option => (
-          <NavbarItem key={option.label}>
+          <NavbarItem data-testid={option.label} key={option.label}>
             <Link
               onClick={() => {
                 if (!user) {

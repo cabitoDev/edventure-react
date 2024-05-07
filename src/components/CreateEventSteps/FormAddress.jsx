@@ -50,6 +50,7 @@ const FormAddress = () => {
   return (
     <div className='input-width'>
       <Input
+        data-testid={'INPUT_ADDRESS'}
         label={t('ADDRESS_LABEL')}
         {...register('address', { validate: validateAddress })}
         value={watch('address')}
@@ -62,6 +63,7 @@ const FormAddress = () => {
           {coincidences.map((item, index) => (
             <li
               key={index}
+              data-testid={`OPTION_${index}`}
               className='px-4 py-2 first:rounded-t-md last:rounded-b-md rounded-none hover:bg-gray-200 dark:hover:bg-default-200 cursor-pointer'
               onClick={() => selectItem(item)}
             >

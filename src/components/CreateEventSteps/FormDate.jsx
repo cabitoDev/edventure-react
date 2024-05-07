@@ -17,6 +17,7 @@ const FormDate = () => {
 
   return (
     <Input
+      data-testid={'INPUT_DATE'}
       label={t('DATE')}
       placeholder=' '
       type='datetime-local'
