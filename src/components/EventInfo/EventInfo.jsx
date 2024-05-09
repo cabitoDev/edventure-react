@@ -80,7 +80,7 @@ const EventInfo = ({ user, event, setIsEditing }) => {
       <div className='flex pt-3 justify-between'>
         {isUserOwner(event, user) && (
           <>
-            <Button onClick={() => setIsOpenChart(true)}>
+            <Button data-testid='CHART' onClick={() => setIsOpenChart(true)}>
               <p className='flex text-s'>
                 <img src={assets.chart} />
               </p>

@@ -38,7 +38,7 @@ const EventCard = props => {
         </div>
       </div>
       <p className='self-end text-bold text-s'>
-        Followers: {event.usersFollowing.length}
+        {t('FOLLOWERS')}: {event.usersFollowing.length}
       </p>
     </Card>
   )

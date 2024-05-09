@@ -1,14 +1,14 @@
 import { useId, useState } from 'react'
 import Constants from '../constants'
-import { uploadImage } from '../utils'
+import { generateRandomNumber, uploadImage } from '../utils'
 
 const useUpdateEvent = () => {
-  const id = useId()
   const [isLoading, setIsLoading] = useState(false)
 
   async function updateEventAsync (eventInfo) {
     setIsLoading(true)
     const imgFile = eventInfo.image.file
+    const id = generateRandomNumber()
     const newImage = imgFile
       ? await uploadImage('events', id, imgFile)
       : eventInfo.image.url

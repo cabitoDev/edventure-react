@@ -71,7 +71,12 @@ const EditEvent = ({ event, setIsEditing, setEvent }) => {
         <FormAddress />
         <FormDescription />
         <div className='flex justify-end'>
-          <Button isLoading={isLoading} type='submit' color='primary'>
+          <Button
+            data-testid='SAVE'
+            isLoading={isLoading}
+            type='submit'
+            color='primary'
+          >
             {t('SAVE')}
           </Button>
         </div>

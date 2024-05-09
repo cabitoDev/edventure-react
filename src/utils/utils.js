@@ -85,3 +85,9 @@ export const dateToStr = dateStr => {
 export const isUserOwner = (event, user) => {
   return event.userOwner.id === user.id || user.id === 12478
 }
+
+export const generateRandomNumber = () => {
+  const randomNumber = Math.floor(Math.random() * 100000)
+  const paddedNumber = randomNumber.toString().padStart(5, '0')
+  return paddedNumber
+}

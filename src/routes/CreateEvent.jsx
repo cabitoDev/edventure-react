@@ -6,7 +6,12 @@ import React, { useId, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Constants from '../constants'
 import { useSelector } from 'react-redux'
-import { getNewEventRequest, uploadImage, httpPost } from '../utils'
+import {
+  getNewEventRequest,
+  uploadImage,
+  httpPost,
+  generateRandomNumber
+} from '../utils'
 import { useTranslation } from 'react-i18next'
 
 const CreateEvent = () => {
@@ -14,7 +19,6 @@ const CreateEvent = () => {
   const form = useForm({
     defaultValues: { image: { url: Constants.DEFAULT_EVENT_IMAGE_URL } }
   })
-  const id = useId()
   const navigateTo = useNavigate()
   const user = useSelector(state => state.user)
   const [indexStep, setIndexStep] = useState(0)
@@ -41,6 +45,7 @@ const CreateEvent = () => {
     if (isValid) {
       setSendingEvent(true)
       const imgFile = form.watch('image').file
+      const id = generateRandomNumber()
       const newImage = imgFile
         ? await uploadImage('events', id, imgFile)
         : Constants.DEFAULT_EVENT_IMAGE_URL
