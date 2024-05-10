@@ -1,0 +1,16 @@
+[
+  {
+    "name": "test1",
+    "lastname": "tester1",
+    "email": "tester@tester.com",
+    "nickname": "supertester1",
+    "avatar": "cypress/fixtures/hamburguer.png"
+  },
+  {
+    "name": "test2",
+    "lastname": "tester2",
+    "email": "tester2@tester.com",
+    "nickname": "supertester2",
+    "avatar": "cypress/fixtures/hamburguer.png"
+  }
+]

@@ -70,6 +70,7 @@ const Profile = () => {
             </p>
           </div>
           <input
+            data-testid='AVATAR'
             ref={avatarInputRef}
             style={{ display: 'none' }}
             type='file'
@@ -78,6 +79,7 @@ const Profile = () => {
           />
           <div className='md:grid md:grid-cols-2 gap-4 flex flex-col'>
             <Input
+              data-testid='EMAIL'
               {...register('email', {
                 required: true,
                 pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/
@@ -91,6 +93,7 @@ const Profile = () => {
               label={t('EMAIL')}
             />
             <Input
+              data-testid='NICKNAME'
               {...register('nickname', {
                 required: true,
                 minLength: 5,
@@ -105,6 +108,7 @@ const Profile = () => {
             />
 
             <Input
+              data-testid='NAME'
               {...register('name', {
                 required: true,
                 minLength: 2,
@@ -118,9 +122,10 @@ const Profile = () => {
               label={t('NAME')}
             />
             <Input
+              data-testid='LASTNAME'
               {...register('lastname', {
                 required: true,
-                minLength: 5,
+                minLength: 2,
                 maxLength: 20
               })}
               errorMessage={errors.lastname ? t('LASTNAME_ERROR') : ''}
@@ -133,6 +138,7 @@ const Profile = () => {
 
           {isEditing ? (
             <Button
+              data-testid='SAVE'
               isLoading={isLoading}
               color='primary'
               type='submit'
@@ -142,6 +148,7 @@ const Profile = () => {
             </Button>
           ) : (
             <Button
+              data-testid='EDIT'
               type='button'
               isLoading={isLoading}
               onClick={e => {

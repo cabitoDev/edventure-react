@@ -15,7 +15,7 @@ const FormName = () => {
   return (
     <Input
       data-testid={'INPUT_NAME'}
-      {...register('name', { required: true, minLength: 5, maxLength: 20 })}
+      {...register('name', { required: true, minLength: 2, maxLength: 20 })}
       value={watch('name')}
       onInput={() => clearErrors('name')}
       label={t('NAME')}
