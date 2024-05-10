@@ -17,6 +17,7 @@ const EventFilter = ({
     <div className='flex flex-responsive-2 justify-between gap-2 items-center'>
       <div className='flex-responsive gap-3'>
         <Input
+          data-testid='FILTER_SEARCH'
           startContent={
             <div className='flex gap-1'>
               <SearchIcon />
@@ -26,6 +27,7 @@ const EventFilter = ({
           onChange={e => handleSearchChange(e.target.value)}
         />
         <Select
+          data-testid='FILTER_TYPE'
           selectionMode='multiple'
           aria-label='type-select'
           placeholder={t('SEARCH_TYPE')}
@@ -33,8 +35,8 @@ const EventFilter = ({
           className='ml-2 rounded-md'
         >
           {Constants.EVENT_TYPES.map(type => (
-            <SelectItem key={type} value={type}>
-              {type}
+            <SelectItem data-testid={type} key={type} value={type}>
+              {t(type)}
             </SelectItem>
           ))}
         </Select>
@@ -45,12 +47,20 @@ const EventFilter = ({
         orientation='horizontal'
       >
         <div className='align-start flex-responsive gap-2'>
-          <Radio value='ALL'>{t('ALL')}</Radio>
-          <Radio value='FOLLOWING'>{t('FOLLOWING')}</Radio>
+          <Radio data-testid='FILTER_ALL' value='ALL'>
+            {t('ALL')}
+          </Radio>
+          <Radio data-testid='FILTER_FOLLOWING' value='FOLLOWING'>
+            {t('FOLLOWING')}
+          </Radio>
           {ownerOption ? (
-            <Radio value='OWNER'>{t('OWNER')}</Radio>
+            <Radio data-testid='FILTER_OWNER' value='OWNER'>
+              {t('OWNER')}
+            </Radio>
           ) : (
-            <Radio value='NOT_FOLLOWING'>{t('NOT_FOLLOWING')}</Radio>
+            <Radio data-testid='FILTER_NOT_FOLLOWING' value='NOT_FOLLOWING'>
+              {t('NOT_FOLLOWING')}
+            </Radio>
           )}
         </div>
       </RadioGroup>
