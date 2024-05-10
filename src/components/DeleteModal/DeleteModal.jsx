@@ -25,6 +25,7 @@ const DeleteModal = ({ isOpen, setIsOpen, onDelete, text }) => {
         </ModalBody>
         <ModalFooter>
           <Button
+            data-testid='CANCEL'
             color='primary'
             variant='light'
             onPress={() => setIsOpen(false)}

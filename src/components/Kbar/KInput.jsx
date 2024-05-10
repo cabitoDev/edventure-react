@@ -6,7 +6,7 @@ const KInput = () => {
   const { query } = useKBar()
 
   return (
-    <div onClick={query.toggle}>
+    <div data-testid='KBAR' onClick={query.toggle}>
       <Input
         className='w-min'
         startContent={

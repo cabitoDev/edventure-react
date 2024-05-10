@@ -37,6 +37,7 @@ const Settings = () => {
       <p className='text-2xl align-start pb-5'>{t('SETTINGS')}</p>
       <div className='flex-column gap-4'>
         <Switch
+          data-testid='CHANGE_EMAIL_TYPE'
           size='md'
           isSelected={showEmail}
           onChange={async () => {
@@ -53,6 +54,7 @@ const Settings = () => {
         </Switch>
 
         <Switch
+          data-testid='CHANGE_THEME'
           onChange={() => {
             setTheme(theme === 'dark' ? 'light' : 'dark')
           }}
@@ -77,6 +79,7 @@ const Settings = () => {
         <div className='flex  gap-3 items-center center pt-4'>
           <p className='text-medium'>{t('CHANGE_LANGUAGE')}</p>
           <Button
+            data-testid='LANGUAGE_ES'
             variant='bordered'
             color='primary'
             onClick={() => changeLanguage('es')}
@@ -84,6 +87,7 @@ const Settings = () => {
             {t('LANGUAGE_SPANISH')}
           </Button>
           <Button
+            data-testid='LANGUAGE_EN'
             variant='bordered'
             color='primary'
             onClick={() => changeLanguage('en')}
@@ -93,6 +97,7 @@ const Settings = () => {
         </div>
       </div>
       <Button
+        data-testid='DELETE_ACCOUNT'
         color='danger'
         className='text-pink-600 hover:cursor-pointer mt-8'
         variant='bordered'
@@ -108,6 +113,7 @@ const Settings = () => {
         text={t('DELETE_ACCOUNT_MODAL')}
       />
       <Button
+        data-testid='LOGOUT'
         color='danger'
         className='text-pink-600 hover:cursor-pointer mt-8'
         variant='bordered'
