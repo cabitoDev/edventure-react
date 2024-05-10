@@ -38,6 +38,7 @@ const EventInfo = ({ user, event, setIsEditing }) => {
           {!isUserOwner(event, user) ? (
             <div className='flex-column center gap-4'>
               <Button
+                data-testid='FOLLOW'
                 onClick={toggleFollow}
                 variant={isFollowing ? 'bordered' : 'solid'}
                 color={isFollowing ? 'error' : 'primary'}
