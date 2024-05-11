@@ -14,7 +14,7 @@ const useAuthentication = () => {
 
   const handleAuthenticated = async authResult => {
     lock.hide()
-    lock.getUserInfo(authResult.accessToken, async (error, profile) => {
+    lock.getUserInfo(authResult.idToken, async (error, profile) => {
       if (error) {
         console.error('Error getting user:', error)
         return
@@ -22,7 +22,7 @@ const useAuthentication = () => {
       const userLogged = await httpPost(
         Constants.USERS_ENDPOINT_URL,
         getLoginRequest(profile),
-        token
+        authResult.idToken
       )
       if (userLogged) {
         dispatch(updateToken(authResult.idToken))
