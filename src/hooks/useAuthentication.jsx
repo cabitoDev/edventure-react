@@ -25,7 +25,7 @@ const useAuthentication = () => {
         token
       )
       if (userLogged) {
-        dispatch(updateToken(authResult.accessToken))
+        dispatch(updateToken(authResult.idToken))
         dispatch(updateUser(userLogged))
         navigateTo('/profile')
       } else {

@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux'
-import { updateUser } from '../redux'
+import { updateToken, updateUser } from '../redux'
 import { useNavigate } from 'react-router-dom'
 
 const useLogout = () => {
@@ -9,6 +9,7 @@ const useLogout = () => {
   const logout = () => {
     navigateTo('/')
     dispatch(updateUser(null))
+    dispatch(updateToken(null))
   }
 
   return logout
