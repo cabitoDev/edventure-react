@@ -1,7 +1,7 @@
 import { updateFollowingEvents } from '../utils'
 import { useEffect, useState } from 'react'
 
-const useFollow = (user, event) => {
+const useFollow = (user, event, token) => {
   const isInitiallyFollowing = user?.followingEvents.some(
     followedEvent => followedEvent.id === event?.id
   )
@@ -21,12 +21,12 @@ const useFollow = (user, event) => {
     if (isFollowing) {
       setIsFollowing(false)
       setFollowers(prev => prev - 1)
-      updateFollowingEvents(user.id, event.id, 'DELETE')
+      updateFollowingEvents(user.id, event.id, 'DELETE', token)
     } else {
       setIsFollowing(true)
       setFollowers(prev => prev + 1)
 
-      updateFollowingEvents(user.id, event.id, 'PUT')
+      updateFollowingEvents(user.id, event.id, 'PUT', token)
     }
     setFollowLoading(false)
   }

@@ -2,9 +2,11 @@ import { Card, Spinner } from '@nextui-org/react'
 import { EditEvent, EventInfo, TransitionAnimation } from '../components'
 import { useEvent, useUser } from '../hooks'
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 
 const Event = () => {
   const { user, userLoading } = useUser()
+  const token = useSelector(state => state.token)
   const { event, setEvent, eventLoading } = useEvent()
 
   const [isEditing, setIsEditing] = useState(false)
@@ -28,6 +30,7 @@ const Event = () => {
                 user={user}
                 event={event}
                 setIsEditing={setIsEditing}
+                token={token}
               />
             )}
           </Card>

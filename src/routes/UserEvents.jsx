@@ -12,11 +12,13 @@ import { useTranslation } from 'react-i18next'
 
 const UserEvents = () => {
   const stateUser = useSelector(state => state.user)
+  const token = useSelector(state => state.token)
   const [userEvents, setUserEvents] = useState()
 
   const { data: user, status } = useQuery('updatedUser', async () => {
     const updatedUser = await httpGet(
       Constants.USERS_ENDPOINT_URL,
+      token,
       stateUser.id
     )
     setUserEvents(updatedUser.userEvents.concat(updatedUser.followingEvents))

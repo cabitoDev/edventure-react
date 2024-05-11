@@ -11,13 +11,14 @@ import { useTranslation } from 'react-i18next'
 
 const Explore = () => {
   const stateUser = useSelector(state => state.user)
+  const token = useSelector(state => state.token)
   const { data: user, status: userStatus } = useQuery('updatedUser', () =>
-    httpGet(Constants.USERS_ENDPOINT_URL, stateUser.id)
+    httpGet(Constants.USERS_ENDPOINT_URL, token, stateUser.id)
   )
   const { data: allEvents, status: eventsStatus } = useQuery(
     'eventsInfo',
     async () => {
-      const events = await httpGet(Constants.EVENTS_ENDPOINT_URL)
+      const events = await httpGet(Constants.EVENTS_ENDPOINT_URL, token)
 
       return events
     }

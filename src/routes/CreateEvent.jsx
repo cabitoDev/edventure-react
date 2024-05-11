@@ -21,6 +21,7 @@ const CreateEvent = () => {
   })
   const navigateTo = useNavigate()
   const user = useSelector(state => state.user)
+  const token = useSelector(state => state.token)
   const [indexStep, setIndexStep] = useState(0)
   const [sendingEvent, setSendingEvent] = useState(false)
 
@@ -52,7 +53,8 @@ const CreateEvent = () => {
 
       const newEvent = await httpPost(
         Constants.EVENTS_ENDPOINT_URL,
-        getNewEventRequest(form.getValues(), newImage, user)
+        getNewEventRequest(form.getValues(), newImage, user),
+        token
       )
       if (newEvent) {
         navigateTo('/my-events')

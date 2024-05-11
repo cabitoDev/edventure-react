@@ -23,12 +23,14 @@ const Settings = () => {
   const dispatch = useDispatch()
   const logout = useLogout()
   const user = useSelector(state => state.user)
-  const { updateUserAsync } = useUpdateUser()
+  const token = useSelector(state => state.token)
+  const { updateUserAsync } = useUpdateUser(user, token)
   const [showEmail, setShowEmail] = useState(user.showEmail)
   const [isOpenDelete, setIsOpenDelete] = useState(false)
   const deleteAccount = async () => {
-    await httpDelete(Constants.USERS_ENDPOINT_URL, user.id)
+    await httpDelete(Constants.USERS_ENDPOINT_URL, user.id, token)
     dispatch(updateUser(null))
+    dispatch(updateToken(null))
     navigateTo('/')
   }
 

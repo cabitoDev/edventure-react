@@ -1,13 +1,14 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { updateUser } from '../redux'
+import { updateUser, updateToken } from '../redux'
 import { getLoginRequest, httpPost } from '../utils'
 import { lock } from '../config/auth/auth-lock'
 import Constants from '../constants'
 
 const useAuthentication = () => {
   const user = useSelector(state => state.user)
+  const token = useSelector(state => state.token)
   const dispatch = useDispatch()
   const navigateTo = useNavigate()
 
@@ -20,9 +21,11 @@ const useAuthentication = () => {
       }
       const userLogged = await httpPost(
         Constants.USERS_ENDPOINT_URL,
-        getLoginRequest(profile)
+        getLoginRequest(profile),
+        token
       )
       if (userLogged) {
+        dispatch(updateToken(authResult.accessToken))
         dispatch(updateUser(userLogged))
         navigateTo('/profile')
       } else {

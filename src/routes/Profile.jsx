@@ -7,11 +7,12 @@ import assets from '../../public/assets'
 import { uploadImage } from '../utils'
 import { useUpdateUser, useUser } from '../hooks'
 import { TransitionAnimation } from '../components'
-
 import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
 
 const Profile = () => {
   const { user, userLoading } = useUser()
+  const token = useSelector(state => state.token)
   const {
     register,
     handleSubmit,
@@ -30,7 +31,7 @@ const Profile = () => {
   const { t } = useTranslation('edventure')
   const avatarInputRef = useRef()
   const [isEditing, setIsEditing] = useState(false)
-  const { updateUserAsync, isLoading } = useUpdateUser()
+  const { updateUserAsync, isLoading } = useUpdateUser(user, token)
 
   const handleChange = async e => {
     const newAvatar = await uploadImage('avatars', user.id, e.target.files[0])

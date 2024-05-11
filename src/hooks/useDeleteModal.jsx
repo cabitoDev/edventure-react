@@ -3,14 +3,15 @@ import Constants from '../constants'
 import { httpDelete } from '../utils'
 import { useState } from 'react'
 
-const useDeleteModal = eventId => {
+const useDeleteModal = (eventId, token) => {
   const [isOpenDelete, setIsOpenDelete] = useState(false)
   const navigateTo = useNavigate()
 
   const onDelete = async () => {
     const deletedEvent = await httpDelete(
       Constants.EVENTS_ENDPOINT_URL,
-      eventId
+      eventId,
+      token
     )
     if (deletedEvent) {
       navigateTo('/my-events')
