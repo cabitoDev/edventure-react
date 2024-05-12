@@ -13,10 +13,10 @@ import {
   FormType
 } from '../CreateEventSteps'
 import assets from '../../../public/assets'
-import useUpdateEvent from '../../hooks/useUpdateEvent'
 import { useTranslation } from 'react-i18next'
+import { useUpdateEvent } from '../../hooks'
 
-const EditEvent = ({ event, setIsEditing, setEvent }) => {
+const EditEvent = ({ event, setIsEditing, setEvent, token }) => {
   const { updateEventAsync, isLoading } = useUpdateEvent()
   const { t } = useTranslation('edventure')
 
@@ -29,7 +29,7 @@ const EditEvent = ({ event, setIsEditing, setEvent }) => {
   })
 
   const onSubmit = async data => {
-    const updatedEvent = await updateEventAsync(data)
+    const updatedEvent = await updateEventAsync(data, token)
     if (updatedEvent) {
       setEvent(updatedEvent)
     }
@@ -86,12 +86,10 @@ const EditEvent = ({ event, setIsEditing, setEvent }) => {
 }
 
 EditEvent.propTypes = {
-  event: PropTypes.shape({
-    date: PropTypes.string,
-    image: PropTypes.string
-  }),
+  event: PropTypes.object,
   setEvent: PropTypes.func,
-  setIsEditing: PropTypes.func
+  setIsEditing: PropTypes.func,
+  token: PropTypes.string
 }
 
 export default EditEvent

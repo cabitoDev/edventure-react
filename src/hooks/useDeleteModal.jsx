@@ -10,8 +10,8 @@ const useDeleteModal = (eventId, token) => {
   const onDelete = async () => {
     const deletedEvent = await httpDelete(
       Constants.EVENTS_ENDPOINT_URL,
-      eventId,
-      token
+      token,
+      eventId
     )
     if (deletedEvent) {
       navigateTo('/my-events')

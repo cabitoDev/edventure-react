@@ -44,7 +44,7 @@ export const httpPut = async (baseUrl, body, id, token) => {
   return response.json()
 }
 
-export const httpDelete = async (baseUrl, id, token) => {
+export const httpDelete = async (baseUrl, token, id) => {
   const endpoint = `${baseUrl}/${id}`
   const response = await fetch(endpoint, {
     method: 'DELETE',

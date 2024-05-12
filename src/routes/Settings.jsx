@@ -28,7 +28,7 @@ const Settings = () => {
   const [showEmail, setShowEmail] = useState(user.showEmail)
   const [isOpenDelete, setIsOpenDelete] = useState(false)
   const deleteAccount = async () => {
-    await httpDelete(Constants.USERS_ENDPOINT_URL, user.id, token)
+    await httpDelete(Constants.USERS_ENDPOINT_URL, token, user.id)
     dispatch(updateUser(null))
     dispatch(updateToken(null))
     navigateTo('/')

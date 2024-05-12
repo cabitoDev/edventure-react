@@ -24,6 +24,7 @@ const Event = () => {
                 event={event}
                 setIsEditing={setIsEditing}
                 setEvent={setEvent}
+                token={token}
               />
             ) : (
               <EventInfo

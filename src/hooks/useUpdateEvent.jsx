@@ -1,11 +1,11 @@
 import { useId, useState } from 'react'
 import Constants from '../constants'
-import { generateRandomNumber, uploadImage } from '../utils'
+import { generateRandomNumber, httpPut, uploadImage } from '../utils'
 
 const useUpdateEvent = () => {
   const [isLoading, setIsLoading] = useState(false)
 
-  async function updateEventAsync (eventInfo) {
+  async function updateEventAsync (eventInfo, token) {
     setIsLoading(true)
     const imgFile = eventInfo.image.file
     const id = generateRandomNumber()
@@ -13,33 +13,19 @@ const useUpdateEvent = () => {
       ? await uploadImage('events', id, imgFile)
       : eventInfo.image.url
 
-    try {
-      const response = await fetch(
-        `${Constants.EVENTS_ENDPOINT_URL}/${eventInfo.id}`,
-        {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            ...eventInfo,
-            image: newImage,
-            date: new Date(eventInfo.date)
-          })
-        }
-      )
-
-      if (!response.ok) {
-        throw new Error('Failed to update event')
-      }
-      const updatedEvent = await response.json()
-      return updatedEvent
-    } catch (error) {
-      console.error('Error updating event:', error)
-      return null
-    } finally {
-      setIsLoading(false)
+    const newEventInfo = {
+      ...eventInfo,
+      image: newImage,
+      date: new Date(eventInfo.date)
     }
+    const updatedEvent = await httpPut(
+      Constants.EVENTS_ENDPOINT_URL,
+      newEventInfo,
+      eventInfo.id,
+      token
+    )
+    setIsLoading(false)
+    return updatedEvent
   }
 
   return { updateEventAsync, isLoading }

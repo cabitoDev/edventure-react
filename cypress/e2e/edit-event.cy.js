@@ -8,6 +8,7 @@ describe('Create event and delete', () => {
         window.localStorage.setItem('persist:root', JSON.stringify(storageData))
       }
     })
+    cy.intercept('PUT', '**/events/**').as('editEvent')
     cy.get('[data-testid="MY_EVENTS"]').click()
     cy.contains('Seguidores')
     cy.textExists(events[0].name).then(res => {
@@ -37,6 +38,7 @@ describe('Create event and delete', () => {
         `{selectAll}{backSpace}${eventInfo.description}`
       )
       cy.get('[data-testid="SAVE"]').click()
+      cy.wait('@editEvent').its('response.statusCode').should('eq', 200)
       cy.contains(eventInfo.textDate)
       cy.contains(eventInfo.name)
       cy.contains(eventInfo.textType)
