@@ -14,7 +14,7 @@ const useAuthentication = () => {
 
   const handleAuthenticated = async authResult => {
     lock.hide()
-    lock.getUserInfo(authResult.idToken, async (error, profile) => {
+    lock.getUserInfo(authResult.accessToken, async (error, profile) => {
       if (error) {
         console.error('Error getting user:', error)
         return
