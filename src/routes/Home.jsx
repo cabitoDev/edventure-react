@@ -12,7 +12,7 @@ const Home = () => {
           <p>{t('HOME_SUBTITLE')}</p>
         </div>
 
-        <div className='flex flex-responsive-2 gap-3 w-[90%] center'>
+        <div className='flex flex-responsive-2 gap-3 center'>
           <HomeCard
             image={Constants.HOME_CREATE_IMAGE}
             headerTitle={t('CREATE_EVENTS_TITLE')}
