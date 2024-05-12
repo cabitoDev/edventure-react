@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { updateUser, updateToken } from '../redux'
@@ -7,13 +7,14 @@ import { lock } from '../config/auth/auth-lock'
 import Constants from '../constants'
 
 const useAuthentication = () => {
+  const [loginLoading, setLoginLoading] = useState(false)
   const user = useSelector(state => state.user)
-  const token = useSelector(state => state.token)
   const dispatch = useDispatch()
   const navigateTo = useNavigate()
 
   const handleAuthenticated = async authResult => {
     lock.hide()
+    setLoginLoading(true)
     lock.getUserInfo(authResult.accessToken, async (error, profile) => {
       if (error) {
         console.error('Error getting user:', error)
@@ -27,6 +28,7 @@ const useAuthentication = () => {
       if (userLogged) {
         dispatch(updateToken(authResult.idToken))
         dispatch(updateUser(userLogged))
+        setLoginLoading(false)
         navigateTo('/profile')
       } else {
         console.error('Error in login')
@@ -46,11 +48,7 @@ const useAuthentication = () => {
     lock.show()
   }
 
-  const hideLogin = () => {
-    lock.hide()
-  }
-
-  return { user, showLogin, hideLogin }
+  return { user, showLogin, loginLoading }
 }
 
 export default useAuthentication

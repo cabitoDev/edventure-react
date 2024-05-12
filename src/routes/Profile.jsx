@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux'
 
 const Profile = () => {
   const { user, userLoading } = useUser()
+  const [avatarForUpload, setAvatarForUpload] = useState(null)
   const token = useSelector(state => state.token)
   const {
     register,
@@ -33,13 +34,14 @@ const Profile = () => {
   const [isEditing, setIsEditing] = useState(false)
   const { updateUserAsync, isLoading } = useUpdateUser(user, token)
 
-  const handleChange = async e => {
-    const newAvatar = await uploadImage('avatars', user.id, e.target.files[0])
-    await updateUserAsync({ avatar: newAvatar, id: user.id })
+  const handleChange = ev => {
+    setValue('avatar', URL.createObjectURL(ev.target.files[0]))
+    setAvatarForUpload(ev.target.files[0])
   }
 
   const onSubmit = async data => {
-    const updatedUser = await updateUserAsync(data)
+    const newAvatar = await uploadImage('avatars', user.id, avatarForUpload)
+    const updatedUser = await updateUserAsync({ ...data, avatar: newAvatar })
     if (!updatedUser) {
       console.error('Error updating user')
     }
@@ -59,12 +61,15 @@ const Profile = () => {
         >
           <div className='flex-column gap-3 center'>
             <button
+              className={isEditing ? 'cursor-pointer' : 'cursor-default'}
               onClick={e => {
-                e.preventDefault()
-                avatarInputRef.current.click()
+                if (isEditing) {
+                  e.preventDefault()
+                  avatarInputRef.current.click()
+                }
               }}
             >
-              <Avatar className='w-40 h-40' src={user.avatar} />
+              <Avatar className='w-40 h-40' src={watch('avatar')} />
             </button>
             <p>
               {t('MEMBER_SINCE')} {new Date(user.loggedDate).toDateString()}
@@ -85,7 +90,6 @@ const Profile = () => {
                 required: true,
                 pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/
               })}
-              value={watch('email')}
               isInvalid={errors.email && true}
               errorMessage={errors.email ? t('EMAIL_ERROR') : ''}
               id='email'

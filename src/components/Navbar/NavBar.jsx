@@ -5,7 +5,8 @@ import {
   NavbarContent,
   NavbarItem,
   Link,
-  NavbarMenuToggle
+  NavbarMenuToggle,
+  Spinner
 } from '@nextui-org/react'
 import assets from '../../../public/assets'
 import { useNavigate } from 'react-router-dom'
@@ -17,12 +18,14 @@ import { useTranslation } from 'react-i18next'
 import useAuthentication from '../../hooks/useAuthentication'
 
 const NavBar = () => {
-  const { user, showLogin } = useAuthentication()
+  const { user, showLogin, loginLoading } = useAuthentication()
   const { t } = useTranslation('edventure')
   const navigateTo = useNavigate()
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-
+  if (loginLoading) {
+    return <Spinner className='center pt-40 flex' />
+  }
   return (
     <Navbar isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
       <NavbarContent>
