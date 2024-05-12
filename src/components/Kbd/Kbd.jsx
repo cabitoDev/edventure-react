@@ -7,7 +7,7 @@ const Kbd = ({ children, className }) => {
     <>
       <kbd
         className={cx(
-          'rounded-md border-[1px] border-b-2 border-[#4a4a4a] bg-[#333333] px-2 py-0.5 text-sm',
+          'rounded-md border-[1px] border-b-2 dark:border-[#4a4a4a] dark:bg-[#333333] px-2 py-0.5 text-sm',
           className
         )}
       >
