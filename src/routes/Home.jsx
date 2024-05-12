@@ -10,27 +10,26 @@ const Home = () => {
         <div className='title'>
           <p className='text-3xl'>{t('HOME_TITLE')}</p>
           <p>{t('HOME_SUBTITLE')}</p>
-        </div>
-
-        <div className='flex flex-responsive-2 gap-3'>
-          <HomeCard
-            image={Constants.HOME_CREATE_IMAGE}
-            headerTitle={t('CREATE_EVENTS_TITLE')}
-            headerSubtitle={t('CREATE_EVENTS_SUBTITLE')}
-            description={t('CREATE_EVENTS_TEXT')}
-          />
-          <HomeCard
-            image={Constants.HOME_EXPLORE_IMAGE}
-            headerTitle={t('EXPLORE_EVENTS_TITLE')}
-            headerSubtitle={t('EXPLORE_EVENTS_SUBTITLE')}
-            description={t('EXPLORE_EVENTS_TEXT')}
-          />
-          <HomeCard
-            image={Constants.HOME_CONNECT_IMAGE}
-            headerTitle={t('CONNECT_TITLE')}
-            headerSubtitle={t('CONNECT_SUBTITLE')}
-            description={t('CONNECT_TEXT')}
-          />
+          <div className='flex flex-responsive-2 gap-3'>
+            <HomeCard
+              image={Constants.HOME_CREATE_IMAGE}
+              headerTitle={t('CREATE_EVENTS_TITLE')}
+              headerSubtitle={t('CREATE_EVENTS_SUBTITLE')}
+              description={t('CREATE_EVENTS_TEXT')}
+            />
+            <HomeCard
+              image={Constants.HOME_EXPLORE_IMAGE}
+              headerTitle={t('EXPLORE_EVENTS_TITLE')}
+              headerSubtitle={t('EXPLORE_EVENTS_SUBTITLE')}
+              description={t('EXPLORE_EVENTS_TEXT')}
+            />
+            <HomeCard
+              image={Constants.HOME_CONNECT_IMAGE}
+              headerTitle={t('CONNECT_TITLE')}
+              headerSubtitle={t('CONNECT_SUBTITLE')}
+              description={t('CONNECT_TEXT')}
+            />
+          </div>
         </div>
         <div className='flex-column center pd-top-bottom'>
           <ReactLogo />
