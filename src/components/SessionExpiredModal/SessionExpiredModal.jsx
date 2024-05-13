@@ -37,7 +37,6 @@ const SessionExpiredModal = () => {
             <Button
               data-testid='ACCEPT'
               color='primary'
-              variant='light'
               onPress={onPressAccept}
             >
               {t('ACCEPT')}
