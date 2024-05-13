@@ -13,7 +13,6 @@ import { useSelector } from 'react-redux'
 const Profile = () => {
   const { user, userLoading } = useUser()
   const [avatarForUpload, setAvatarForUpload] = useState(null)
-  const token = useSelector(state => state.token)
   const {
     register,
     handleSubmit,
@@ -32,7 +31,7 @@ const Profile = () => {
   const { t } = useTranslation('edventure')
   const avatarInputRef = useRef()
   const [isEditing, setIsEditing] = useState(false)
-  const { updateUserAsync, isLoading } = useUpdateUser(user, token)
+  const { updateUserAsync, isLoading } = useUpdateUser(user)
 
   const handleChange = ev => {
     setValue('avatar', URL.createObjectURL(ev.target.files[0]))

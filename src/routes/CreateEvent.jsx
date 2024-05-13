@@ -6,22 +6,18 @@ import React, { useId, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Constants from '../constants'
 import { useSelector } from 'react-redux'
-import {
-  getNewEventRequest,
-  uploadImage,
-  httpPost,
-  generateRandomNumber
-} from '../utils'
+import { getNewEventRequest, uploadImage, generateRandomNumber } from '../utils'
 import { useTranslation } from 'react-i18next'
+import { useFetch } from '../hooks'
 
 const CreateEvent = () => {
   const { t } = useTranslation('edventure')
+  const { httpPost } = useFetch()
   const form = useForm({
     defaultValues: { image: { url: Constants.DEFAULT_EVENT_IMAGE_URL } }
   })
   const navigateTo = useNavigate()
   const user = useSelector(state => state.user)
-  const token = useSelector(state => state.token)
   const [indexStep, setIndexStep] = useState(0)
   const [sendingEvent, setSendingEvent] = useState(false)
 
@@ -53,8 +49,7 @@ const CreateEvent = () => {
 
       const newEvent = await httpPost(
         Constants.EVENTS_ENDPOINT_URL,
-        getNewEventRequest(form.getValues(), newImage, user),
-        token
+        getNewEventRequest(form.getValues(), newImage, user)
       )
       if (newEvent) {
         navigateTo('/my-events')

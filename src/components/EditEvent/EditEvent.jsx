@@ -16,7 +16,7 @@ import assets from '../../../public/assets'
 import { useTranslation } from 'react-i18next'
 import { useUpdateEvent } from '../../hooks'
 
-const EditEvent = ({ event, setIsEditing, setEvent, token }) => {
+const EditEvent = ({ event, setIsEditing, setEvent }) => {
   const { updateEventAsync, isLoading } = useUpdateEvent()
   const { t } = useTranslation('edventure')
 
@@ -29,7 +29,7 @@ const EditEvent = ({ event, setIsEditing, setEvent, token }) => {
   })
 
   const onSubmit = async data => {
-    const updatedEvent = await updateEventAsync(data, token)
+    const updatedEvent = await updateEventAsync(data)
     if (updatedEvent) {
       setEvent(updatedEvent)
     }
@@ -88,8 +88,7 @@ const EditEvent = ({ event, setIsEditing, setEvent, token }) => {
 EditEvent.propTypes = {
   event: PropTypes.object,
   setEvent: PropTypes.func,
-  setIsEditing: PropTypes.func,
-  token: PropTypes.string
+  setIsEditing: PropTypes.func
 }
 
 export default EditEvent

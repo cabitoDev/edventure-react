@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux'
 
 const Event = () => {
   const { user, userLoading } = useUser()
-  const token = useSelector(state => state.token)
   const { event, setEvent, eventLoading } = useEvent()
 
   const [isEditing, setIsEditing] = useState(false)
@@ -24,14 +23,12 @@ const Event = () => {
                 event={event}
                 setIsEditing={setIsEditing}
                 setEvent={setEvent}
-                token={token}
               />
             ) : (
               <EventInfo
                 user={user}
                 event={event}
                 setIsEditing={setIsEditing}
-                token={token}
               />
             )}
           </Card>

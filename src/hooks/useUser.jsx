@@ -1,13 +1,13 @@
 import { useSelector } from 'react-redux'
-import { httpGet } from '../utils'
 import Constants from '../constants'
 import { useQuery } from 'react-query'
+import useFetch from './useFetch'
 
 const useUser = () => {
   const stateUser = useSelector(state => state.user)
-  const token = useSelector(state => state.token)
+  const { httpGet } = useFetch()
   const { data: user, status } = useQuery('updatedUser', () =>
-    httpGet(Constants.USERS_ENDPOINT_URL, token, stateUser.id)
+    httpGet(Constants.USERS_ENDPOINT_URL, stateUser.id)
   )
 
   return { user, userLoading: status === 'loading' }

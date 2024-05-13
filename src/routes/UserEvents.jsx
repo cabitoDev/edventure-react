@@ -2,23 +2,21 @@ import React, { useState } from 'react'
 import '../index.css'
 import { Button, Pagination, Spinner } from '@nextui-org/react'
 import { useNavigate } from 'react-router'
-import { useEventSearch } from '../hooks'
+import { useEventSearch, useFetch } from '../hooks'
 import { EventFilter, EventCard, TransitionAnimation } from '../components'
 import { useQuery } from 'react-query'
-import { httpGet } from '../utils'
 import Constants from '../constants'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
 const UserEvents = () => {
   const stateUser = useSelector(state => state.user)
-  const token = useSelector(state => state.token)
+  const { httpGet } = useFetch()
   const [userEvents, setUserEvents] = useState()
 
   const { data: user, status } = useQuery('updatedUser', async () => {
     const updatedUser = await httpGet(
       Constants.USERS_ENDPOINT_URL,
-      token,
       stateUser.id
     )
     setUserEvents(updatedUser.userEvents.concat(updatedUser.followingEvents))

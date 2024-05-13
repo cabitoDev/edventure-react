@@ -1,24 +1,23 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button, Pagination, Spinner } from '@nextui-org/react'
-import { useEventSearch } from '../hooks'
+import { useEventSearch, useFetch } from '../hooks'
 import { EventCard, EventFilter, TransitionAnimation } from '../components'
 import { useSelector } from 'react-redux'
 import { useQuery } from 'react-query'
-import { httpGet } from '../utils'
 import Constants from '../constants'
 import { useTranslation } from 'react-i18next'
 
 const Explore = () => {
   const stateUser = useSelector(state => state.user)
-  const token = useSelector(state => state.token)
+  const { httpGet } = useFetch()
   const { data: user, status: userStatus } = useQuery('updatedUser', () =>
-    httpGet(Constants.USERS_ENDPOINT_URL, token, stateUser.id)
+    httpGet(Constants.USERS_ENDPOINT_URL, stateUser.id)
   )
   const { data: allEvents, status: eventsStatus } = useQuery(
     'eventsInfo',
     async () => {
-      const events = await httpGet(Constants.EVENTS_ENDPOINT_URL, token)
+      const events = await httpGet(Constants.EVENTS_ENDPOINT_URL)
 
       return events
     }

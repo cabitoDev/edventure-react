@@ -1,11 +1,13 @@
 import { useId, useState } from 'react'
 import Constants from '../constants'
-import { generateRandomNumber, httpPut, uploadImage } from '../utils'
+import { generateRandomNumber, uploadImage } from '../utils'
+import useFetch from './useFetch'
 
 const useUpdateEvent = () => {
   const [isLoading, setIsLoading] = useState(false)
+  const { httpPut } = useFetch()
 
-  async function updateEventAsync (eventInfo, token) {
+  async function updateEventAsync (eventInfo) {
     setIsLoading(true)
     const imgFile = eventInfo.image.file
     const id = generateRandomNumber()
@@ -21,8 +23,7 @@ const useUpdateEvent = () => {
     const updatedEvent = await httpPut(
       Constants.EVENTS_ENDPOINT_URL,
       newEventInfo,
-      eventInfo.id,
-      token
+      eventInfo.id
     )
     setIsLoading(false)
     return updatedEvent

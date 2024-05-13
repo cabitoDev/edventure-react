@@ -2,12 +2,14 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { updateUser, updateToken } from '../redux'
-import { getLoginRequest, httpPost } from '../utils'
+import { getLoginRequest } from '../utils'
 import { lock } from '../config/auth/auth-lock'
 import Constants from '../constants'
+import useFetch from './useFetch'
 
 const useAuthentication = () => {
   const [loginLoading, setLoginLoading] = useState(false)
+  const { httpLogin } = useFetch()
   const user = useSelector(state => state.user)
   const dispatch = useDispatch()
   const navigateTo = useNavigate()
@@ -20,7 +22,7 @@ const useAuthentication = () => {
         console.error('Error getting user:', error)
         return
       }
-      const userLogged = await httpPost(
+      const userLogged = await httpLogin(
         Constants.USERS_ENDPOINT_URL,
         getLoginRequest(profile),
         authResult.idToken

@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import Constants from '../constants'
-import { httpPut } from '../utils'
 import { updateUser } from '../redux'
+import useFetch from './useFetch'
 
-const useUpdateUser = (user, token) => {
+const useUpdateUser = user => {
   const dispatch = useDispatch()
+  const { httpPut } = useFetch()
   const [isLoading, setIsLoading] = useState(false)
 
   async function updateUserAsync (userUpdatedInfo) {
@@ -13,8 +14,7 @@ const useUpdateUser = (user, token) => {
     const updatedUser = await httpPut(
       Constants.USERS_ENDPOINT_URL,
       userUpdatedInfo,
-      user.id,
-      token
+      user.id
     )
     if (!updatedUser) {
       throw new Error('Failed getting user')

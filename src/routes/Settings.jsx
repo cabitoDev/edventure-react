@@ -7,28 +7,27 @@ import {
   TransitionAnimation,
   DeleteModal
 } from '../components'
-import { useLogout, useUpdateUser } from '../hooks'
+import { useFetch, useLogout, useUpdateUser } from '../hooks'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { changeLanguage } from 'i18next'
-import { httpDelete } from '../utils'
 import Constants from '../constants'
 import { useNavigate } from 'react-router-dom'
 import { updateUser } from '../redux'
 
 const Settings = () => {
   const { theme, setTheme } = useTheme()
+  const { httpDelete } = useFetch()
   const { t } = useTranslation('edventure')
   const navigateTo = useNavigate()
   const dispatch = useDispatch()
   const logout = useLogout()
   const user = useSelector(state => state.user)
-  const token = useSelector(state => state.token)
-  const { updateUserAsync } = useUpdateUser(user, token)
+  const { updateUserAsync } = useUpdateUser(user)
   const [showEmail, setShowEmail] = useState(user.showEmail)
   const [isOpenDelete, setIsOpenDelete] = useState(false)
   const deleteAccount = async () => {
-    await httpDelete(Constants.USERS_ENDPOINT_URL, token, user.id)
+    await httpDelete(Constants.USERS_ENDPOINT_URL, user.id)
     dispatch(updateUser(null))
     dispatch(updateToken(null))
     navigateTo('/')

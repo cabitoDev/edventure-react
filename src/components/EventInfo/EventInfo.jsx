@@ -11,17 +11,13 @@ import { Countdown } from '../Countdown'
 import GoogleMap from '../GoogleMap/GoogleMap'
 import { ChartModal } from '../ChartModal'
 
-const EventInfo = ({ user, event, setIsEditing, token }) => {
+const EventInfo = ({ user, event, setIsEditing }) => {
   const { t } = useTranslation('edventure')
-  const { onDelete, isOpenDelete, setIsOpenDelete } = useDeleteModal(
-    event.id,
-    token
-  )
+  const { onDelete, isOpenDelete, setIsOpenDelete } = useDeleteModal(event.id)
   const [isOpenChart, setIsOpenChart] = useState(false)
   const { followers, isFollowing, toggleFollow, followLoading } = useFollow(
     user,
-    event,
-    token
+    event
   )
   if (followLoading) {
     return <Spinner className='center pt-40 flex' />
@@ -159,8 +155,7 @@ const EventInfo = ({ user, event, setIsEditing, token }) => {
 EventInfo.propTypes = {
   event: PropTypes.object,
   setIsEditing: PropTypes.func,
-  user: PropTypes.object,
-  token: PropTypes.string
+  user: PropTypes.object
 }
 
 export default EventInfo
