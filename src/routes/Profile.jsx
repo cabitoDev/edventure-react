@@ -59,7 +59,7 @@ const Profile = () => {
           className='flex-column gap-4 ml-10 mr-10 center pb-3'
         >
           <div className='flex-column gap-3 center'>
-            <button
+            <div
               className={isEditing ? 'cursor-pointer' : 'cursor-default'}
               onClick={e => {
                 if (isEditing) {
@@ -69,7 +69,7 @@ const Profile = () => {
               }}
             >
               <Avatar className='w-40 h-40' src={watch('avatar')} />
-            </button>
+            </div>
             <p>
               {t('MEMBER_SINCE')} {new Date(user.loggedDate).toDateString()}
             </p>
