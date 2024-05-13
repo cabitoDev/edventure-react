@@ -14,14 +14,17 @@ const UserEvents = () => {
   const { httpGet } = useFetch()
   const [userEvents, setUserEvents] = useState()
 
-  const { data: user, status } = useQuery('updatedUser', async () => {
-    const updatedUser = await httpGet(
-      Constants.USERS_ENDPOINT_URL,
-      stateUser.id
-    )
-    setUserEvents(updatedUser.userEvents.concat(updatedUser.followingEvents))
-    return updatedUser
-  })
+  const { data: user, status: userLoading } = useQuery(
+    'updatedUser',
+    async () => {
+      const updatedUser = await httpGet(
+        Constants.USERS_ENDPOINT_URL,
+        stateUser.id
+      )
+      setUserEvents(updatedUser.userEvents.concat(updatedUser.followingEvents))
+      return updatedUser
+    }
+  )
 
   const {
     currentEvents,
@@ -35,7 +38,7 @@ const UserEvents = () => {
   const navigateTo = useNavigate()
   const { t } = useTranslation('edventure')
 
-  if (!userEvents || isSearching || status === 'loading') {
+  if (!userEvents || isSearching || userLoading === 'loading') {
     return <Spinner className='center pt-40 flex' />
   }
   if (user && userEvents) {
