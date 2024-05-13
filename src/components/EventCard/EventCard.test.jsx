@@ -30,7 +30,7 @@ test('EventCard renders correctly', () => {
   screen.getByText('Type')
   screen.getByText('Sample Description')
   screen.getByText('OWNER')
-  screen.getByText('Followers: 3')
+  screen.getByText('FOLLOWERS: 3')
 })
 
 test('should navigate to event url on link click', () => {
