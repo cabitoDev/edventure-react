@@ -2,6 +2,7 @@ import { test, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import EditEvent from './EditEvent'
 import React from 'react'
+import { Provider } from 'react-redux'
 
 test('EditEvent renders correctly', () => {
   const event = {
@@ -10,9 +11,21 @@ test('EditEvent renders correctly', () => {
   }
   const setEvent = vi.fn()
   const setIsEditing = vi.fn()
+  const mockedStore = {
+    getState: vi.fn().mockReturnValue({}),
+    dispatch: vi.fn(),
+    subscribe: vi.fn(),
+    replaceReducer: vi.fn()
+  }
 
   render(
-    <EditEvent event={event} setEvent={setEvent} setIsEditing={setIsEditing} />
+    <Provider store={mockedStore}>
+      <EditEvent
+        event={event}
+        setEvent={setEvent}
+        setIsEditing={setIsEditing}
+      />
+    </Provider>
   )
 
   screen.getByLabelText('NAME')

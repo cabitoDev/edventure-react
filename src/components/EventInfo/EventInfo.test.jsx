@@ -3,6 +3,7 @@ import { render } from '@testing-library/react'
 import EventInfo from './EventInfo'
 import React from 'react'
 import { BrowserRouter } from 'react-router-dom'
+import { Provider } from 'react-redux'
 
 const googleMapsMock = {
   maps: {
@@ -44,10 +45,18 @@ test('EventInfo renders correctly', () => {
   }
   const setIsEditing = vi.fn()
   const user = { id: 2, followingEvents: [] }
+  const mockedStore = {
+    getState: vi.fn().mockReturnValue({}),
+    dispatch: vi.fn(),
+    subscribe: vi.fn(),
+    replaceReducer: vi.fn()
+  }
 
   render(
-    <BrowserRouter>
-      <EventInfo event={event} setIsEditing={setIsEditing} user={user} />
-    </BrowserRouter>
+    <Provider store={mockedStore}>
+      <BrowserRouter>
+        <EventInfo event={event} setIsEditing={setIsEditing} user={user} />
+      </BrowserRouter>
+    </Provider>
   )
 })
