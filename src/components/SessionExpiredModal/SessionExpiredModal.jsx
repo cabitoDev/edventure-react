@@ -21,8 +21,6 @@ const SessionExpiredModal = () => {
   }
 
   return (
-    <>
-      aaaa
       <Modal
         hideCloseButton
         className='flex mr-[23px] center w-[90%]'
@@ -44,7 +42,6 @@ const SessionExpiredModal = () => {
           </ModalFooter>
         </ModalContent>
       </Modal>
-    </>
   )
 }
 export default SessionExpiredModal
