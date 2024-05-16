@@ -29,7 +29,7 @@ const SessionExpiredModal = () => {
       >
         <ModalContent>
           <ModalBody>
-            <p className='text-xl p-4 text-center'>Tu sesión ha caducado</p>
+            <p className='text-xl p-4 text-center'>{t('SESSION_EXPIRED')}</p>
           </ModalBody>
           <ModalFooter>
             <Button
