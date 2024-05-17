@@ -14,28 +14,26 @@ const FormImage = () => {
   }
 
   return (
-    <>
-      <div className='flex flex-col items-center gap-4'>
-        <button
-          onClick={e => {
-            e.preventDefault()
-            inputFileRef.current.click()
-          }}
-        >
-          <Avatar
-            data-testid='EVENT_IMAGE'
-            className='w-40 h-40 text-large'
-            src={watch('image').url}
-          />
-        </button>
-        <input
-          style={{ display: 'none' }}
-          type='file'
-          ref={inputFileRef}
-          onChange={onInputChange}
+    <div className='flex flex-col items-center gap-4'>
+      <button
+        onClick={e => {
+          e.preventDefault()
+          inputFileRef.current.click()
+        }}
+      >
+        <Avatar
+          data-testid='EVENT_IMAGE'
+          className='w-40 h-40 text-large'
+          src={watch('image').url}
         />
-      </div>
-    </>
+      </button>
+      <input
+        style={{ display: 'none' }}
+        type='file'
+        ref={inputFileRef}
+        onChange={onInputChange}
+      />
+    </div>
   )
 }
 export default FormImage

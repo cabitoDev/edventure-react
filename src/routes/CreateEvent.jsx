@@ -69,44 +69,44 @@ const CreateEvent = () => {
             e.preventDefault()
             indexStep < 6 ? handleNextStep() : onSubmit()
           }}
-          className='flex justify-center'
+          className='flex-column center w-full'
         >
-          <div className='center flex-column mg-top-bt max-width-90'>
-            <div className=' flex-column gap-5 items-center'>
+          <div className='center flex-column mg-top-bt pt-10 max-width-90'>
+            <div className='z-40 flex-column gap-5 items-center'>
               <p className='text-3xl text-center'>
                 {t(steps[indexStep].title)}
               </p>
               {steps[indexStep].component}
             </div>
-            <div className='flex bottom-20 absolute w-10/12 gap-4 flex-col'>
-              <div className='flex justify-between w-full flex-row-reverse'>
-                {indexStep > 0 && (
-                  <Button
-                    data-testid={'BUTTON_BACK'}
-                    color='primary'
-                    isDisabled={sendingEvent}
-                    radius='full'
-                    isIconOnly
-                    onClick={handlePrevStep}
-                  >
-                    <img src={assets.arrowLeft} />
-                  </Button>
-                )}
-
+          </div>
+          <div className='absolute flex px-14 pt-[400px] gap-4 w-full flex-column items-center justify-between max-w-[1024px]'>
+            <div className='flex justify-between w-full flex-row-reverse'>
+              {indexStep > 0 && (
                 <Button
-                  data-testid={'BUTTON_NEXT'}
-                  isLoading={sendingEvent}
-                  className='order-first child-color-white'
-                  color='success'
+                  data-testid={'BUTTON_BACK'}
+                  color='primary'
+                  isDisabled={sendingEvent}
                   radius='full'
                   isIconOnly
-                  type='submit'
+                  onClick={handlePrevStep}
                 >
-                  <img src={indexStep < 6 ? assets.arrowRight : assets.check} />
+                  <img src={assets.arrowLeft} />
                 </Button>
-              </div>
-              <ProgressBar progress={indexStep / 6} />
+              )}
+
+              <Button
+                data-testid={'BUTTON_NEXT'}
+                isLoading={sendingEvent}
+                className='order-first child-color-white'
+                color='success'
+                radius='full'
+                isIconOnly
+                type='submit'
+              >
+                <img src={indexStep < 6 ? assets.arrowRight : assets.check} />
+              </Button>
             </div>
+            <ProgressBar progress={indexStep / 6} />
           </div>
         </form>
       </FormProvider>
