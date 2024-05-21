@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next'
 import { changeLanguage } from 'i18next'
 import Constants from '../constants'
 import { useNavigate } from 'react-router-dom'
-import { updateUser } from '../redux'
+import { updateToken, updateUser } from '../redux'
 
 const Settings = () => {
   const { theme, setTheme } = useTheme()
