@@ -27,6 +27,10 @@ const Constants = {
     '750 - 1000',
     '+ 1000'
   ],
+  ERRORS: {
+    SESSION_EXPIRED: 'SESSION_EXPIRED',
+    GENERAL_ERROR: 'GENERAL_ERROR'
+  },
   DEFAULT_EVENT_IMAGE_URL:
     'https://firebasestorage.googleapis.com/v0/b/edventure-419614.appspot.com/o/events%2Fevent-default.png?alt=media&token=e147496f-f49f-4d7f-a04d-91bc2d8b7f0f',
   USERS_ENDPOINT_URL: 'https://key-worm-cabitodev.koyeb.app/users',

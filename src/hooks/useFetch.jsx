@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import Constants from '../constants'
-import { updateToken } from '../redux'
+import { updateError } from '../redux'
 
 const useFetch = () => {
   const token = useSelector(state => state.token)
@@ -8,10 +8,11 @@ const useFetch = () => {
 
   const handleError = response => {
     if (response.status === 401) {
-      dispatch(updateToken('EXPIRED'))
+      dispatch(updateError(Constants.ERRORS.SESSION_EXPIRED))
     } else {
-      console.error(`Error in the request to ${response.url}`)
+      dispatch(updateError(Constants.ERRORS.GENERAL_ERROR))
     }
+    console.error(`Error in the request to ${response.url}`)
   }
 
   const httpGet = async (baseUrl, id) => {

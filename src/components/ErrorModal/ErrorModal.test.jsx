@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { Provider } from 'react-redux'
-import SessionExpiredModal from './SessionExpiredModal'
+import ErrorModal from './ErrorModal'
 import { expect, test, vi } from 'vitest'
 import { BrowserRouter } from 'react-router-dom'
 
@@ -14,7 +14,7 @@ test('should render correctly', () => {
   render(
     <Provider store={mockedStore}>
       <BrowserRouter>
-        <SessionExpiredModal />
+        <ErrorModal />
       </BrowserRouter>
     </Provider>
   )
