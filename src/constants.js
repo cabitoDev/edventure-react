@@ -1,4 +1,5 @@
 const Constants = {
+  ADMIN_ID: 12478,
   DOMAIN: 'dev-9bbt1y5j.us.auth0.com',
   CLIENT_PRO: '5gpAXndTBJpbEj4PbW8apKvpKe52XnYP',
   CLIENT_DEV: 'K8GhEVo4Lo9OYPhuSB1ApVlJen6tUyUb',

@@ -1,4 +1,5 @@
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage'
+import Constants from '../constants'
 
 export const uploadImage = async (dir, id, file) => {
   const storage = getStorage()
@@ -83,7 +84,7 @@ export const dateToStr = dateStr => {
 }
 
 export const isUserOwner = (event, user) => {
-  return event.userOwner.id === user.id || user.id === 12478
+  return event.userOwner.id === user.id || user.id === Constants.ADMIN_ID
 }
 
 export const generateRandomNumber = () => {

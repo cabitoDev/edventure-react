@@ -7,7 +7,7 @@ export const getChartData = followersHistory => {
 }
 
 export const isDesiredPosition = (index, totalTicks) => {
-  const step = Math.floor(totalTicks / 3)
+  const step = Math.floor(totalTicks / 2.5)
   return index % step === 0 || index === totalTicks - 1 || index === 0
 }
 
