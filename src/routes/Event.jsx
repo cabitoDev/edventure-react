@@ -2,7 +2,6 @@ import { Card, Spinner } from '@nextui-org/react'
 import { EditEvent, EventInfo, TransitionAnimation } from '../components'
 import { useEvent, useUser } from '../hooks'
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
 
 const Event = () => {
   const { user, userLoading } = useUser()

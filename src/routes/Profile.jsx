@@ -8,7 +8,6 @@ import { uploadImage } from '../utils'
 import { useUpdateUser, useUser } from '../hooks'
 import { TransitionAnimation } from '../components'
 import { useTranslation } from 'react-i18next'
-import { useSelector } from 'react-redux'
 
 const Profile = () => {
   const { user, userLoading } = useUser()

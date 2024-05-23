@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { useQuery } from 'react-query'
 import Constants from '../constants'
 import { useParams } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 import useFetch from './useFetch'
 
 const useEvent = () => {
