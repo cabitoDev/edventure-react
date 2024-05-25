@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next'
 
 const Profile = () => {
   const { user, userLoading } = useUser()
+  const { updateUserAsync, isLoading } = useUpdateUser(user)
   const [avatarForUpload, setAvatarForUpload] = useState(null)
   const {
     register,
@@ -25,20 +26,21 @@ const Profile = () => {
         setValue(key, user[key])
       })
     }
-  }, [user, setValue])
+  }, [user])
 
   const { t } = useTranslation('edventure')
   const avatarInputRef = useRef()
   const [isEditing, setIsEditing] = useState(false)
-  const { updateUserAsync, isLoading } = useUpdateUser(user)
 
-  const handleChange = ev => {
+  const handleAvatarChange = ev => {
     setValue('avatar', URL.createObjectURL(ev.target.files[0]))
     setAvatarForUpload(ev.target.files[0])
   }
 
   const onSubmit = async data => {
-    const newAvatar = await uploadImage('avatars', user.id, avatarForUpload)
+    const newAvatar = avatarForUpload
+      ? await uploadImage('avatars', user.id, avatarForUpload)
+      : user.avatar
     const updatedUser = await updateUserAsync({ ...data, avatar: newAvatar })
     if (!updatedUser) {
       console.error('Error updating user')
@@ -79,7 +81,7 @@ const Profile = () => {
             style={{ display: 'none' }}
             type='file'
             id='file-input'
-            onChange={handleChange}
+            onChange={handleAvatarChange}
           />
           <div className='md:grid md:grid-cols-2 gap-4 flex flex-col'>
             <Input
