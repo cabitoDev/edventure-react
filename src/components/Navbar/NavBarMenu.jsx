@@ -11,7 +11,7 @@ const NavBarMenu = ({ userOptions, setIsMenuOpen }) => {
   const { t } = useTranslation('edventure')
 
   return (
-    <NavbarMenu>
+    <NavbarMenu className='z-50'>
       {userOptions.map((option, index) => (
         <NavbarMenuItem key={index}>
           <Link
