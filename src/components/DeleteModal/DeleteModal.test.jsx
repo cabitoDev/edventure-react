@@ -1,18 +1,18 @@
-import { test, expect, vi } from 'vitest'
+import { test, expect, vi, beforeEach } from 'vitest'
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import DeleteModal from './DeleteModal'
 import { Provider } from 'react-redux'
 
-test('DeleteModal renders correctly', () => {
-  const setIsOpenMock = vi.fn()
-  const onDeleteMock = vi.fn()
-  const mockedStore = {
-    getState: vi.fn().mockReturnValue({}),
-    dispatch: vi.fn(),
-    subscribe: vi.fn(),
-    replaceReducer: vi.fn()
-  }
+const setIsOpenMock = vi.fn()
+const onDeleteMock = vi.fn()
+const mockedStore = {
+  getState: vi.fn().mockReturnValue({}),
+  dispatch: vi.fn(),
+  subscribe: vi.fn(),
+  replaceReducer: vi.fn()
+}
+beforeEach(() => {
   render(
     <Provider store={mockedStore}>
       <DeleteModal
@@ -23,7 +23,8 @@ test('DeleteModal renders correctly', () => {
       />
     </Provider>
   )
-
+})
+test('DeleteModal renders correctly', () => {
   screen.getByText('Are you sure you want to delete?')
   const cancelButton = screen.getByText('CANCEL')
   const deleteButton = screen.getByText('DELETE')

@@ -11,16 +11,16 @@ import {
 } from '@nextui-org/react'
 import { useTranslation } from 'react-i18next'
 import Constants from '../../constants'
+import { useLogout } from '../../hooks'
 
 const ErrorModal = ({ error }) => {
   const { t } = useTranslation('edventure')
+  const logout = useLogout()
   const dispatch = useDispatch()
   const navigateTo = useNavigate()
   const onPressAccept = () => {
     if (error === Constants.ERRORS.SESSION_EXPIRED) {
-      dispatch(updateToken(null))
-      dispatch(updateUser(null))
-      navigateTo('/')
+      logout()
     }
     dispatch(updateError(null))
   }
